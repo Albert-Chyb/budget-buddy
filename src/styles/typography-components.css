@@ -1,0 +1,9 @@
+@layer components {
+  .typography-h1 {
+    @apply text-4xl font-extrabold tracking-tight lg:text-5xl;
+  }
+
+  .typography-muted {
+    @apply text-sm text-muted-foreground;
+  }
+}
