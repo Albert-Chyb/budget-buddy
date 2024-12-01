@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Outlet, createRootRoute } from '@tanstack/react-router';
+import { Outlet, createRootRoute, Link } from '@tanstack/react-router';
 import { NotFound } from '@/routes/-not-found.tsx';
 
 export const Route = createRootRoute({
@@ -10,7 +10,17 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <React.Fragment>
-      <div>Hello "__root"!</div>
+      <nav>
+        <ul>
+          <li>
+            <Link to={'/'}>Strona główna</Link>
+          </li>
+          <li>
+            <Link to={'/sign-up'}>Załóż konto</Link>
+          </li>
+        </ul>
+      </nav>
+
       <Outlet />
     </React.Fragment>
   );
