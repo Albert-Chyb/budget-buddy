@@ -29,13 +29,16 @@ export function SignUpForm(props: SignUpFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='space-y-4'
+      >
         <EmailFormField<SignUpFormSchema> name='email' />
 
         <PasswordFormField<SignUpFormSchema> name='password' />
 
         <Button
-          className='mt-2 w-full'
+          className='w-full'
           type='submit'
         >
           Załóż konto
