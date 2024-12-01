@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Outlet, createRootRoute, Link } from '@tanstack/react-router';
 import { NotFound } from '@/routes/-not-found.tsx';
 
@@ -9,7 +8,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <React.Fragment>
+    <>
       <nav>
         <ul>
           <li>
@@ -21,7 +20,9 @@ function RootComponent() {
         </ul>
       </nav>
 
-      <Outlet />
-    </React.Fragment>
+      <main className='container mx-auto'>
+        <Outlet />
+      </main>
+    </>
   );
 }
