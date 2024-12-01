@@ -1,15 +1,21 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { SignUpFormSchema } from '@/sign-up/sign-up-form-schema';
 import { SignUpForm } from '@/sign-up/sign-up-form.tsx';
+import { useSignUpMutation } from '@/sign-up/sign-up-mutation.ts';
+import { convertSignUpErrorToFormError } from '@/sign-up/convert-sign-up-error-to-form-error.ts';
 
 export const Route = createFileRoute('/sign-up')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  function handleSubmit(value: SignUpFormSchema) {
-    console.log(value);
+  const { mutate: signUp, error: signUpError } = useSignUpMutation();
+
+  function handleSubmit(formValue: SignUpFormSchema) {
+    signUp(formValue);
   }
+
+  const formErrors = convertSignUpErrorToFormError(signUpError);
 
   return (
     <>
@@ -20,7 +26,10 @@ function RouteComponent() {
         </p>
       </hgroup>
 
-      <SignUpForm handleSubmit={handleSubmit} />
+      <SignUpForm
+        onSubmit={handleSubmit}
+        errors={formErrors}
+      />
     </>
   );
 }

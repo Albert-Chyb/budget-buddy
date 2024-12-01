@@ -2,27 +2,34 @@ import {
   signUpFormSchema,
   SignUpFormSchema,
 } from '@/sign-up/sign-up-form-schema.ts';
-import { useForm } from 'react-hook-form';
+import { FieldErrors, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/form.tsx';
 import { EmailFormField } from '@/auth/email-form-field.tsx';
 import { PasswordFormField } from '@/auth/password-form-field.tsx';
 import { Button } from '@/components/button.tsx';
 
-export function SignUpForm(props: {
-  handleSubmit: (value: SignUpFormSchema) => void;
-}) {
+export type SignUpFormErrors = FieldErrors<SignUpFormSchema>;
+
+export interface SignUpFormProps {
+  onSubmit: (value: SignUpFormSchema) => void;
+  errors?: SignUpFormErrors;
+}
+
+export function SignUpForm(props: SignUpFormProps) {
+  const { onSubmit, errors } = props;
   const form = useForm<SignUpFormSchema>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
       email: '',
       password: '',
     },
+    errors,
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(props.handleSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <EmailFormField<SignUpFormSchema> name='email' />
 
         <PasswordFormField<SignUpFormSchema> name='password' />
