@@ -6,4 +6,8 @@
   .typography-muted {
     @apply text-sm text-muted-foreground;
   }
+
+  .typography-link {
+    @apply text-foreground underline;
+  }
 }

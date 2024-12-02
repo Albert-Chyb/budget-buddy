@@ -3,6 +3,14 @@ import { SignUpFormSchema } from '@/sign-up/sign-up-form-schema';
 import { SignUpForm } from '@/sign-up/sign-up-form.tsx';
 import { useSignUpMutation } from '@/sign-up/sign-up-mutation.ts';
 import { convertSignUpErrorToFormError } from '@/sign-up/convert-sign-up-error-to-form-error.ts';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/card.tsx';
 
 export const Route = createFileRoute('/sign-up')({
   component: RouteComponent,
@@ -18,18 +26,36 @@ function RouteComponent() {
   const formErrors = convertSignUpErrorToFormError(signUpError);
 
   return (
-    <>
-      <hgroup className='mb-4'>
-        <h1 className='typography-h1 mb-2'>Załóż konto</h1>
-        <p className='typography-muted'>
-          Wypełnij poniższy formularz, aby założyć nowe konto w aplikacji.
-        </p>
-      </hgroup>
+    <Card className='max-w-screen-sm mx-auto'>
+      <CardHeader>
+        <CardTitle>
+          <h1>Załóż konto</h1>
+        </CardTitle>
+        <CardDescription>
+          <p>
+            Wypełnij poniższy formularz, aby założyć nowe konto w aplikacji.
+          </p>
+        </CardDescription>
+      </CardHeader>
 
-      <SignUpForm
-        onSubmit={handleSubmit}
-        errors={formErrors}
-      />
-    </>
+      <CardContent>
+        <SignUpForm
+          onSubmit={handleSubmit}
+          errors={formErrors}
+        />
+      </CardContent>
+
+      <CardFooter className='justify-center'>
+        <p className='typography-muted'>
+          Masz już konto ?{' '}
+          <a
+            href='#'
+            className='typography-link'
+          >
+            Zaloguj się
+          </a>
+        </p>
+      </CardFooter>
+    </Card>
   );
 }
