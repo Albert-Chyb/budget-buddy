@@ -19,8 +19,8 @@ export const Route = createFileRoute('/sign-up')({
 function RouteComponent() {
   const { mutate: signUp, error: signUpError } = useSignUpMutation();
 
-  function handleSubmit(formValue: SignUpFormSchema) {
-    signUp(formValue);
+  function handleSubmit({ email, password }: SignUpFormSchema) {
+    signUp({ email, password });
   }
 
   const formErrors = convertSignUpErrorToFormError(signUpError);

@@ -7,17 +7,18 @@ import {
   FormMessage,
 } from '@/components/form.tsx';
 import { Input } from '@/components/input.tsx';
-import { ComponentProps } from 'react';
+import { ComponentProps, ReactNode } from 'react';
 
 interface PasswordFormFieldProps<TFieldValues extends FieldValues>
   extends ComponentProps<'input'> {
   name: Path<TFieldValues>;
+  label?: ReactNode;
 }
 
 export function PasswordFormField<TFieldValues extends FieldValues>(
   props: PasswordFormFieldProps<TFieldValues>,
 ) {
-  const { name, ...otherProps } = props;
+  const { name, label = 'Hasło', ...otherProps } = props;
   const { control } = useFormContext<TFieldValues>();
 
   return (
@@ -26,7 +27,7 @@ export function PasswordFormField<TFieldValues extends FieldValues>(
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Hasło</FormLabel>
+          <FormLabel>{label}</FormLabel>
           <FormControl>
             <Input
               {...otherProps}

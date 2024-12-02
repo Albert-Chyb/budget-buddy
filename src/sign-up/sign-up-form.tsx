@@ -40,6 +40,12 @@ export function SignUpForm(props: SignUpFormProps) {
           placeholder='Utwórz silne hasło'
         />
 
+        <PasswordFormField<SignUpFormSchema>
+          name='confirmPassword'
+          placeholder='Wpisz utworzone hasło ponownie'
+          label='Potwierdź hasło'
+        />
+
         <Button
           className='w-full'
           type='submit'
