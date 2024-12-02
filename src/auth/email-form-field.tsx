@@ -7,15 +7,17 @@ import {
 } from '@/components/form';
 import { Input } from '@/components/input';
 import { FieldValues, Path, useFormContext } from 'react-hook-form';
+import { ComponentProps } from 'react';
 
-interface EmailFormFieldProps<TFieldValues extends FieldValues> {
+interface EmailFormFieldProps<TFieldValues extends FieldValues>
+  extends ComponentProps<'input'> {
   name: Path<TFieldValues>;
 }
 
 export function EmailFormField<TFieldValues extends FieldValues>(
   props: EmailFormFieldProps<TFieldValues>,
 ) {
-  const { name } = props;
+  const { name, ...otherProps } = props;
   const { control } = useFormContext<TFieldValues>();
 
   return (
@@ -28,6 +30,7 @@ export function EmailFormField<TFieldValues extends FieldValues>(
           <FormControl>
             <Input
               placeholder='np.: jan.kowalski@wp.pl'
+              {...otherProps}
               {...field}
             />
           </FormControl>

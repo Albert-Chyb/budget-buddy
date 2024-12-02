@@ -35,7 +35,10 @@ export function SignUpForm(props: SignUpFormProps) {
       >
         <EmailFormField<SignUpFormSchema> name='email' />
 
-        <PasswordFormField<SignUpFormSchema> name='password' />
+        <PasswordFormField<SignUpFormSchema>
+          name='password'
+          placeholder='Utwórz silne hasło'
+        />
 
         <Button
           className='w-full'
