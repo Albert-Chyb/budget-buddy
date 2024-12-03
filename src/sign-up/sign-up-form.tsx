@@ -8,6 +8,7 @@ import { Form } from '@/components/form.tsx';
 import { EmailFormField } from '@/auth/email-form-field.tsx';
 import { PasswordFormField } from '@/auth/password-form-field.tsx';
 import { Button } from '@/components/button.tsx';
+import { PasswordRequirementsList } from '@/auth/password-requirements/password-requirements-list.tsx';
 
 export type SignUpFormErrors = FieldErrors<SignUpFormSchema>;
 
@@ -23,6 +24,7 @@ export function SignUpForm(props: SignUpFormProps) {
     defaultValues: {
       email: '',
       password: '',
+      confirmPassword: '',
     },
     errors,
   });
@@ -39,6 +41,8 @@ export function SignUpForm(props: SignUpFormProps) {
           name='password'
           placeholder='Utwórz silne hasło'
         />
+
+        <PasswordRequirementsList<SignUpFormSchema> name='password' />
 
         <PasswordFormField<SignUpFormSchema>
           name='confirmPassword'
