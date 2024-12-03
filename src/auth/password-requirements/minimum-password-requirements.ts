@@ -16,42 +16,30 @@ export interface Requirement {
    * @returns A boolean indicating whether the password satisfies the requirement.
    */
   check: (password: string) => boolean;
-
-  /**
-   * A message to display when the requirement is not fulfilled.
-   * This should help users understand why their password failed validation
-   * (e.g., "Password must include at least one special character").
-   */
-  unfulfilledMessage: string;
 }
 
 export const MIN_LENGTH_REQUIREMENT: Requirement = {
-  description: 'Zawiera conajmniej 8 znaków',
-  unfulfilledMessage: 'Hasło posiada mniej niż 8 znaków',
+  description: 'Hasło musi zawierać conajmniej 8 znaków',
   check: (password: string) => password.length >= 8,
 };
 
 export const UPPERCASE_REQUIREMENT: Requirement = {
-  description: 'Posiada wielką literę (A-Z)',
-  unfulfilledMessage: 'Hasło nie posiada wielkiej litery',
+  description: 'Hasło musi zawierać przynajmniej jedną wielką literę',
   check: (password: string) => password.match(/[A-Z]/) !== null,
 };
 
 export const LOWERCASE_REQUIREMENT: Requirement = {
-  description: 'Posiada małą literę (a-z)',
-  unfulfilledMessage: 'Hasło nie posiada małej litery',
+  description: 'Hasło musi zawierać przynajmniej jedną małą literę',
   check: (password: string) => password.match(/[a-z]/) !== null,
 };
 
 export const NUMBER_REQUIREMENT: Requirement = {
-  description: 'Posiada liczbę (0-9)',
-  unfulfilledMessage: 'Hasło nie posiada liczby',
+  description: 'Hasło musi zawierać przynajmniej jedną liczbę',
   check: (password: string) => password.match(/[0-9]/) !== null,
 };
 
 export const SPECIAL_CHARACTER_REQUIREMENT: Requirement = {
-  description: 'Posiada znak specjalny (! @ # $ % ^ & *)',
-  unfulfilledMessage: 'Hasło nie posiada znaku specjalnego',
+  description: 'Hasło musi posiadać conajmniej jeden znak specjalny',
   check: (password: string) =>
     password.match(/[!@#$%^&*(),.?":{}|<>_\-+=]/) !== null,
 };

@@ -7,7 +7,7 @@ export const passwordFormFieldSchema = z
     for (const requirement of MINIMUM_PASSWORD_REQUIREMENTS)
       if (!requirement.check(password))
         context.addIssue({
-          message: requirement.unfulfilledMessage,
+          message: requirement.description,
           code: z.ZodIssueCode.custom,
         });
   });
