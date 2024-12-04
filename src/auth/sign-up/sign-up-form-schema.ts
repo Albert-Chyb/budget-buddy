@@ -1,9 +1,10 @@
 import { z } from 'zod';
 import { passwordFormFieldSchema } from '@/auth/password-form-field-schema.ts';
+import { emailFormFieldSchema } from '@/auth/email-form-field-schema.ts';
 
 export const signUpFormSchema = z
   .object({
-    email: z.string().email({ message: 'Adres e-mail jest niepoprawny' }),
+    email: emailFormFieldSchema,
     password: passwordFormFieldSchema,
     confirmPassword: z.string(),
   })

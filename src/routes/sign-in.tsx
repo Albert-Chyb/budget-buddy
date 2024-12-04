@@ -7,12 +7,18 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/card.tsx';
+import { SignInForm } from '@/auth/sign-in/sign-in-form.tsx';
+import { SignInFormValue } from '@/auth/sign-in/sign-in-form-schema.ts';
 
 export const Route = createFileRoute('/sign-in')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  function handleSignInFormSubmit(formValue: SignInFormValue) {
+    console.log(formValue);
+  }
+
   return (
     <Card className='max-w-screen-sm mx-auto'>
       <CardHeader>
@@ -21,7 +27,12 @@ function RouteComponent() {
           Wypełnij poniższy formularz, aby zalogować sie na istniejące konto.
         </CardDescription>
       </CardHeader>
-      <CardContent>Formularz</CardContent>
+      <CardContent>
+        <SignInForm
+          isPending={false}
+          onSubmit={handleSignInFormSubmit}
+        />
+      </CardContent>
       <CardFooter className='justify-center'>
         <p className='typography-muted'>
           Nie posiadasz jeszcze konta ?{' '}
