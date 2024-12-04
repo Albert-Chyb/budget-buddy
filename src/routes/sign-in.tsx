@@ -18,7 +18,7 @@ function RouteComponent() {
       <CardHeader>
         <CardTitle>Zaloguj się</CardTitle>
         <CardDescription>
-          Wypełnij ponizszy formularz, aby zalogować sie na istniejące konto.
+          Wypełnij poniższy formularz, aby zalogować sie na istniejące konto.
         </CardDescription>
       </CardHeader>
       <CardContent>Formularz</CardContent>
