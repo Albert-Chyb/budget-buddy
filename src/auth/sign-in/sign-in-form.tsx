@@ -9,7 +9,7 @@ import { PasswordFormField } from '@/auth/password-form-field.tsx';
 import { PendingButton } from '@/components/pending-button.tsx';
 import { Form } from '@/components/form.tsx';
 
-type SignInFormErrors = FieldErrors<SignInFormValue>;
+export type SignInFormErrors = FieldErrors<SignInFormValue> | undefined;
 
 interface SignInFormProps {
   onSubmit: (formValue: SignInFormValue) => void;

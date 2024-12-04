@@ -9,15 +9,25 @@ import {
 } from '@/components/card.tsx';
 import { SignInForm } from '@/auth/sign-in/sign-in-form.tsx';
 import { SignInFormValue } from '@/auth/sign-in/sign-in-form-schema.ts';
+import { useSignInMutation } from '@/auth/sign-in/sign-in-mutation.ts';
+import { convertSignInErrorToFormError } from '@/auth/sign-in/convert-sign-in-error-to-form-error.ts';
 
 export const Route = createFileRoute('/sign-in')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const {
+    mutate: signIn,
+    error: signInError,
+    isPending: isSignInPending,
+  } = useSignInMutation();
+
   function handleSignInFormSubmit(formValue: SignInFormValue) {
-    console.log(formValue);
+    signIn(formValue);
   }
+
+  const formErrors = convertSignInErrorToFormError(signInError);
 
   return (
     <Card className='max-w-screen-sm mx-auto'>
@@ -29,8 +39,9 @@ function RouteComponent() {
       </CardHeader>
       <CardContent>
         <SignInForm
-          isPending={false}
+          isPending={isSignInPending}
           onSubmit={handleSignInFormSubmit}
+          errors={formErrors}
         />
       </CardContent>
       <CardFooter className='justify-center'>
