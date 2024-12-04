@@ -7,18 +7,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/form.tsx';
 import { EmailFormField } from '@/auth/email-form-field.tsx';
 import { PasswordFormField } from '@/auth/password-form-field.tsx';
-import { Button } from '@/components/button.tsx';
 import { PasswordRequirementsList } from '@/auth/password-requirements/password-requirements-list.tsx';
+import { PendingButton } from '@/components/pending-button.tsx';
 
 export type SignUpFormErrors = FieldErrors<SignUpFormSchema>;
 
 export interface SignUpFormProps {
   onSubmit: (value: SignUpFormSchema) => void;
   errors?: SignUpFormErrors;
+  isPending: boolean;
 }
 
 export function SignUpForm(props: SignUpFormProps) {
-  const { onSubmit, errors } = props;
+  const { onSubmit, errors, isPending } = props;
   const form = useForm<SignUpFormSchema>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
@@ -50,12 +51,13 @@ export function SignUpForm(props: SignUpFormProps) {
           label='Potwierdź hasło'
         />
 
-        <Button
+        <PendingButton
           className='w-full'
           type='submit'
+          isPending={isPending}
         >
           Załóż konto
-        </Button>
+        </PendingButton>
       </form>
     </Form>
   );

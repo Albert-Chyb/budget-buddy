@@ -17,7 +17,11 @@ export const Route = createFileRoute('/sign-up')({
 });
 
 function RouteComponent() {
-  const { mutate: signUp, error: signUpError } = useSignUpMutation();
+  const {
+    mutate: signUp,
+    error: signUpError,
+    isPending: isSignUpPending,
+  } = useSignUpMutation();
 
   function handleSubmit({ email, password }: SignUpFormSchema) {
     signUp({ email, password });
@@ -42,6 +46,7 @@ function RouteComponent() {
         <SignUpForm
           onSubmit={handleSubmit}
           errors={formErrors}
+          isPending={isSignUpPending}
         />
       </CardContent>
 
