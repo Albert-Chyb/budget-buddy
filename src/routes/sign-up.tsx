@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { SignUpFormSchema } from '@/auth/sign-up/sign-up-form-schema';
 import { SignUpForm } from '@/auth/sign-up/sign-up-form.tsx';
 import { useSignUpMutation } from '@/auth/sign-up/sign-up-mutation.ts';
@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/card.tsx';
+import { SignInSuggestion } from '@/auth/sign-in/sign-in-suggestion.tsx';
 
 export const Route = createFileRoute('/sign-up')({
   component: RouteComponent,
@@ -51,15 +52,7 @@ function RouteComponent() {
       </CardContent>
 
       <CardFooter className='justify-center'>
-        <p className='typography-muted'>
-          Masz już konto ?{' '}
-          <Link
-            to='/sign-in'
-            className='typography-link'
-          >
-            Zaloguj się
-          </Link>
-        </p>
+        <SignInSuggestion />
       </CardFooter>
     </Card>
   );
