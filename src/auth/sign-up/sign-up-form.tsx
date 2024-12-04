@@ -1,7 +1,7 @@
 import {
   signUpFormSchema,
   SignUpFormSchema,
-} from '@/sign-up/sign-up-form-schema.ts';
+} from '@/auth/sign-up/sign-up-form-schema.ts';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/form.tsx';

@@ -1,4 +1,4 @@
-import { SignUpFormErrors } from '@/sign-up/sign-up-form.tsx';
+import { SignUpFormErrors } from '@/auth/sign-up/sign-up-form.tsx';
 import { isAuthError } from '@supabase/supabase-js';
 
 export function convertSignUpErrorToFormError(

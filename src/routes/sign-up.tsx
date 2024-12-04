@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { SignUpFormSchema } from '@/sign-up/sign-up-form-schema';
-import { SignUpForm } from '@/sign-up/sign-up-form.tsx';
-import { useSignUpMutation } from '@/sign-up/sign-up-mutation.ts';
-import { convertSignUpErrorToFormError } from '@/sign-up/convert-sign-up-error-to-form-error.ts';
+import { SignUpFormSchema } from '@/auth/sign-up/sign-up-form-schema';
+import { SignUpForm } from '@/auth/sign-up/sign-up-form.tsx';
+import { useSignUpMutation } from '@/auth/sign-up/sign-up-mutation.ts';
+import { convertSignUpErrorToFormError } from '@/auth/sign-up/convert-sign-up-error-to-form-error.ts';
 import {
   Card,
   CardContent,
