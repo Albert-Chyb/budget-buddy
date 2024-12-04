@@ -12,10 +12,13 @@ function RootComponent() {
       <nav>
         <ul>
           <li>
-            <Link to={'/'}>Strona główna</Link>
+            <Link to='/'>Strona główna</Link>
           </li>
           <li>
-            <Link to={'/sign-up'}>Załóż konto</Link>
+            <Link to='/sign-up'>Załóż konto</Link>
+          </li>
+          <li>
+            <Link to='/sign-in'>Zaloguj się</Link>
           </li>
         </ul>
       </nav>
