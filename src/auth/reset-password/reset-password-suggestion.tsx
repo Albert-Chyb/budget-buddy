@@ -4,17 +4,12 @@ import {
   AuthSuggestionLink,
 } from '@/auth/auth-suggestions.tsx';
 
-export function SignUpSuggestion() {
+export function ResetPasswordSuggestion() {
   return (
     <AuthSuggestion>
-      Nie posiadasz jeszcze konta ?{' '}
+      Zapomniałeś hasła ?{' '}
       <AuthSuggestionLink>
-        <Link
-          to='/sign-up'
-          className='typography-link'
-        >
-          Załóż konto
-        </Link>
+        <Link to='/reset-password'>Zresetuj hasło</Link>
       </AuthSuggestionLink>
     </AuthSuggestion>
   );

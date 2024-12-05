@@ -1,15 +1,21 @@
 import { Link } from '@tanstack/react-router';
+import {
+  AuthSuggestion,
+  AuthSuggestionLink,
+} from '@/auth/auth-suggestions.tsx';
 
 export function SignInSuggestion() {
   return (
-    <p className='typography-muted'>
+    <AuthSuggestion>
       Masz już konto ?{' '}
-      <Link
-        to='/sign-in'
-        className='typography-link'
-      >
-        Zaloguj się
-      </Link>
-    </p>
+      <AuthSuggestionLink>
+        <Link
+          to='/sign-in'
+          className='typography-link'
+        >
+          Zaloguj się
+        </Link>
+      </AuthSuggestionLink>
+    </AuthSuggestion>
   );
 }

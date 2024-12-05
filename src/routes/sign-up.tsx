@@ -12,6 +12,8 @@ import {
   CardTitle,
 } from '@/components/card.tsx';
 import { SignInSuggestion } from '@/auth/sign-in/sign-in-suggestion.tsx';
+import { AuthSuggestions } from '@/auth/auth-suggestions.tsx';
+import { ResetPasswordSuggestion } from '@/auth/reset-password/reset-password-suggestion.tsx';
 
 export const Route = createFileRoute('/sign-up')({
   component: RouteComponent,
@@ -52,7 +54,10 @@ function RouteComponent() {
       </CardContent>
 
       <CardFooter className='justify-center'>
-        <SignInSuggestion />
+        <AuthSuggestions>
+          <SignInSuggestion />
+          <ResetPasswordSuggestion />
+        </AuthSuggestions>
       </CardFooter>
     </Card>
   );

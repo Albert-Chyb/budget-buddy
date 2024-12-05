@@ -12,6 +12,8 @@ import { SignInFormValue } from '@/auth/sign-in/sign-in-form-schema.ts';
 import { useSignInMutation } from '@/auth/sign-in/sign-in-mutation.ts';
 import { convertSignInErrorToFormError } from '@/auth/sign-in/convert-sign-in-error-to-form-error.ts';
 import { SignUpSuggestion } from '@/auth/sign-up/sign-up-suggestion.tsx';
+import { AuthSuggestions } from '@/auth/auth-suggestions.tsx';
+import { ResetPasswordSuggestion } from '@/auth/reset-password/reset-password-suggestion.tsx';
 
 export const Route = createFileRoute('/sign-in')({
   component: RouteComponent,
@@ -46,7 +48,10 @@ function RouteComponent() {
         />
       </CardContent>
       <CardFooter className='justify-center'>
-        <SignUpSuggestion />
+        <AuthSuggestions>
+          <SignUpSuggestion />
+          <ResetPasswordSuggestion />
+        </AuthSuggestions>
       </CardFooter>
     </Card>
   );
