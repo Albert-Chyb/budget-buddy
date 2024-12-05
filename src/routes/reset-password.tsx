@@ -6,12 +6,18 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/card.tsx';
+import { ResetPasswordForm } from '@/auth/reset-password/reset-password-form.tsx';
+import { ResetPasswordFormValue } from '@/auth/reset-password/reset-password-form-schema.ts';
 
 export const Route = createFileRoute('/reset-password')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  function handleSubmit(formValue: ResetPasswordFormValue) {
+    console.log(formValue);
+  }
+
   return (
     <Card className='max-w-screen-sm mx-auto'>
       <CardHeader>
@@ -23,7 +29,9 @@ function RouteComponent() {
         </CardDescription>
       </CardHeader>
 
-      <CardContent>[FORMULARZ]</CardContent>
+      <CardContent>
+        <ResetPasswordForm onSubmit={handleSubmit} />
+      </CardContent>
     </Card>
   );
 }
