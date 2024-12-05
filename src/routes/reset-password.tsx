@@ -8,14 +8,18 @@ import {
 } from '@/components/card.tsx';
 import { ResetPasswordForm } from '@/auth/reset-password/reset-password-form.tsx';
 import { ResetPasswordFormValue } from '@/auth/reset-password/reset-password-form-schema.ts';
+import { useResetPasswordMutation } from '@/auth/reset-password/reset-password-mutation.ts';
 
 export const Route = createFileRoute('/reset-password')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  function handleSubmit(formValue: ResetPasswordFormValue) {
-    console.log(formValue);
+  const { mutate: resetPasswordFor, isPending: isResetPasswordPending } =
+    useResetPasswordMutation();
+
+  function handleSubmit({ email }: ResetPasswordFormValue) {
+    resetPasswordFor(email);
   }
 
   return (
@@ -30,7 +34,10 @@ function RouteComponent() {
       </CardHeader>
 
       <CardContent>
-        <ResetPasswordForm onSubmit={handleSubmit} />
+        <ResetPasswordForm
+          onSubmit={handleSubmit}
+          isPending={isResetPasswordPending}
+        />
       </CardContent>
     </Card>
   );

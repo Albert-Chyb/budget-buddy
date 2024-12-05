@@ -6,14 +6,15 @@ import {
 } from '@/auth/reset-password/reset-password-form-schema.ts';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { EmailFormField } from '@/auth/email-form-field';
-import { Button } from '@/components/button.tsx';
+import { PendingButton } from '@/components/pending-button.tsx';
 
 interface ResetPasswordFormProps {
   onSubmit: (formValue: ResetPasswordFormValue) => void;
+  isPending: boolean;
 }
 
 export function ResetPasswordForm(props: ResetPasswordFormProps) {
-  const { onSubmit } = props;
+  const { onSubmit, isPending } = props;
 
   const form = useForm({
     resolver: zodResolver(resetPasswordFormSchema),
@@ -30,12 +31,13 @@ export function ResetPasswordForm(props: ResetPasswordFormProps) {
       >
         <EmailFormField<ResetPasswordFormValue> name='email' />
 
-        <Button
+        <PendingButton
           type='submit'
           className='w-full'
+          isPending={isPending}
         >
           Zresetuj hasło
-        </Button>
+        </PendingButton>
       </form>
     </Form>
   );
