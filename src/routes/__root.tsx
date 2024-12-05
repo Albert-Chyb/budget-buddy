@@ -20,6 +20,9 @@ function RootComponent() {
           <li>
             <Link to='/sign-in'>Zaloguj się</Link>
           </li>
+          <li>
+            <Link to='/reset-password'>Zresetuj hasło</Link>
+          </li>
         </ul>
       </nav>
 
