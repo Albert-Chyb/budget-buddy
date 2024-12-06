@@ -1,13 +1,13 @@
 import { createFileRoute, Navigate } from '@tanstack/react-router';
 import {
-  isUnauthenticated,
+  isAuthenticated,
   useAuthRouteGuard,
 } from '@/helpers/auth-route-guard.tsx';
 
-export const Route = createFileRoute('/_unauthenticated')({
+export const Route = createFileRoute('/_authenticated')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  return useAuthRouteGuard(isUnauthenticated, <Navigate to='/' />);
+  return useAuthRouteGuard(isAuthenticated, <Navigate to='/sign-in' />);
 }
