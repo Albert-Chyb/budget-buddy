@@ -1,5 +1,6 @@
 import { useSupabase } from '@/init/supabase.tsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { USER_QUERY_KEY } from '@/auth/user-query.ts';
 
 export interface SignInMutationVariables {
   email: string;
@@ -19,8 +20,8 @@ export function useSignInMutation() {
       return data;
     },
     onSuccess: ({ user }) => {
-      queryClient.setQueryData(['user'], user);
-      queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.setQueryData(USER_QUERY_KEY, user);
+      queryClient.invalidateQueries({ queryKey: USER_QUERY_KEY });
     },
   });
 }
