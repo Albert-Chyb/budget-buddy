@@ -1,14 +1,20 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/card.tsx';
 import { ResetPasswordForm } from '@/auth/reset-password/reset-password-form.tsx';
 import { ResetPasswordFormValue } from '@/auth/reset-password/reset-password-form-schema.ts';
 import { useResetPasswordMutation } from '@/auth/reset-password/reset-password-mutation.ts';
+import {
+  AuthSuggestion,
+  AuthSuggestionLink,
+  AuthSuggestions,
+} from '@/auth/auth-suggestions.tsx';
 
 export const Route = createFileRoute('/reset-password')({
   component: RouteComponent,
@@ -39,6 +45,22 @@ function RouteComponent() {
           isPending={isResetPasswordPending}
         />
       </CardContent>
+
+      <CardFooter className='justify-center'>
+        <AuthSuggestions>
+          <AuthSuggestion>
+            <AuthSuggestionLink>
+              <Link to='/sign-in'>Zaloguj się</Link>
+            </AuthSuggestionLink>
+          </AuthSuggestion>
+
+          <AuthSuggestion>
+            <AuthSuggestionLink>
+              <Link to='/sign-up'>Zarejestruj się</Link>
+            </AuthSuggestionLink>
+          </AuthSuggestion>
+        </AuthSuggestions>
+      </CardFooter>
     </Card>
   );
 }
