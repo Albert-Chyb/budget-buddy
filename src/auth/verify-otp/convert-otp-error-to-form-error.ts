@@ -1,5 +1,5 @@
 import { FieldErrors } from 'react-hook-form';
-import { OTPFormValue } from '@/auth/reset-password/otp-form-schema.ts';
+import { OTPFormValue } from '@/auth/verify-otp/otp-form-schema.ts';
 import { isAuthError } from '@supabase/supabase-js';
 
 export function convertOtpErrorToFormError(

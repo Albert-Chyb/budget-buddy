@@ -18,7 +18,7 @@ import { Route as UnauthenticatedSignUpImport } from './routes/_unauthenticated/
 import { Route as UnauthenticatedSignInImport } from './routes/_unauthenticated/sign-in'
 import { Route as UnauthenticatedResetPasswordImport } from './routes/_unauthenticated/reset-password'
 import { Route as AuthenticatedChangePasswordImport } from './routes/_authenticated/change-password'
-import { Route as UnauthenticatedResetPasswordDialogImport } from './routes/_unauthenticated/reset-password.dialog'
+import { Route as UnauthenticatedResetPasswordOtpDialogImport } from './routes/_unauthenticated/reset-password.otp-dialog'
 
 // Create/Update Routes
 
@@ -64,10 +64,10 @@ const AuthenticatedChangePasswordRoute =
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 
-const UnauthenticatedResetPasswordDialogRoute =
-  UnauthenticatedResetPasswordDialogImport.update({
-    id: '/dialog',
-    path: '/dialog',
+const UnauthenticatedResetPasswordOtpDialogRoute =
+  UnauthenticatedResetPasswordOtpDialogImport.update({
+    id: '/otp-dialog',
+    path: '/otp-dialog',
     getParentRoute: () => UnauthenticatedResetPasswordRoute,
   } as any)
 
@@ -124,11 +124,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexImport
       parentRoute: typeof AuthenticatedImport
     }
-    '/_unauthenticated/reset-password/dialog': {
-      id: '/_unauthenticated/reset-password/dialog'
-      path: '/dialog'
-      fullPath: '/reset-password/dialog'
-      preLoaderRoute: typeof UnauthenticatedResetPasswordDialogImport
+    '/_unauthenticated/reset-password/otp-dialog': {
+      id: '/_unauthenticated/reset-password/otp-dialog'
+      path: '/otp-dialog'
+      fullPath: '/reset-password/otp-dialog'
+      preLoaderRoute: typeof UnauthenticatedResetPasswordOtpDialogImport
       parentRoute: typeof UnauthenticatedResetPasswordImport
     }
   }
@@ -151,13 +151,13 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
 )
 
 interface UnauthenticatedResetPasswordRouteChildren {
-  UnauthenticatedResetPasswordDialogRoute: typeof UnauthenticatedResetPasswordDialogRoute
+  UnauthenticatedResetPasswordOtpDialogRoute: typeof UnauthenticatedResetPasswordOtpDialogRoute
 }
 
 const UnauthenticatedResetPasswordRouteChildren: UnauthenticatedResetPasswordRouteChildren =
   {
-    UnauthenticatedResetPasswordDialogRoute:
-      UnauthenticatedResetPasswordDialogRoute,
+    UnauthenticatedResetPasswordOtpDialogRoute:
+      UnauthenticatedResetPasswordOtpDialogRoute,
   }
 
 const UnauthenticatedResetPasswordRouteWithChildren =
@@ -189,7 +189,7 @@ export interface FileRoutesByFullPath {
   '/sign-in': typeof UnauthenticatedSignInRoute
   '/sign-up': typeof UnauthenticatedSignUpRoute
   '/': typeof AuthenticatedIndexRoute
-  '/reset-password/dialog': typeof UnauthenticatedResetPasswordDialogRoute
+  '/reset-password/otp-dialog': typeof UnauthenticatedResetPasswordOtpDialogRoute
 }
 
 export interface FileRoutesByTo {
@@ -199,7 +199,7 @@ export interface FileRoutesByTo {
   '/sign-in': typeof UnauthenticatedSignInRoute
   '/sign-up': typeof UnauthenticatedSignUpRoute
   '/': typeof AuthenticatedIndexRoute
-  '/reset-password/dialog': typeof UnauthenticatedResetPasswordDialogRoute
+  '/reset-password/otp-dialog': typeof UnauthenticatedResetPasswordOtpDialogRoute
 }
 
 export interface FileRoutesById {
@@ -211,7 +211,7 @@ export interface FileRoutesById {
   '/_unauthenticated/sign-in': typeof UnauthenticatedSignInRoute
   '/_unauthenticated/sign-up': typeof UnauthenticatedSignUpRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
-  '/_unauthenticated/reset-password/dialog': typeof UnauthenticatedResetPasswordDialogRoute
+  '/_unauthenticated/reset-password/otp-dialog': typeof UnauthenticatedResetPasswordOtpDialogRoute
 }
 
 export interface FileRouteTypes {
@@ -223,7 +223,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/'
-    | '/reset-password/dialog'
+    | '/reset-password/otp-dialog'
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
@@ -232,7 +232,7 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/sign-up'
     | '/'
-    | '/reset-password/dialog'
+    | '/reset-password/otp-dialog'
   id:
     | '__root__'
     | '/_authenticated'
@@ -242,7 +242,7 @@ export interface FileRouteTypes {
     | '/_unauthenticated/sign-in'
     | '/_unauthenticated/sign-up'
     | '/_authenticated/'
-    | '/_unauthenticated/reset-password/dialog'
+    | '/_unauthenticated/reset-password/otp-dialog'
   fileRoutesById: FileRoutesById
 }
 
@@ -293,7 +293,7 @@ export const routeTree = rootRoute
       "filePath": "_unauthenticated/reset-password.tsx",
       "parent": "/_unauthenticated",
       "children": [
-        "/_unauthenticated/reset-password/dialog"
+        "/_unauthenticated/reset-password/otp-dialog"
       ]
     },
     "/_unauthenticated/sign-in": {
@@ -308,8 +308,8 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/index.tsx",
       "parent": "/_authenticated"
     },
-    "/_unauthenticated/reset-password/dialog": {
-      "filePath": "_unauthenticated/reset-password.dialog.tsx",
+    "/_unauthenticated/reset-password/otp-dialog": {
+      "filePath": "_unauthenticated/reset-password.otp-dialog.tsx",
       "parent": "/_unauthenticated/reset-password"
     }
   }

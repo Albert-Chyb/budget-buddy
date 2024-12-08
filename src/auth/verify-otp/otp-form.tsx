@@ -2,10 +2,10 @@ import { FieldErrors, useForm } from 'react-hook-form';
 import {
   OTPFormSchema,
   OTPFormValue,
-} from '@/auth/reset-password/otp-form-schema.ts';
+} from '@/auth/verify-otp/otp-form-schema.ts';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/form.tsx';
-import { OTPFormField } from '@/auth/reset-password/otp-form-field.tsx';
+import { OTPFormField } from '@/auth/verify-otp/otp-form-field.tsx';
 import { ForwardedRef, forwardRef } from 'react';
 
 interface OPTFormProps {
