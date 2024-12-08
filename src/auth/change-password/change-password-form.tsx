@@ -2,24 +2,27 @@ import {
   changePasswordFormSchema,
   ChangePasswordFormValue,
 } from '@/auth/change-password/change-password-form-schema.ts';
-import { useForm } from 'react-hook-form';
+import { FieldErrors, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/form.tsx';
 import { PasswordFormField } from '@/auth/password-form-field.tsx';
-import { Button } from '@/components/button.tsx';
+import { PendingButton } from '@/components/pending-button.tsx';
 
 export interface ChangePasswordFormProps {
   onSubmit: (formValue: ChangePasswordFormValue) => void;
+  isPending: boolean;
+  errors?: FieldErrors<ChangePasswordFormValue>;
 }
 
 export function ChangePasswordForm(props: ChangePasswordFormProps) {
-  const { onSubmit } = props;
+  const { onSubmit, isPending, errors } = props;
   const form = useForm<ChangePasswordFormValue>({
     resolver: zodResolver(changePasswordFormSchema),
     defaultValues: {
       password: '',
       confirmPassword: '',
     },
+    errors,
   });
 
   return (
@@ -36,14 +39,16 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
         <PasswordFormField<ChangePasswordFormValue>
           name='confirmPassword'
           placeholder='Wpisz ponownie nowe hasło'
+          label='Potwierdź hasło'
         />
 
-        <Button
+        <PendingButton
           type='submit'
           className='w-full'
+          isPending={isPending}
         >
           Zmień hasło
-        </Button>
+        </PendingButton>
       </form>
     </Form>
   );
