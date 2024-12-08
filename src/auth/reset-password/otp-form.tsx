@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { FieldErrors, useForm } from 'react-hook-form';
 import {
   OTPFormSchema,
   OTPFormValue,
@@ -11,16 +11,18 @@ import { ForwardedRef, forwardRef } from 'react';
 interface OPTFormProps {
   onSubmit: (formValue: OTPFormValue) => void;
   id: string;
+  errors?: FieldErrors<OTPFormValue>;
 }
 
 export const OTPForm = forwardRef(
   (props: OPTFormProps, forwardedRef: ForwardedRef<HTMLFormElement>) => {
-    const { onSubmit, id } = props;
+    const { onSubmit, id, errors } = props;
     const form = useForm<OTPFormValue>({
       resolver: zodResolver(OTPFormSchema),
       defaultValues: {
         otp: '',
       },
+      errors,
     });
 
     return (

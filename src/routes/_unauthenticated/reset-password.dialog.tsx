@@ -13,6 +13,9 @@ import { z } from 'zod';
 import { OTPForm } from '@/auth/reset-password/otp-form.tsx';
 import { useId } from 'react';
 import { OTPFormValue } from '@/auth/reset-password/otp-form-schema.ts';
+import { useVerifyOTPMutation } from '@/auth/reset-password/verify-otp-mutation.ts';
+import { PendingButton } from '@/components/pending-button.tsx';
+import { convertOtpErrorToFormError } from '@/auth/reset-password/convert-otp-error-to-form-error.ts';
 
 const searchParamsSchema = z.object({
   email: z.string().email().catch(''),
@@ -27,15 +30,22 @@ export const Route = createFileRoute('/_unauthenticated/reset-password/dialog')(
 
 function RouteComponent() {
   const navigate = useNavigate();
-  const searchParams = Route.useSearch();
+  const { email } = Route.useSearch();
   const otpFormId = useId();
+  const { mutate: verifyOTP, isPending, error } = useVerifyOTPMutation();
+  const formErrors = convertOtpErrorToFormError(error);
 
   function handleCloseBtnClick() {
     navigate({ to: '..' });
   }
 
   function handleSubmit({ otp }: OTPFormValue) {
-    console.log({ otp });
+    verifyOTP(
+      { type: 'email', email, token: otp },
+      {
+        onSuccess: () => navigate({ to: '/' }),
+      },
+    );
   }
 
   return (
@@ -44,15 +54,15 @@ function RouteComponent() {
         <DialogHeader>
           <DialogTitle>Sprawdź skrzynkę email</DialogTitle>
           <DialogDescription>
-            Na adres{' '}
-            <span className='text-foreground'>{searchParams.email}</span>{' '}
-            wysłano wiadomość email z dalszymi instrukcjami.
+            Na adres <span className='text-foreground'>{email}</span> wysłano
+            wiadomość email z dalszymi instrukcjami.
           </DialogDescription>
         </DialogHeader>
 
         <OTPForm
           onSubmit={handleSubmit}
           id={otpFormId}
+          errors={formErrors}
         />
 
         <DialogFooter>
@@ -62,7 +72,12 @@ function RouteComponent() {
           >
             Zamknij
           </Button>
-          <Button form={otpFormId}>Zaloguj się</Button>
+          <PendingButton
+            isPending={isPending}
+            form={otpFormId}
+          >
+            Zaloguj się
+          </PendingButton>
         </DialogFooter>
       </DialogContent>
     </Dialog>
