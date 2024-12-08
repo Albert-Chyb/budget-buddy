@@ -17,6 +17,7 @@ import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index
 import { Route as UnauthenticatedSignUpImport } from './routes/_unauthenticated/sign-up'
 import { Route as UnauthenticatedSignInImport } from './routes/_unauthenticated/sign-in'
 import { Route as UnauthenticatedResetPasswordImport } from './routes/_unauthenticated/reset-password'
+import { Route as UnauthenticatedResetPasswordDialogImport } from './routes/_unauthenticated/reset-password.dialog'
 
 // Create/Update Routes
 
@@ -53,6 +54,13 @@ const UnauthenticatedResetPasswordRoute =
     id: '/reset-password',
     path: '/reset-password',
     getParentRoute: () => UnauthenticatedRoute,
+  } as any)
+
+const UnauthenticatedResetPasswordDialogRoute =
+  UnauthenticatedResetPasswordDialogImport.update({
+    id: '/dialog',
+    path: '/dialog',
+    getParentRoute: () => UnauthenticatedResetPasswordRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -101,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexImport
       parentRoute: typeof AuthenticatedImport
     }
+    '/_unauthenticated/reset-password/dialog': {
+      id: '/_unauthenticated/reset-password/dialog'
+      path: '/dialog'
+      fullPath: '/reset-password/dialog'
+      preLoaderRoute: typeof UnauthenticatedResetPasswordDialogImport
+      parentRoute: typeof UnauthenticatedResetPasswordImport
+    }
   }
 }
 
@@ -118,14 +133,30 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
 )
 
+interface UnauthenticatedResetPasswordRouteChildren {
+  UnauthenticatedResetPasswordDialogRoute: typeof UnauthenticatedResetPasswordDialogRoute
+}
+
+const UnauthenticatedResetPasswordRouteChildren: UnauthenticatedResetPasswordRouteChildren =
+  {
+    UnauthenticatedResetPasswordDialogRoute:
+      UnauthenticatedResetPasswordDialogRoute,
+  }
+
+const UnauthenticatedResetPasswordRouteWithChildren =
+  UnauthenticatedResetPasswordRoute._addFileChildren(
+    UnauthenticatedResetPasswordRouteChildren,
+  )
+
 interface UnauthenticatedRouteChildren {
-  UnauthenticatedResetPasswordRoute: typeof UnauthenticatedResetPasswordRoute
+  UnauthenticatedResetPasswordRoute: typeof UnauthenticatedResetPasswordRouteWithChildren
   UnauthenticatedSignInRoute: typeof UnauthenticatedSignInRoute
   UnauthenticatedSignUpRoute: typeof UnauthenticatedSignUpRoute
 }
 
 const UnauthenticatedRouteChildren: UnauthenticatedRouteChildren = {
-  UnauthenticatedResetPasswordRoute: UnauthenticatedResetPasswordRoute,
+  UnauthenticatedResetPasswordRoute:
+    UnauthenticatedResetPasswordRouteWithChildren,
   UnauthenticatedSignInRoute: UnauthenticatedSignInRoute,
   UnauthenticatedSignUpRoute: UnauthenticatedSignUpRoute,
 }
@@ -136,35 +167,50 @@ const UnauthenticatedRouteWithChildren = UnauthenticatedRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '': typeof UnauthenticatedRouteWithChildren
-  '/reset-password': typeof UnauthenticatedResetPasswordRoute
+  '/reset-password': typeof UnauthenticatedResetPasswordRouteWithChildren
   '/sign-in': typeof UnauthenticatedSignInRoute
   '/sign-up': typeof UnauthenticatedSignUpRoute
   '/': typeof AuthenticatedIndexRoute
+  '/reset-password/dialog': typeof UnauthenticatedResetPasswordDialogRoute
 }
 
 export interface FileRoutesByTo {
   '': typeof UnauthenticatedRouteWithChildren
-  '/reset-password': typeof UnauthenticatedResetPasswordRoute
+  '/reset-password': typeof UnauthenticatedResetPasswordRouteWithChildren
   '/sign-in': typeof UnauthenticatedSignInRoute
   '/sign-up': typeof UnauthenticatedSignUpRoute
   '/': typeof AuthenticatedIndexRoute
+  '/reset-password/dialog': typeof UnauthenticatedResetPasswordDialogRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/_unauthenticated': typeof UnauthenticatedRouteWithChildren
-  '/_unauthenticated/reset-password': typeof UnauthenticatedResetPasswordRoute
+  '/_unauthenticated/reset-password': typeof UnauthenticatedResetPasswordRouteWithChildren
   '/_unauthenticated/sign-in': typeof UnauthenticatedSignInRoute
   '/_unauthenticated/sign-up': typeof UnauthenticatedSignUpRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_unauthenticated/reset-password/dialog': typeof UnauthenticatedResetPasswordDialogRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/reset-password' | '/sign-in' | '/sign-up' | '/'
+  fullPaths:
+    | ''
+    | '/reset-password'
+    | '/sign-in'
+    | '/sign-up'
+    | '/'
+    | '/reset-password/dialog'
   fileRoutesByTo: FileRoutesByTo
-  to: '' | '/reset-password' | '/sign-in' | '/sign-up' | '/'
+  to:
+    | ''
+    | '/reset-password'
+    | '/sign-in'
+    | '/sign-up'
+    | '/'
+    | '/reset-password/dialog'
   id:
     | '__root__'
     | '/_authenticated'
@@ -173,6 +219,7 @@ export interface FileRouteTypes {
     | '/_unauthenticated/sign-in'
     | '/_unauthenticated/sign-up'
     | '/_authenticated/'
+    | '/_unauthenticated/reset-password/dialog'
   fileRoutesById: FileRoutesById
 }
 
@@ -216,7 +263,10 @@ export const routeTree = rootRoute
     },
     "/_unauthenticated/reset-password": {
       "filePath": "_unauthenticated/reset-password.tsx",
-      "parent": "/_unauthenticated"
+      "parent": "/_unauthenticated",
+      "children": [
+        "/_unauthenticated/reset-password/dialog"
+      ]
     },
     "/_unauthenticated/sign-in": {
       "filePath": "_unauthenticated/sign-in.tsx",
@@ -229,6 +279,10 @@ export const routeTree = rootRoute
     "/_authenticated/": {
       "filePath": "_authenticated/index.tsx",
       "parent": "/_authenticated"
+    },
+    "/_unauthenticated/reset-password/dialog": {
+      "filePath": "_unauthenticated/reset-password.dialog.tsx",
+      "parent": "/_unauthenticated/reset-password"
     }
   }
 }
