@@ -34,7 +34,7 @@ function RouteComponent() {
     resetPasswordFor(email, {
       onSuccess: () =>
         navigate({
-          to: '/reset-password/dialog',
+          to: '/reset-password/otp-dialog',
           mask: {
             to: '/reset-password',
           },
