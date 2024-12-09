@@ -1,19 +1,18 @@
 import { SignInFormErrors } from '@/auth/sign-in/sign-in-form.tsx';
-import { isAuthError } from '@supabase/supabase-js';
-import { FieldError } from 'react-hook-form';
+import { isAuthApiError } from '@supabase/supabase-js';
+import { authErrorToFormFieldError } from '@/auth/auth-error-to-form-field-error.ts';
 
 export function convertSignInErrorToFormError(
   error: unknown,
 ): SignInFormErrors {
-  if (isAuthError(error) && error.code === 'invalid_credentials') {
-    const error: FieldError = {
-      type: 'server',
-      message: 'Hasło lub email jest niepoprawne',
-    };
+  if (!isAuthApiError(error)) return;
+
+  if (error.code === 'invalid_credentials') {
+    const fieldError = authErrorToFormFieldError(error);
 
     return {
-      password: error,
-      email: error,
+      password: fieldError,
+      email: fieldError,
     };
   }
 }

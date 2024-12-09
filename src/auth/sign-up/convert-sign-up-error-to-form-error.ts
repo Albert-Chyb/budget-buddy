@@ -1,16 +1,14 @@
 import { SignUpFormErrors } from '@/auth/sign-up/sign-up-form.tsx';
-import { isAuthError } from '@supabase/supabase-js';
+import { isAuthApiError } from '@supabase/supabase-js';
+import { authErrorToFormFieldError } from '@/auth/auth-error-to-form-field-error.ts';
 
 export function convertSignUpErrorToFormError(
-  apiError: unknown,
+  error: unknown,
 ): SignUpFormErrors | undefined {
-  if (!apiError || !isAuthError(apiError)) return;
+  if (!isAuthApiError(error)) return;
 
-  if (apiError.code === 'user_already_exists')
+  if (error.code === 'user_already_exists')
     return {
-      email: {
-        type: 'server',
-        message: 'Użytkownik z podanym adresem email już istnieje',
-      },
+      email: authErrorToFormFieldError(error),
     };
 }

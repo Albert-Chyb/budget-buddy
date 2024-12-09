@@ -1,15 +1,14 @@
-import { isAuthError } from '@supabase/supabase-js';
-import { FieldErrors } from 'react-hook-form';
-import { ChangePasswordFormValue } from '@/auth/change-password/change-password-form-schema.ts';
+import { isAuthApiError } from '@supabase/supabase-js';
+import { authErrorToFormFieldError } from '@/auth/auth-error-to-form-field-error.ts';
+import { ChangePasswordFormErrors } from '@/auth/change-password/change-password-form.tsx';
 
 export function convertChangePasswordErrorToFormError(
   error: unknown,
-): FieldErrors<ChangePasswordFormValue> | undefined {
-  if (isAuthError(error) && error.code === 'same_password')
+): ChangePasswordFormErrors | undefined {
+  if (!isAuthApiError(error)) return;
+
+  if (error.code === 'same_password')
     return {
-      password: {
-        type: `server_${error.code}`,
-        message: 'Nowe hasło musi różnić się od dotychczasowego',
-      },
+      password: authErrorToFormFieldError(error),
     };
 }

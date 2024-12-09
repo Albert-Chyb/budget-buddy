@@ -8,10 +8,12 @@ import { Form } from '@/components/form.tsx';
 import { OTPFormField } from '@/auth/verify-otp/otp-form-field.tsx';
 import { ForwardedRef, forwardRef } from 'react';
 
-interface OPTFormProps {
+export type OTPFormErrors = FieldErrors<OTPFormValue>;
+
+export interface OPTFormProps {
   onSubmit: (formValue: OTPFormValue) => void;
   id: string;
-  errors?: FieldErrors<OTPFormValue>;
+  errors?: OTPFormErrors;
 }
 
 export const OTPForm = forwardRef(

@@ -8,10 +8,12 @@ import { Form } from '@/components/form.tsx';
 import { PasswordFormField } from '@/auth/password-form-field.tsx';
 import { PendingButton } from '@/components/pending-button.tsx';
 
+export type ChangePasswordFormErrors = FieldErrors<ChangePasswordFormValue>;
+
 export interface ChangePasswordFormProps {
   onSubmit: (formValue: ChangePasswordFormValue) => void;
   isPending: boolean;
-  errors?: FieldErrors<ChangePasswordFormValue>;
+  errors?: ChangePasswordFormErrors;
 }
 
 export function ChangePasswordForm(props: ChangePasswordFormProps) {
