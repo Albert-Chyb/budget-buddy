@@ -1,14 +1,11 @@
 import { z } from 'zod';
-import { passwordFormFieldSchema } from '@/auth/password-form-field-schema.ts';
+import {
+  passwordsEqualRefinement,
+  passwordWithConfirmFormFieldSchema,
+} from '@/auth/password-with-confirm-form-field-schema.ts';
 
-export const changePasswordFormSchema = z
-  .object({
-    password: passwordFormFieldSchema,
-    confirmPassword: passwordFormFieldSchema,
-  })
-  .refine(({ password, confirmPassword }) => password === confirmPassword, {
-    message: 'Hasła nie są takie same',
-    path: ['confirmPassword'],
-  });
+export const changePasswordFormSchema = passwordsEqualRefinement(
+  passwordWithConfirmFormFieldSchema,
+);
 
 export type ChangePasswordFormValue = z.infer<typeof changePasswordFormSchema>;
