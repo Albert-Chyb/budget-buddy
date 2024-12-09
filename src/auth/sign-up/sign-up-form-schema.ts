@@ -11,4 +11,4 @@ export const signUpFormSchema = passwordsEqualRefinement(
   }),
 );
 
-export type SignUpFormSchema = z.infer<typeof signUpFormSchema>;
+export type SignUpFormValue = z.infer<typeof signUpFormSchema>;

@@ -1,6 +1,6 @@
 import {
   signUpFormSchema,
-  SignUpFormSchema,
+  SignUpFormValue,
 } from '@/auth/sign-up/sign-up-form-schema.ts';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,17 +10,17 @@ import { PasswordFormField } from '@/auth/password-form-field.tsx';
 import { PasswordRequirementsList } from '@/auth/password-requirements/password-requirements-list.tsx';
 import { PendingButton } from '@/components/pending-button.tsx';
 
-export type SignUpFormErrors = FieldErrors<SignUpFormSchema>;
+export type SignUpFormErrors = FieldErrors<SignUpFormValue>;
 
 export interface SignUpFormProps {
-  onSubmit: (value: SignUpFormSchema) => void;
+  onSubmit: (value: SignUpFormValue) => void;
   errors?: SignUpFormErrors;
   isPending: boolean;
 }
 
 export function SignUpForm(props: SignUpFormProps) {
   const { onSubmit, errors, isPending } = props;
-  const form = useForm<SignUpFormSchema>({
+  const form = useForm<SignUpFormValue>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
       email: '',
@@ -36,16 +36,16 @@ export function SignUpForm(props: SignUpFormProps) {
         onSubmit={form.handleSubmit(onSubmit)}
         className='space-y-4'
       >
-        <EmailFormField<SignUpFormSchema> name='email' />
+        <EmailFormField<SignUpFormValue> name='email' />
 
-        <PasswordFormField<SignUpFormSchema>
+        <PasswordFormField<SignUpFormValue>
           name='password'
           placeholder='Utwórz silne hasło'
         />
 
-        <PasswordRequirementsList<SignUpFormSchema> name='password' />
+        <PasswordRequirementsList<SignUpFormValue> name='password' />
 
-        <PasswordFormField<SignUpFormSchema>
+        <PasswordFormField<SignUpFormValue>
           name='confirmPassword'
           placeholder='Wpisz utworzone hasło ponownie'
           label='Potwierdź hasło'

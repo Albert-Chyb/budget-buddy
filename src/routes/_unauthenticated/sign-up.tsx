@@ -1,8 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { SignUpFormSchema } from '@/auth/sign-up/sign-up-form-schema'
-import { SignUpForm } from '@/auth/sign-up/sign-up-form.tsx'
-import { useSignUpMutation } from '@/auth/sign-up/sign-up-mutation.ts'
-import { convertSignUpErrorToFormError } from '@/auth/sign-up/convert-sign-up-error-to-form-error.ts'
+import { createFileRoute } from '@tanstack/react-router';
+import { SignUpFormValue } from '@/auth/sign-up/sign-up-form-schema';
+import { SignUpForm } from '@/auth/sign-up/sign-up-form.tsx';
+import { useSignUpMutation } from '@/auth/sign-up/sign-up-mutation.ts';
+import { convertSignUpErrorToFormError } from '@/auth/sign-up/convert-sign-up-error-to-form-error.ts';
 import {
   Card,
   CardContent,
@@ -10,30 +10,30 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/card.tsx'
-import { SignInSuggestion } from '@/auth/sign-in/sign-in-suggestion.tsx'
-import { AuthSuggestions } from '@/auth/auth-suggestions.tsx'
-import { ResetPasswordSuggestion } from '@/auth/reset-password/reset-password-suggestion.tsx'
+} from '@/components/card.tsx';
+import { SignInSuggestion } from '@/auth/sign-in/sign-in-suggestion.tsx';
+import { AuthSuggestions } from '@/auth/auth-suggestions.tsx';
+import { ResetPasswordSuggestion } from '@/auth/reset-password/reset-password-suggestion.tsx';
 
 export const Route = createFileRoute('/_unauthenticated/sign-up')({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
   const {
     mutate: signUp,
     error: signUpError,
     isPending: isSignUpPending,
-  } = useSignUpMutation()
+  } = useSignUpMutation();
 
-  function handleSubmit({ email, password }: SignUpFormSchema) {
-    signUp({ email, password })
+  function handleSubmit({ email, password }: SignUpFormValue) {
+    signUp({ email, password });
   }
 
-  const formErrors = convertSignUpErrorToFormError(signUpError)
+  const formErrors = convertSignUpErrorToFormError(signUpError);
 
   return (
-    <Card className="max-w-screen-sm mx-auto">
+    <Card className='max-w-screen-sm mx-auto'>
       <CardHeader>
         <CardTitle>
           <h1>Załóż konto</h1>
@@ -53,12 +53,12 @@ function RouteComponent() {
         />
       </CardContent>
 
-      <CardFooter className="justify-center">
+      <CardFooter className='justify-center'>
         <AuthSuggestions>
           <SignInSuggestion />
           <ResetPasswordSuggestion />
         </AuthSuggestions>
       </CardFooter>
     </Card>
-  )
+  );
 }
