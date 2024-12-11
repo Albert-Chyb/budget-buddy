@@ -26,6 +26,9 @@ function RootComponent() {
           <li>
             <Link to='/change-password'>Zmień hasło</Link>
           </li>
+          <li>
+            <Link to='/sign-out'>Wyloguj się</Link>
+          </li>
         </ul>
       </nav>
 

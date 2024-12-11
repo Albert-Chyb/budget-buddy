@@ -17,6 +17,7 @@ import { Route as AuthenticatedIndexImport } from './routes/_authenticated/index
 import { Route as UnauthenticatedSignUpImport } from './routes/_unauthenticated/sign-up'
 import { Route as UnauthenticatedSignInImport } from './routes/_unauthenticated/sign-in'
 import { Route as UnauthenticatedResetPasswordImport } from './routes/_unauthenticated/reset-password'
+import { Route as AuthenticatedSignOutImport } from './routes/_authenticated/sign-out'
 import { Route as AuthenticatedChangePasswordImport } from './routes/_authenticated/change-password'
 import { Route as UnauthenticatedResetPasswordOtpDialogImport } from './routes/_unauthenticated/reset-password.otp-dialog'
 
@@ -57,6 +58,12 @@ const UnauthenticatedResetPasswordRoute =
     getParentRoute: () => UnauthenticatedRoute,
   } as any)
 
+const AuthenticatedSignOutRoute = AuthenticatedSignOutImport.update({
+  id: '/sign-out',
+  path: '/sign-out',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
 const AuthenticatedChangePasswordRoute =
   AuthenticatedChangePasswordImport.update({
     id: '/change-password',
@@ -94,6 +101,13 @@ declare module '@tanstack/react-router' {
       path: '/change-password'
       fullPath: '/change-password'
       preLoaderRoute: typeof AuthenticatedChangePasswordImport
+      parentRoute: typeof AuthenticatedImport
+    }
+    '/_authenticated/sign-out': {
+      id: '/_authenticated/sign-out'
+      path: '/sign-out'
+      fullPath: '/sign-out'
+      preLoaderRoute: typeof AuthenticatedSignOutImport
       parentRoute: typeof AuthenticatedImport
     }
     '/_unauthenticated/reset-password': {
@@ -138,11 +152,13 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteChildren {
   AuthenticatedChangePasswordRoute: typeof AuthenticatedChangePasswordRoute
+  AuthenticatedSignOutRoute: typeof AuthenticatedSignOutRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedChangePasswordRoute: AuthenticatedChangePasswordRoute,
+  AuthenticatedSignOutRoute: AuthenticatedSignOutRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 
@@ -185,6 +201,7 @@ const UnauthenticatedRouteWithChildren = UnauthenticatedRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '': typeof UnauthenticatedRouteWithChildren
   '/change-password': typeof AuthenticatedChangePasswordRoute
+  '/sign-out': typeof AuthenticatedSignOutRoute
   '/reset-password': typeof UnauthenticatedResetPasswordRouteWithChildren
   '/sign-in': typeof UnauthenticatedSignInRoute
   '/sign-up': typeof UnauthenticatedSignUpRoute
@@ -195,6 +212,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '': typeof UnauthenticatedRouteWithChildren
   '/change-password': typeof AuthenticatedChangePasswordRoute
+  '/sign-out': typeof AuthenticatedSignOutRoute
   '/reset-password': typeof UnauthenticatedResetPasswordRouteWithChildren
   '/sign-in': typeof UnauthenticatedSignInRoute
   '/sign-up': typeof UnauthenticatedSignUpRoute
@@ -207,6 +225,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/_unauthenticated': typeof UnauthenticatedRouteWithChildren
   '/_authenticated/change-password': typeof AuthenticatedChangePasswordRoute
+  '/_authenticated/sign-out': typeof AuthenticatedSignOutRoute
   '/_unauthenticated/reset-password': typeof UnauthenticatedResetPasswordRouteWithChildren
   '/_unauthenticated/sign-in': typeof UnauthenticatedSignInRoute
   '/_unauthenticated/sign-up': typeof UnauthenticatedSignUpRoute
@@ -219,6 +238,7 @@ export interface FileRouteTypes {
   fullPaths:
     | ''
     | '/change-password'
+    | '/sign-out'
     | '/reset-password'
     | '/sign-in'
     | '/sign-up'
@@ -228,6 +248,7 @@ export interface FileRouteTypes {
   to:
     | ''
     | '/change-password'
+    | '/sign-out'
     | '/reset-password'
     | '/sign-in'
     | '/sign-up'
@@ -238,6 +259,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/_unauthenticated'
     | '/_authenticated/change-password'
+    | '/_authenticated/sign-out'
     | '/_unauthenticated/reset-password'
     | '/_unauthenticated/sign-in'
     | '/_unauthenticated/sign-up'
@@ -274,6 +296,7 @@ export const routeTree = rootRoute
       "filePath": "_authenticated.tsx",
       "children": [
         "/_authenticated/change-password",
+        "/_authenticated/sign-out",
         "/_authenticated/"
       ]
     },
@@ -287,6 +310,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/change-password": {
       "filePath": "_authenticated/change-password.tsx",
+      "parent": "/_authenticated"
+    },
+    "/_authenticated/sign-out": {
+      "filePath": "_authenticated/sign-out.tsx",
       "parent": "/_authenticated"
     },
     "/_unauthenticated/reset-password": {
