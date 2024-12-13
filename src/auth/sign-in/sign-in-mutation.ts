@@ -1,19 +1,16 @@
 import { useSupabase } from '@/init/supabase.tsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { USER_QUERY_KEY } from '@/auth/user-query.ts';
-
-export interface SignInMutationVariables {
-  email: string;
-  password: string;
-}
+import { SignInWithPasswordCredentials } from '@supabase/supabase-js';
 
 export function useSignInMutation() {
   const supabase = useSupabase();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (variables: SignInMutationVariables) => {
-      const { data, error } = await supabase.auth.signInWithPassword(variables);
+    mutationFn: async (credentials: SignInWithPasswordCredentials) => {
+      const { data, error } =
+        await supabase.auth.signInWithPassword(credentials);
 
       if (error) throw error;
 
