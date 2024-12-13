@@ -8,6 +8,7 @@ export function useUserQuery() {
 
   return useQuery({
     queryKey: USER_QUERY_KEY,
+    staleTime: Infinity,
     queryFn: async () => {
       const {
         data: { session },
