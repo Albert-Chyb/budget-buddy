@@ -8,7 +8,9 @@ export const passwordWithConfirmFormFieldSchema = z.object({
 
 type Shape = typeof passwordWithConfirmFormFieldSchema.shape;
 
-export function passwordsEqualRefinement(schema: z.ZodObject<Shape>) {
+export function passwordsEqualRefinement<RawShape extends Shape>(
+  schema: z.ZodObject<RawShape>,
+) {
   return schema.refine(
     ({ password, confirmPassword }) => password === confirmPassword,
     {
