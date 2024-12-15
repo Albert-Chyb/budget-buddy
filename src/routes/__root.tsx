@@ -1,5 +1,6 @@
-import { Outlet, createRootRoute, Link } from '@tanstack/react-router';
+import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { NotFound } from '@/routes/-not-found.tsx';
+import { MainNavigation } from '@/components/main-navigation.tsx';
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -9,28 +10,7 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <Link to='/'>Strona główna</Link>
-          </li>
-          <li>
-            <Link to='/sign-up'>Załóż konto</Link>
-          </li>
-          <li>
-            <Link to='/sign-in'>Zaloguj się</Link>
-          </li>
-          <li>
-            <Link to='/reset-password'>Zresetuj hasło</Link>
-          </li>
-          <li>
-            <Link to='/change-password'>Zmień hasło</Link>
-          </li>
-          <li>
-            <Link to='/sign-out'>Wyloguj się</Link>
-          </li>
-        </ul>
-      </nav>
+      <MainNavigation />
 
       <main className='container mx-auto'>
         <Outlet />
