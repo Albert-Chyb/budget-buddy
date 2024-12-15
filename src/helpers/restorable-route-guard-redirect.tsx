@@ -84,8 +84,8 @@ export function useDeniedRoute(
   defaultRedirect: ToOptions['to'],
 ): RouteGuardRedirectFn {
   const search = useSearch({ strict: false });
+  const deniedRoute = search[DENIED_ROUTE_SEARCH_KEY];
 
-  if (search[DENIED_ROUTE_SEARCH_KEY])
-    return () => <Navigate to={search.deniedRoute} />;
+  if (deniedRoute) return () => <Navigate to={deniedRoute} />;
   else return () => <Navigate to={defaultRedirect} />;
 }
