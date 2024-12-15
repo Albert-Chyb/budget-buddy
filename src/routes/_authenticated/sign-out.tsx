@@ -19,9 +19,7 @@ function RouteComponent() {
   const navigate = useNavigate();
 
   function handleSignOutBtnClick() {
-    signOut(undefined, {
-      onSuccess: () => navigate({ to: '/sign-in' }),
-    });
+    signOut();
   }
 
   function handleCancelBtnClick() {
