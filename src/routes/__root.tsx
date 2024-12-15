@@ -1,6 +1,6 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { NotFound } from '@/routes/-not-found.tsx';
-import { MainNavigation } from '@/components/main-navigation.tsx';
+import { Banner } from '@/components/banner.tsx';
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -10,9 +10,9 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <>
-      <MainNavigation />
+      <Banner />
 
-      <main className='container mx-auto'>
+      <main className='container mx-auto mt-14 md:mt-16 pt-2 px-2'>
         <Outlet />
       </main>
     </>
