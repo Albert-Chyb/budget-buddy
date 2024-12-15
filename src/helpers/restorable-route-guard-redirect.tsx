@@ -8,7 +8,7 @@ import {
 import { RouteGuardRedirectFn } from '@/helpers/auth-route-guard.tsx';
 import { z } from 'zod';
 
-const DENIED_ROUTE_SEARCH_KEY = 'deniedRoute' as const;
+export const DENIED_ROUTE_SEARCH_KEY = 'deniedRoute' as const;
 
 /**
  * Merges a given search object with the existing search options from ToOptions.
