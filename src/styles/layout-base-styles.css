@@ -1,0 +1,10 @@
+@layer base {
+  :root {
+    --banner-height: theme('height.14');
+    --global-layout-space: theme('space.2');
+
+    @media (min-width: theme('screens.md')) {
+      --banner-height: theme('height.16');
+    }
+  }
+}

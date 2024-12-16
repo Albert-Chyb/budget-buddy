@@ -1,5 +1,6 @@
 @import 'tailwindcss/base';
 @import './styles/shadcn-base-styles.css';
+@import './styles/layout-base-styles.css';
 
 @import 'tailwindcss/components';
 @import 'styles/typography-components.css';

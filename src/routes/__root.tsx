@@ -12,7 +12,7 @@ function RootComponent() {
     <>
       <Banner />
 
-      <main className='container mx-auto mt-14 md:mt-16 pt-2 px-2'>
+      <main className='container mx-auto mt-[var(--banner-height)] pt-[var(--global-layout-space)] px-[var(--global-layout-space)]'>
         <Outlet />
       </main>
     </>
