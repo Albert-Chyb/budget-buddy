@@ -11,7 +11,7 @@ import {
 import { Button } from '@/components/button.tsx';
 import { z } from 'zod';
 import { OTPForm } from '@/auth/verify-otp/otp-form.tsx';
-import { useId } from 'react';
+import { useId, useState } from 'react';
 import { OTPFormValue } from '@/auth/verify-otp/otp-form-schema.ts';
 import { useVerifyOTPMutation } from '@/auth/verify-otp/verify-otp-mutation.ts';
 import { PendingButton } from '@/components/pending-button.tsx';
@@ -32,20 +32,28 @@ function RouteComponent() {
   const navigate = useNavigate();
   const { email } = Route.useSearch();
   const otpFormId = useId();
+  const [isOpened, setIsOpened] = useState(true);
   const { mutate: verifyOTP, isPending, error } = useVerifyOTPMutation();
   const formErrors = convertOtpErrorToFormError(error);
 
   function handleCloseBtnClick() {
-    navigate({ to: '..' });
+    setIsOpened(false);
   }
 
   function handleSubmit({ otp }: OTPFormValue) {
     verifyOTP({ type: 'email', email, token: otp });
   }
 
+  function handleAnimationEnd() {
+    if (!isOpened) navigate({ to: '..' });
+  }
+
   return (
-    <Dialog open>
-      <DialogContent>
+    <Dialog
+      open={isOpened}
+      onOpenChange={setIsOpened}
+    >
+      <DialogContent onAnimationEnd={handleAnimationEnd}>
         <DialogHeader>
           <DialogTitle>Sprawdź skrzynkę email</DialogTitle>
           <DialogDescription>
