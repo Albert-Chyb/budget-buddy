@@ -19,6 +19,7 @@ import { Route as UnauthenticatedSignInImport } from './routes/_unauthenticated/
 import { Route as UnauthenticatedResetPasswordImport } from './routes/_unauthenticated/reset-password'
 import { Route as AuthenticatedSignOutImport } from './routes/_authenticated/sign-out'
 import { Route as AuthenticatedChangePasswordImport } from './routes/_authenticated/change-password'
+import { Route as AuthenticatedCategoriesImport } from './routes/_authenticated/categories'
 import { Route as UnauthenticatedResetPasswordOtpDialogImport } from './routes/_unauthenticated/reset-password.otp-dialog'
 
 // Create/Update Routes
@@ -71,6 +72,12 @@ const AuthenticatedChangePasswordRoute =
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 
+const AuthenticatedCategoriesRoute = AuthenticatedCategoriesImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+
 const UnauthenticatedResetPasswordOtpDialogRoute =
   UnauthenticatedResetPasswordOtpDialogImport.update({
     id: '/otp-dialog',
@@ -95,6 +102,13 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof UnauthenticatedImport
       parentRoute: typeof rootRoute
+    }
+    '/_authenticated/categories': {
+      id: '/_authenticated/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof AuthenticatedCategoriesImport
+      parentRoute: typeof AuthenticatedImport
     }
     '/_authenticated/change-password': {
       id: '/_authenticated/change-password'
@@ -151,12 +165,14 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AuthenticatedRouteChildren {
+  AuthenticatedCategoriesRoute: typeof AuthenticatedCategoriesRoute
   AuthenticatedChangePasswordRoute: typeof AuthenticatedChangePasswordRoute
   AuthenticatedSignOutRoute: typeof AuthenticatedSignOutRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedCategoriesRoute: AuthenticatedCategoriesRoute,
   AuthenticatedChangePasswordRoute: AuthenticatedChangePasswordRoute,
   AuthenticatedSignOutRoute: AuthenticatedSignOutRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
@@ -200,6 +216,7 @@ const UnauthenticatedRouteWithChildren = UnauthenticatedRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '': typeof UnauthenticatedRouteWithChildren
+  '/categories': typeof AuthenticatedCategoriesRoute
   '/change-password': typeof AuthenticatedChangePasswordRoute
   '/sign-out': typeof AuthenticatedSignOutRoute
   '/reset-password': typeof UnauthenticatedResetPasswordRouteWithChildren
@@ -211,6 +228,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '': typeof UnauthenticatedRouteWithChildren
+  '/categories': typeof AuthenticatedCategoriesRoute
   '/change-password': typeof AuthenticatedChangePasswordRoute
   '/sign-out': typeof AuthenticatedSignOutRoute
   '/reset-password': typeof UnauthenticatedResetPasswordRouteWithChildren
@@ -224,6 +242,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/_unauthenticated': typeof UnauthenticatedRouteWithChildren
+  '/_authenticated/categories': typeof AuthenticatedCategoriesRoute
   '/_authenticated/change-password': typeof AuthenticatedChangePasswordRoute
   '/_authenticated/sign-out': typeof AuthenticatedSignOutRoute
   '/_unauthenticated/reset-password': typeof UnauthenticatedResetPasswordRouteWithChildren
@@ -237,6 +256,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | ''
+    | '/categories'
     | '/change-password'
     | '/sign-out'
     | '/reset-password'
@@ -247,6 +267,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
+    | '/categories'
     | '/change-password'
     | '/sign-out'
     | '/reset-password'
@@ -258,6 +279,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_authenticated'
     | '/_unauthenticated'
+    | '/_authenticated/categories'
     | '/_authenticated/change-password'
     | '/_authenticated/sign-out'
     | '/_unauthenticated/reset-password'
@@ -295,6 +317,7 @@ export const routeTree = rootRoute
     "/_authenticated": {
       "filePath": "_authenticated.tsx",
       "children": [
+        "/_authenticated/categories",
         "/_authenticated/change-password",
         "/_authenticated/sign-out",
         "/_authenticated/"
@@ -307,6 +330,10 @@ export const routeTree = rootRoute
         "/_unauthenticated/sign-in",
         "/_unauthenticated/sign-up"
       ]
+    },
+    "/_authenticated/categories": {
+      "filePath": "_authenticated/categories.tsx",
+      "parent": "/_authenticated"
     },
     "/_authenticated/change-password": {
       "filePath": "_authenticated/change-password.tsx",
