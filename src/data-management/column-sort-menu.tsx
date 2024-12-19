@@ -4,30 +4,41 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/dropdown-menu.tsx';
+import { ArrowUpDown } from 'lucide-react';
+import { Column } from '@tanstack/react-table';
 import {
-  ArrowDownWideNarrow,
-  ArrowUpDown,
-  ArrowUpNarrowWide,
-  CircleMinus,
-} from 'lucide-react';
+  getSortingDirection,
+  setSortingDirection,
+  SortingDirection,
+} from '@/helpers/tanstack-table-sort-bridge.ts';
+import { SortDirectionDropdownMenuGroup } from '@/data-management/sort-direction-dropdown-menu-group.tsx';
+
+interface ColumnSortMenuProps extends Omit<ButtonProps, 'children'> {
+  column: Column<unknown>;
+}
 
 export const ColumnSortMenu = forwardRef(
   (
-    props: Omit<ButtonProps, 'children'>,
+    props: ColumnSortMenuProps,
     forwardedRef: ForwardedRef<ComponentRef<typeof Button>>,
   ) => {
+    const { column, ...otherProps } = props;
+
+    const sortDirection = getSortingDirection(column);
+    function handleSortDirectionChange(newDirection: SortingDirection) {
+      setSortingDirection(column, newDirection);
+    }
+
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             variant='ghost'
             size='icon'
-            {...props}
+            {...otherProps}
             ref={forwardedRef}
           >
             <ArrowUpDown />
@@ -37,20 +48,10 @@ export const ColumnSortMenu = forwardRef(
           <DropdownMenuLabel>Kierunek sortowania</DropdownMenuLabel>
           <DropdownMenuSeparator />
 
-          <DropdownMenuRadioGroup value='off'>
-            <DropdownMenuRadioItem value='off'>
-              <CircleMinus className='size-4 inline-block mr-2' />
-              Bez sortowania
-            </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value='asc'>
-              <ArrowUpNarrowWide className='size-4 inline-block mr-2' />
-              Rosnący
-            </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value='desc'>
-              <ArrowDownWideNarrow className='size-4 inline-block mr-2' />
-              Malejący
-            </DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
+          <SortDirectionDropdownMenuGroup
+            value={sortDirection}
+            onValueChange={handleSortDirectionChange}
+          />
         </DropdownMenuContent>
       </DropdownMenu>
     );

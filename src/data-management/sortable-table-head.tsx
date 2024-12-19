@@ -6,16 +6,26 @@ import {
 } from 'react';
 import { TableHead } from '@/components/table.tsx';
 import { ColumnSortMenu } from '@/data-management/column-sort-menu.tsx';
+import { Column } from '@tanstack/react-table';
+
+export interface SortableTableHeadProps extends PropsWithChildren {
+  column: Column<unknown>;
+}
 
 export const SortableTableHead = forwardRef(
   (
-    { children }: PropsWithChildren,
+    props: SortableTableHeadProps,
     forwardedRef: ForwardedRef<ComponentRef<typeof TableHead>>,
   ) => {
+    const { children, column } = props;
+
     return (
       <TableHead ref={forwardedRef}>
         <div className='flex items-center gap-x-1'>
-          <ColumnSortMenu aria-label='opcje sortowania kolumny' />
+          <ColumnSortMenu
+            column={column}
+            aria-label='opcje sortowania kolumny'
+          />
           {children}
         </div>
       </TableHead>

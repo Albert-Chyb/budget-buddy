@@ -1,4 +1,9 @@
-import { getCoreRowModel, Table, useReactTable } from '@tanstack/react-table';
+import {
+  getCoreRowModel,
+  getSortedRowModel,
+  Table,
+  useReactTable,
+} from '@tanstack/react-table';
 import { Category } from '@/data-management/categories/category-type.ts';
 import { categoriesTableColumns } from '@/data-management/categories/categories-table-columns.tsx';
 import { categories } from '@/data-management/categories/dummy-categories.ts';
@@ -10,6 +15,7 @@ export const useCategoriesTable: CategoriesTableHook = () =>
     columns: categoriesTableColumns,
     data: categories,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
   });
 
 export type CategoriesTable = Table<Category>;

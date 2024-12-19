@@ -15,7 +15,14 @@ export const DataTableHeader = ({ table }: DataTableHeaderProps) => {
       );
 
       if (header.column.getCanSort())
-        return <SortableTableHead>{cellContent}</SortableTableHead>;
+        return (
+          <SortableTableHead
+            column={header.column}
+            key={header.id}
+          >
+            {cellContent}
+          </SortableTableHead>
+        );
 
       return <TableHead key={header.id}>{cellContent}</TableHead>;
     });

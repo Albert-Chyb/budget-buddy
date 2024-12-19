@@ -11,13 +11,13 @@ export const DataTableBody = (props: DataTableBodyProps) => {
   const rows = table.getRowModel().rows.map((row) => {
     const cells = row.getVisibleCells().map((cell) => {
       return (
-        <TableCell>
+        <TableCell key={cell.id}>
           {flexRender(cell.column.columnDef.cell, cell.getContext())}
         </TableCell>
       );
     });
 
-    return <TableRow>{cells}</TableRow>;
+    return <TableRow key={row.id}>{cells}</TableRow>;
   });
 
   return <TableBody>{rows}</TableBody>;
