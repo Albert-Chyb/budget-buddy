@@ -8,6 +8,7 @@ import { Button } from '@/components/button.tsx';
 import { Column } from '@tanstack/react-table';
 import { CheckboxesGroup } from '@/helpers/checkboxes-group.tsx';
 import { z } from 'zod';
+import { ScrollArea } from '@/components/scroll-area.tsx';
 
 const filterValueSchema = z.array(z.any()).optional().default([]);
 
@@ -16,6 +17,7 @@ export interface CheckboxFilterProps extends PropsWithChildren {
 }
 export function CheckboxFilter(props: CheckboxFilterProps) {
   const { children, column } = props;
+
   return (
     <li>
       <Popover>
@@ -23,12 +25,14 @@ export function CheckboxFilter(props: CheckboxFilterProps) {
           <Button variant='outline'>Kolor</Button>
         </PopoverTrigger>
         <PopoverContent>
-          <CheckboxesGroup
-            checkedOptions={filterValueSchema.parse(column.getFilterValue())}
-            onCheckedOptionsChange={column.setFilterValue}
-          >
-            <div className='space-y-4'>{children}</div>
-          </CheckboxesGroup>
+          <ScrollArea className='h-64'>
+            <CheckboxesGroup
+              checkedOptions={filterValueSchema.parse(column.getFilterValue())}
+              onCheckedOptionsChange={column.setFilterValue}
+            >
+              <div className='space-y-4'>{children}</div>
+            </CheckboxesGroup>
+          </ScrollArea>
         </PopoverContent>
       </Popover>
     </li>
