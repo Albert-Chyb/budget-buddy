@@ -4,8 +4,11 @@ import { CategoryTypeFilter } from '@/data-management/categories/category-type-f
 import { CategoryColorFilter } from '@/data-management/categories/category-color-filter.tsx';
 import { safelyGetTableColumn } from '@/helpers/safely-get-table-column.ts';
 import { CategoriesTableColumnsId } from '@/data-management/categories/categories-table-columns.tsx';
+import { Table } from '@tanstack/react-table';
 
 interface CategoriesFiltersProps extends FiltersProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  table: Table<any>;
   colors: string[];
 }
 
@@ -13,7 +16,7 @@ export const CategoriesFilters = (props: CategoriesFiltersProps) => {
   const { colors, table } = props;
 
   return (
-    <Filters table={table}>
+    <Filters>
       <CategoryNameFilter
         column={safelyGetTableColumn(table, CategoriesTableColumnsId.Name)}
       />
