@@ -1,13 +1,17 @@
-import { CheckboxFilter } from '@/data-management/checkbox-filter.tsx';
+import {
+  CheckboxFilter,
+  CheckboxFilterProps,
+} from '@/data-management/checkbox-filter.tsx';
 import { CheckboxFilterOption } from '@/data-management/checkbox-filter-option.tsx';
 
-interface CategoryColorFilterProps {
+interface CategoryColorFilterProps extends CheckboxFilterProps {
   colors: string[];
 }
 
-export function CategoryColorFilter({ colors }: CategoryColorFilterProps) {
+export function CategoryColorFilter(props: CategoryColorFilterProps) {
+  const { colors, ...otherProps } = props;
   return (
-    <CheckboxFilter>
+    <CheckboxFilter {...otherProps}>
       {colors.map((color, index) => (
         <CheckboxFilterOption
           key={index}

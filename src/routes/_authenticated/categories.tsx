@@ -4,6 +4,7 @@ import { DataManagementCard } from '@/data-management/data-managment.tsx';
 import { CategoriesFilters } from '@/data-management/categories/categories-filters.tsx';
 
 import { useCategoriesTable } from '@/data-management/categories/categories-table-model.ts';
+import { categories } from '@/data-management/categories/dummy-categories.ts';
 
 export const Route = createFileRoute('/_authenticated/categories')({
   component: RouteComponent,
@@ -11,6 +12,7 @@ export const Route = createFileRoute('/_authenticated/categories')({
 
 function RouteComponent() {
   const table = useCategoriesTable();
+  const colors = categories.map((category) => category.color.name);
 
   return (
     <DataManagementCard>
@@ -19,7 +21,10 @@ function RouteComponent() {
         description: <p>Zarządzaj kategoriami transakcji</p>,
         content: (
           <>
-            <CategoriesFilters colors={[]} />
+            <CategoriesFilters
+              colors={colors}
+              table={table}
+            />
 
             <DataTable table={table} />
           </>

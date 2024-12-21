@@ -2,34 +2,47 @@ import { createColumnHelper } from '@tanstack/react-table';
 import { Category } from '@/data-management/categories/category-type.ts';
 import { categoryTypeLabels } from '@/data-management/categories/category-type-labels.ts';
 import { CategoryActions } from '@/data-management/categories/category-actions.tsx';
+import { arrayIncludesFilterFn } from '@/helpers/array-includes-filter-fn.ts';
+
+enum CategoriesTableColumnsId {
+  Name = 'name',
+  Type = 'type',
+  Color = 'color',
+  Actions = 'actions',
+}
 
 const column = createColumnHelper<Category>();
 
-const nameColumn = column.accessor('name', {
-  id: 'name',
+const categoryNameColumn = column.accessor('name', {
+  id: CategoriesTableColumnsId.Name,
   header: 'Nazwa',
+  filterFn: 'includesString',
 });
 
-const typeColumn = column.accessor('type', {
-  id: 'type',
+const categoryTypeColumn = column.accessor('type', {
+  id: CategoriesTableColumnsId.Type,
   header: 'Typ',
   cell: (context) => categoryTypeLabels[context.getValue()],
+  filterFn: 'equalsString',
 });
 
-const colorColumn = column.accessor('color.name', {
-  id: 'color',
+const categoryColorColumn = column.accessor('color.name', {
+  id: CategoriesTableColumnsId.Color,
   header: 'Kolor',
+  filterFn: arrayIncludesFilterFn,
 });
 
-const actionsColumn = column.display({
-  id: 'actions',
+const categoryActionsColumn = column.display({
+  id: CategoriesTableColumnsId.Actions,
   header: 'Akcje',
   cell: () => <CategoryActions />,
 });
 
-export const categoriesTableColumns = [
-  nameColumn,
-  typeColumn,
-  colorColumn,
-  actionsColumn,
+const categoriesTableColumns = [
+  categoryNameColumn,
+  categoryTypeColumn,
+  categoryColorColumn,
+  categoryActionsColumn,
 ];
+
+export { categoriesTableColumns, CategoriesTableColumnsId };

@@ -1,5 +1,19 @@
-import { TextFilter } from '@/data-management/text-filter.tsx';
+import { TextFilter, TextFilterProps } from '@/data-management/text-filter.tsx';
+import { ComponentRef, ForwardedRef, forwardRef } from 'react';
 
-export function CategoryNameFilter() {
-  return <TextFilter placeholder='Wpisz szukaną nazwę' />;
-}
+type CategoryNameFilterProps = TextFilterProps;
+
+export const CategoryNameFilter = forwardRef(
+  (
+    props: CategoryNameFilterProps,
+    forwardedRef: ForwardedRef<ComponentRef<typeof TextFilter>>,
+  ) => {
+    return (
+      <TextFilter
+        placeholder='Wpisz szukaną nazwę'
+        ref={forwardedRef}
+        {...props}
+      />
+    );
+  },
+);

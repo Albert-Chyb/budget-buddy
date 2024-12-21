@@ -1,5 +1,6 @@
 import {
   getCoreRowModel,
+  getFilteredRowModel,
   getSortedRowModel,
   Table,
   useReactTable,
@@ -16,6 +17,7 @@ export const useCategoriesTable: CategoriesTableHook = () =>
     data: categories,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
   });
 
 export type CategoriesTable = Table<Category>;
