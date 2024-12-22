@@ -22,7 +22,7 @@ export function DataTable(props: DataTableProps) {
         </Table>
       </div>
 
-      <TablePagination />
+      <TablePagination table={table} />
     </>
   );
 }

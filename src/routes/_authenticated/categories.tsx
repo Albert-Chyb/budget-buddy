@@ -2,12 +2,17 @@ import { createFileRoute } from '@tanstack/react-router';
 import { DataTable } from '@/data-management/data-table.tsx';
 import { DataManagementCard } from '@/data-management/data-managment.tsx';
 import { CategoriesFilters } from '@/data-management/categories/categories-filters.tsx';
-import { useCategoriesTable } from '@/data-management/categories/categories-table-model.ts';
+import {
+  tableStateSchema,
+  useCategoriesTable,
+} from '@/data-management/categories/categories-table-model.ts';
 import { categories } from '@/data-management/categories/dummy-categories.ts';
 import { TableResets } from '@/data-management/table-resets.tsx';
+import { zodValidator } from '@tanstack/zod-adapter';
 
 export const Route = createFileRoute('/_authenticated/categories')({
   component: RouteComponent,
+  validateSearch: zodValidator(tableStateSchema),
 });
 
 function RouteComponent() {
