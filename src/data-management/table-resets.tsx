@@ -1,10 +1,9 @@
-import { Table } from '@tanstack/react-table';
 import { Button } from '@/components/button.tsx';
 import { Eraser, FilterX } from 'lucide-react';
+import { DataTableProp } from '@/data-management/data-view/table-type.ts';
 
 interface TableResetsProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  table: Table<any>;
+  table: DataTableProp;
 }
 
 export function TableResets({ table }: TableResetsProps) {
