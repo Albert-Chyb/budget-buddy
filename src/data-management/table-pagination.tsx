@@ -6,6 +6,7 @@ import {
   PaginationPrevious,
 } from '@/components/pagination.tsx';
 import { Table } from '@tanstack/react-table';
+import { PageSizeSelect } from '@/data-management/page-size-select.tsx';
 
 function getNextPageIndex(currentPageIndex: number | undefined) {
   if (currentPageIndex === undefined) return 0;
@@ -23,7 +24,7 @@ export interface TablePaginationProps {
 
 export function TablePagination({ table }: TablePaginationProps) {
   return (
-    <div className='flex items-center'>
+    <div className='flex items-center gap-x-2'>
       <span>
         Strona {table.getState().pagination.pageIndex + 1} z{' '}
         {table.getPageCount()}
@@ -53,6 +54,8 @@ export function TablePagination({ table }: TablePaginationProps) {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
+
+      <PageSizeSelect table={table} />
     </div>
   );
 }

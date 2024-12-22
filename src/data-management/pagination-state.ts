@@ -6,9 +6,9 @@ import {
   Updater,
 } from '@tanstack/react-table';
 
-const PAGINATION_PAGE_SIZES = [5, 10, 50, 100] as const;
-type PaginationPageSize = (typeof PAGINATION_PAGE_SIZES)[number];
-const DEFAULT_PAGE_SIZE: PaginationPageSize = 10;
+export const PAGINATION_PAGE_SIZES = [5, 10, 50, 100] as const;
+export type PaginationPageSize = (typeof PAGINATION_PAGE_SIZES)[number];
+export const DEFAULT_PAGE_SIZE: PaginationPageSize = 10;
 
 const pageSizeSchema = z
   .number()
