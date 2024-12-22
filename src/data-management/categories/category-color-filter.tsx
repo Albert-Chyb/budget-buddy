@@ -1,8 +1,8 @@
 import {
   CheckboxFilter,
   CheckboxFilterProps,
-} from '@/data-management/checkbox-filter.tsx';
-import { CheckboxFilterOption } from '@/data-management/checkbox-filter-option.tsx';
+} from '@/data-management/filtering/checkbox-filter.tsx';
+import { CheckboxFilterOption } from '@/data-management/filtering/checkbox-filter-option.tsx';
 
 interface CategoryColorFilterProps extends CheckboxFilterProps {
   colors: string[];

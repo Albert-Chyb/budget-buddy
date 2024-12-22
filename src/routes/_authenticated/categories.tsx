@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { DataTable } from '@/data-management/data-table.tsx';
+import { DataTable } from '@/data-management/data-view/data-table.tsx';
 import { DataManagementCard } from '@/data-management/data-managment.tsx';
 import { CategoriesFilters } from '@/data-management/categories/categories-filters.tsx';
 import {

@@ -1,4 +1,4 @@
-import { Editor } from '@/data-management/editor.tsx';
+import { Editor } from '@/data-management/data-mutation/editor.tsx';
 import { Button } from '@/components/button.tsx';
 import { Pen } from 'lucide-react';
 

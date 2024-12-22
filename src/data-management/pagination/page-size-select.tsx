@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/select.tsx';
-import { PAGINATION_PAGE_SIZES } from '@/data-management/pagination-state.ts';
+import { PAGINATION_PAGE_SIZES } from '@/data-management/pagination/pagination-state.ts';
 import { Table } from '@tanstack/react-table';
 
 const PAGE_SIZE_OPTIONS = PAGINATION_PAGE_SIZES.map((pageSize) => (

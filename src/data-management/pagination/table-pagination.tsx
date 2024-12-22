@@ -6,7 +6,7 @@ import {
   PaginationPrevious,
 } from '@/components/pagination.tsx';
 import { Table } from '@tanstack/react-table';
-import { PageSizeSelect } from '@/data-management/page-size-select.tsx';
+import { PageSizeSelect } from '@/data-management/pagination/page-size-select.tsx';
 
 function getNextPageIndex(currentPageIndex: number | undefined) {
   if (currentPageIndex === undefined) return 0;

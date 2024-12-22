@@ -11,7 +11,7 @@ import { categories } from '@/data-management/categories/dummy-categories.ts';
 import {
   paginationStateSchema,
   usePaginationState,
-} from '@/data-management/pagination-state.ts';
+} from '@/data-management/pagination/pagination-state.ts';
 
 export const tableStateSchema = paginationStateSchema;
 

@@ -1,8 +1,8 @@
 import {
   SingleEnumFilter,
   SingleEnumFilterProps,
-} from '@/data-management/enum-filter.tsx';
-import { EnumFilterOption } from '@/data-management/enum-filter-option.tsx';
+} from '@/data-management/filtering/enum-filter.tsx';
+import { EnumFilterOption } from '@/data-management/filtering/enum-filter-option.tsx';
 
 export function CategoryTypeFilter(
   props: Omit<SingleEnumFilterProps, 'children'>,

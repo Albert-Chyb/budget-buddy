@@ -1,6 +1,6 @@
 import { flexRender, Table } from '@tanstack/react-table';
 import { TableHead, TableHeader, TableRow } from '@/components/table.tsx';
-import { SortableTableHead } from '@/data-management/sortable-table-head.tsx';
+import { SortableTableHead } from '@/data-management/sorting/sortable-table-head.tsx';
 
 export interface DataTableHeaderProps {
   table: Table<unknown>;
