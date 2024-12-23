@@ -7,22 +7,14 @@ import {
 } from '@/components/pagination.tsx';
 import { Table } from '@tanstack/react-table';
 import { PageSizeSelect } from '@/data-management/pagination/page-size-select.tsx';
-
-function getNextPageIndex(currentPageIndex: number | undefined) {
-  if (currentPageIndex === undefined) return 0;
-  return currentPageIndex + 1;
-}
-
-function getPrevPageIndex(currentPageIndex: number | undefined) {
-  if (currentPageIndex === undefined) return 0;
-  return currentPageIndex - 1;
-}
+import { usePrevAndNextPageSearchParams } from '@/data-management/pagination/pagination-state.ts';
 
 export interface TablePaginationProps {
   table: Table<unknown>;
 }
 
 export function TablePagination({ table }: TablePaginationProps) {
+  const [prevPage, nextPage] = usePrevAndNextPageSearchParams();
   return (
     <div className='flex items-center gap-x-2'>
       <span>
@@ -36,20 +28,14 @@ export function TablePagination({ table }: TablePaginationProps) {
             <PaginationPrevious
               disabled={!table.getCanPreviousPage()}
               to='.'
-              search={(prev) => ({
-                ...prev,
-                pageIndex: getPrevPageIndex(prev.pageIndex),
-              })}
+              search={prevPage}
             />
           </PaginationItem>
           <PaginationItem>
             <PaginationNext
               disabled={!table.getCanNextPage()}
               to='.'
-              search={(prev) => ({
-                ...prev,
-                pageIndex: getNextPageIndex(prev.pageIndex),
-              })}
+              search={nextPage}
             />
           </PaginationItem>
         </PaginationContent>

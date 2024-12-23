@@ -55,3 +55,20 @@ export function usePaginationState() {
 
   return { pagination, handlePaginationChange };
 }
+
+export function usePrevAndNextPageSearchParams() {
+  const searchParams = dataManagementRoute.useSearch();
+  const currentPageIndex = searchParams.pageIndex;
+  const prevPageIndex = currentPageIndex - 1;
+  const nextPageIndex = currentPageIndex + 1;
+  const prevPage = {
+    ...searchParams,
+    pageIndex: Math.max(0, prevPageIndex),
+  };
+  const nextPage = {
+    ...searchParams,
+    pageIndex: nextPageIndex,
+  };
+
+  return [prevPage, nextPage] as const;
+}
