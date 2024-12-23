@@ -7,7 +7,6 @@ import {
   useCategoriesTable,
 } from '@/data-management/categories/categories-table-model.ts';
 import { categories } from '@/data-management/categories/dummy-categories.ts';
-import { TableResets } from '@/data-management/table-resets.tsx';
 import { zodValidator } from '@tanstack/zod-adapter';
 
 export const Route = createFileRoute('/_authenticated/categories')({
@@ -19,25 +18,25 @@ function RouteComponent() {
   const table = useCategoriesTable();
   const colors = categories.map((category) => category.color.name);
 
+  const filters = (
+    <CategoriesFilters
+      table={table}
+      colors={colors}
+    />
+  );
+  const dataTable = (
+    <DataTable
+      table={table}
+      filters={filters}
+    />
+  );
+
   return (
     <DataManagementCard>
       {{
         title: <h1>Kategorie</h1>,
         description: <p>Zarządzaj kategoriami transakcji</p>,
-        content: (
-          <>
-            <div className='flex items-end gap-2 flex-wrap'>
-              <CategoriesFilters
-                colors={colors}
-                table={table}
-              />
-
-              <TableResets table={table} />
-            </div>
-
-            <DataTable table={table} />
-          </>
-        ),
+        content: dataTable,
       }}
     </DataManagementCard>
   );

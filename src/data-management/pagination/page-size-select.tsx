@@ -9,7 +9,12 @@ import { PAGINATION_PAGE_SIZES } from '@/data-management/pagination/pagination-s
 import { Table } from '@tanstack/react-table';
 
 const PAGE_SIZE_OPTIONS = PAGINATION_PAGE_SIZES.map((pageSize) => (
-  <SelectItem value={String(pageSize)}>{pageSize} wierszy na stronę</SelectItem>
+  <SelectItem
+    key={pageSize}
+    value={String(pageSize)}
+  >
+    {pageSize} wierszy na stronę
+  </SelectItem>
 ));
 
 export interface PageSizeSelectProps {
