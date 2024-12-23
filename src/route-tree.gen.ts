@@ -19,8 +19,9 @@ import { Route as UnauthenticatedSignInImport } from './routes/_unauthenticated/
 import { Route as UnauthenticatedResetPasswordImport } from './routes/_unauthenticated/reset-password'
 import { Route as AuthenticatedSignOutImport } from './routes/_authenticated/sign-out'
 import { Route as AuthenticatedChangePasswordImport } from './routes/_authenticated/change-password'
-import { Route as AuthenticatedCategoriesImport } from './routes/_authenticated/categories'
+import { Route as AuthenticatedDataManagementImport } from './routes/_authenticated/_data-management'
 import { Route as UnauthenticatedResetPasswordOtpDialogImport } from './routes/_unauthenticated/reset-password.otp-dialog'
+import { Route as AuthenticatedDataManagementCategoriesImport } from './routes/_authenticated/_data-management/categories'
 
 // Create/Update Routes
 
@@ -72,17 +73,24 @@ const AuthenticatedChangePasswordRoute =
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 
-const AuthenticatedCategoriesRoute = AuthenticatedCategoriesImport.update({
-  id: '/categories',
-  path: '/categories',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
+const AuthenticatedDataManagementRoute =
+  AuthenticatedDataManagementImport.update({
+    id: '/_data-management',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 const UnauthenticatedResetPasswordOtpDialogRoute =
   UnauthenticatedResetPasswordOtpDialogImport.update({
     id: '/otp-dialog',
     path: '/otp-dialog',
     getParentRoute: () => UnauthenticatedResetPasswordRoute,
+  } as any)
+
+const AuthenticatedDataManagementCategoriesRoute =
+  AuthenticatedDataManagementCategoriesImport.update({
+    id: '/categories',
+    path: '/categories',
+    getParentRoute: () => AuthenticatedDataManagementRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -103,11 +111,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnauthenticatedImport
       parentRoute: typeof rootRoute
     }
-    '/_authenticated/categories': {
-      id: '/_authenticated/categories'
-      path: '/categories'
-      fullPath: '/categories'
-      preLoaderRoute: typeof AuthenticatedCategoriesImport
+    '/_authenticated/_data-management': {
+      id: '/_authenticated/_data-management'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthenticatedDataManagementImport
       parentRoute: typeof AuthenticatedImport
     }
     '/_authenticated/change-password': {
@@ -152,6 +160,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexImport
       parentRoute: typeof AuthenticatedImport
     }
+    '/_authenticated/_data-management/categories': {
+      id: '/_authenticated/_data-management/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof AuthenticatedDataManagementCategoriesImport
+      parentRoute: typeof AuthenticatedDataManagementImport
+    }
     '/_unauthenticated/reset-password/otp-dialog': {
       id: '/_unauthenticated/reset-password/otp-dialog'
       path: '/otp-dialog'
@@ -164,15 +179,31 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface AuthenticatedDataManagementRouteChildren {
+  AuthenticatedDataManagementCategoriesRoute: typeof AuthenticatedDataManagementCategoriesRoute
+}
+
+const AuthenticatedDataManagementRouteChildren: AuthenticatedDataManagementRouteChildren =
+  {
+    AuthenticatedDataManagementCategoriesRoute:
+      AuthenticatedDataManagementCategoriesRoute,
+  }
+
+const AuthenticatedDataManagementRouteWithChildren =
+  AuthenticatedDataManagementRoute._addFileChildren(
+    AuthenticatedDataManagementRouteChildren,
+  )
+
 interface AuthenticatedRouteChildren {
-  AuthenticatedCategoriesRoute: typeof AuthenticatedCategoriesRoute
+  AuthenticatedDataManagementRoute: typeof AuthenticatedDataManagementRouteWithChildren
   AuthenticatedChangePasswordRoute: typeof AuthenticatedChangePasswordRoute
   AuthenticatedSignOutRoute: typeof AuthenticatedSignOutRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedCategoriesRoute: AuthenticatedCategoriesRoute,
+  AuthenticatedDataManagementRoute:
+    AuthenticatedDataManagementRouteWithChildren,
   AuthenticatedChangePasswordRoute: AuthenticatedChangePasswordRoute,
   AuthenticatedSignOutRoute: AuthenticatedSignOutRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
@@ -215,26 +246,26 @@ const UnauthenticatedRouteWithChildren = UnauthenticatedRoute._addFileChildren(
 )
 
 export interface FileRoutesByFullPath {
-  '': typeof UnauthenticatedRouteWithChildren
-  '/categories': typeof AuthenticatedCategoriesRoute
+  '': typeof AuthenticatedDataManagementRouteWithChildren
   '/change-password': typeof AuthenticatedChangePasswordRoute
   '/sign-out': typeof AuthenticatedSignOutRoute
   '/reset-password': typeof UnauthenticatedResetPasswordRouteWithChildren
   '/sign-in': typeof UnauthenticatedSignInRoute
   '/sign-up': typeof UnauthenticatedSignUpRoute
   '/': typeof AuthenticatedIndexRoute
+  '/categories': typeof AuthenticatedDataManagementCategoriesRoute
   '/reset-password/otp-dialog': typeof UnauthenticatedResetPasswordOtpDialogRoute
 }
 
 export interface FileRoutesByTo {
-  '': typeof UnauthenticatedRouteWithChildren
-  '/categories': typeof AuthenticatedCategoriesRoute
+  '': typeof AuthenticatedDataManagementRouteWithChildren
   '/change-password': typeof AuthenticatedChangePasswordRoute
   '/sign-out': typeof AuthenticatedSignOutRoute
   '/reset-password': typeof UnauthenticatedResetPasswordRouteWithChildren
   '/sign-in': typeof UnauthenticatedSignInRoute
   '/sign-up': typeof UnauthenticatedSignUpRoute
   '/': typeof AuthenticatedIndexRoute
+  '/categories': typeof AuthenticatedDataManagementCategoriesRoute
   '/reset-password/otp-dialog': typeof UnauthenticatedResetPasswordOtpDialogRoute
 }
 
@@ -242,13 +273,14 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/_unauthenticated': typeof UnauthenticatedRouteWithChildren
-  '/_authenticated/categories': typeof AuthenticatedCategoriesRoute
+  '/_authenticated/_data-management': typeof AuthenticatedDataManagementRouteWithChildren
   '/_authenticated/change-password': typeof AuthenticatedChangePasswordRoute
   '/_authenticated/sign-out': typeof AuthenticatedSignOutRoute
   '/_unauthenticated/reset-password': typeof UnauthenticatedResetPasswordRouteWithChildren
   '/_unauthenticated/sign-in': typeof UnauthenticatedSignInRoute
   '/_unauthenticated/sign-up': typeof UnauthenticatedSignUpRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/_data-management/categories': typeof AuthenticatedDataManagementCategoriesRoute
   '/_unauthenticated/reset-password/otp-dialog': typeof UnauthenticatedResetPasswordOtpDialogRoute
 }
 
@@ -256,36 +288,37 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | ''
-    | '/categories'
     | '/change-password'
     | '/sign-out'
     | '/reset-password'
     | '/sign-in'
     | '/sign-up'
     | '/'
+    | '/categories'
     | '/reset-password/otp-dialog'
   fileRoutesByTo: FileRoutesByTo
   to:
     | ''
-    | '/categories'
     | '/change-password'
     | '/sign-out'
     | '/reset-password'
     | '/sign-in'
     | '/sign-up'
     | '/'
+    | '/categories'
     | '/reset-password/otp-dialog'
   id:
     | '__root__'
     | '/_authenticated'
     | '/_unauthenticated'
-    | '/_authenticated/categories'
+    | '/_authenticated/_data-management'
     | '/_authenticated/change-password'
     | '/_authenticated/sign-out'
     | '/_unauthenticated/reset-password'
     | '/_unauthenticated/sign-in'
     | '/_unauthenticated/sign-up'
     | '/_authenticated/'
+    | '/_authenticated/_data-management/categories'
     | '/_unauthenticated/reset-password/otp-dialog'
   fileRoutesById: FileRoutesById
 }
@@ -317,7 +350,7 @@ export const routeTree = rootRoute
     "/_authenticated": {
       "filePath": "_authenticated.tsx",
       "children": [
-        "/_authenticated/categories",
+        "/_authenticated/_data-management",
         "/_authenticated/change-password",
         "/_authenticated/sign-out",
         "/_authenticated/"
@@ -331,9 +364,12 @@ export const routeTree = rootRoute
         "/_unauthenticated/sign-up"
       ]
     },
-    "/_authenticated/categories": {
-      "filePath": "_authenticated/categories.tsx",
-      "parent": "/_authenticated"
+    "/_authenticated/_data-management": {
+      "filePath": "_authenticated/_data-management.tsx",
+      "parent": "/_authenticated",
+      "children": [
+        "/_authenticated/_data-management/categories"
+      ]
     },
     "/_authenticated/change-password": {
       "filePath": "_authenticated/change-password.tsx",
@@ -361,6 +397,10 @@ export const routeTree = rootRoute
     "/_authenticated/": {
       "filePath": "_authenticated/index.tsx",
       "parent": "/_authenticated"
+    },
+    "/_authenticated/_data-management/categories": {
+      "filePath": "_authenticated/_data-management/categories.tsx",
+      "parent": "/_authenticated/_data-management"
     },
     "/_unauthenticated/reset-password/otp-dialog": {
       "filePath": "_unauthenticated/reset-password.otp-dialog.tsx",

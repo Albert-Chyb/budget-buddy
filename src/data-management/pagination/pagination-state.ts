@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { useNavigate, useSearch } from '@tanstack/react-router';
+import { getRouteApi, useNavigate } from '@tanstack/react-router';
 import {
   functionalUpdate,
   PaginationState,
@@ -29,12 +29,14 @@ export const paginationStateSchema = z.object({
   pageIndex: pageIndexSchema,
 });
 
+const dataManagementRoute = getRouteApi('/_authenticated/_data-management');
+
 export function usePaginationState() {
   const navigate = useNavigate();
-  const searchParams = useSearch({ strict: false });
+  const { pageSize, pageIndex } = dataManagementRoute.useSearch();
   const pagination: PaginationState = {
-    pageIndex: searchParams.pageIndex ?? 0,
-    pageSize: searchParams.pageSize ?? DEFAULT_PAGE_SIZE,
+    pageIndex,
+    pageSize,
   };
 
   function handlePaginationChange(
