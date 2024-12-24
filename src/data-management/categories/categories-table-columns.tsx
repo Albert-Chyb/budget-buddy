@@ -35,7 +35,7 @@ const categoryColorColumn = column.accessor('color.name', {
 const categoryActionsColumn = column.display({
   id: CategoriesTableColumnsId.Actions,
   header: 'Akcje',
-  cell: () => <CategoryActions />,
+  cell: (context) => <CategoryActions category={context.row.original} />,
 });
 
 const categoriesTableColumns = [

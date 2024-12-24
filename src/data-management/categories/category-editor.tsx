@@ -1,8 +1,14 @@
 import { Editor } from '@/data-management/data-mutation/editor.tsx';
 import { Button } from '@/components/button.tsx';
 import { Pen } from 'lucide-react';
+import {
+  CategoryForm,
+  CategoryFormProps,
+} from '@/data-management/categories/category-form.tsx';
 
-export function CategoryEditor() {
+type CategoryEditorProps = CategoryFormProps;
+
+export function CategoryEditor(props: CategoryEditorProps) {
   return (
     <Editor>
       {{
@@ -11,7 +17,7 @@ export function CategoryEditor() {
             <Pen /> Edytuj
           </Button>
         ),
-        form: '[FORM PLACEHOLDER]',
+        form: <CategoryForm {...props} />,
       }}
     </Editor>
   );
