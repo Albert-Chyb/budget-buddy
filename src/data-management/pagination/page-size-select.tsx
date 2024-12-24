@@ -5,17 +5,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/select.tsx';
-import { PAGINATION_PAGE_SIZES } from '@/data-management/pagination/pagination-state.ts';
 import { Table } from '@tanstack/react-table';
+import { paginationPageSizeSchema } from '@/data-management/pagination/pagination-state-schema.ts';
 
-const PAGE_SIZE_OPTIONS = PAGINATION_PAGE_SIZES.map((pageSize) => (
-  <SelectItem
-    key={pageSize}
-    value={String(pageSize)}
-  >
-    {pageSize} wierszy na stronę
-  </SelectItem>
-));
+const PAGE_SIZE_OPTIONS = paginationPageSizeSchema.options
+  .map(({ value }) => value)
+  .map((pageSize) => (
+    <SelectItem
+      key={pageSize}
+      value={String(pageSize)}
+    >
+      {pageSize} wierszy na stronę
+    </SelectItem>
+  ));
 
 export interface PageSizeSelectProps {
   table: Table<unknown>;
