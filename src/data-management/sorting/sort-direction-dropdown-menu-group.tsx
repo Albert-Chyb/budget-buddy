@@ -9,6 +9,7 @@ import {
   DropdownMenuRadioItem,
 } from '@/components/dropdown-menu.tsx';
 import { ReactElement, ReactNode } from 'react';
+import { useIsMultiSort } from '@/data-management/sorting/use-is-multi-sort.tsx';
 
 type SortingOption = {
   direction: SortingDirection;
@@ -36,13 +37,14 @@ const SORTING_OPTIONS: SortingOption[] = [
 
 interface SortDropdownMenuGroupProps {
   value: SortingDirection;
-  onValueChange: (value: SortingDirection) => void;
+  onValueChange: (value: SortingDirection, isMultiSort: boolean) => void;
 }
 
 export const SortDirectionDropdownMenuGroup = (
   props: SortDropdownMenuGroupProps,
 ) => {
   const { value, onValueChange } = props;
+  const isMultiSortEnabled = useIsMultiSort();
 
   const sortingOptions = SORTING_OPTIONS.map((option) => {
     const { direction, label, icon } = option;
@@ -60,7 +62,9 @@ export const SortDirectionDropdownMenuGroup = (
   return (
     <DropdownMenuRadioGroup
       value={value}
-      onValueChange={(value) => onValueChange(value as SortingDirection)}
+      onValueChange={(value) =>
+        onValueChange(value as SortingDirection, isMultiSortEnabled)
+      }
     >
       {sortingOptions}
     </DropdownMenuRadioGroup>

@@ -28,8 +28,11 @@ export const ColumnSortMenu = forwardRef(
     const { column, ...otherProps } = props;
 
     const sortDirection = getSortingDirection(column);
-    function handleSortDirectionChange(newDirection: SortingDirection) {
-      setSortingDirection(column, newDirection);
+    function handleSortDirectionChange(
+      newDirection: SortingDirection,
+      isMultiSort: boolean,
+    ) {
+      setSortingDirection(column, newDirection, isMultiSort);
     }
 
     return (

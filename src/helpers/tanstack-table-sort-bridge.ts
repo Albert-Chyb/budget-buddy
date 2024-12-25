@@ -10,6 +10,7 @@ export function getSortingDirection(column: Column<unknown>): SortingDirection {
 export function setSortingDirection(
   column: Column<unknown>,
   direction: SortingDirection,
+  isMultiSort: boolean,
 ) {
   switch (direction) {
     case 'off':
@@ -17,11 +18,11 @@ export function setSortingDirection(
       break;
 
     case 'asc':
-      column.toggleSorting(false);
+      column.toggleSorting(false, isMultiSort);
       break;
 
     case 'desc':
-      column.toggleSorting(true);
+      column.toggleSorting(true, isMultiSort);
       break;
 
     default:
