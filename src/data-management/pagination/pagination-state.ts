@@ -29,7 +29,7 @@ export function usePaginationState() {
     });
   }
 
-  return { pagination, handlePaginationChange };
+  return [pagination, handlePaginationChange] as const;
 }
 
 export function usePrevAndNextPageSearchParams() {

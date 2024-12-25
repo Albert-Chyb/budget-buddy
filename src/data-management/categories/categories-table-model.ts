@@ -12,7 +12,7 @@ import { usePaginationState } from '@/data-management/pagination/pagination-stat
 import { useSortingState } from '@/data-management/sorting/sorting-state.ts';
 
 export const useCategoriesTable = () => {
-  const { pagination, handlePaginationChange } = usePaginationState();
+  const [pagination, handlePaginationChange] = usePaginationState();
   const [sorting, setSorting] = useSortingState();
 
   return useReactTable<Category>({
