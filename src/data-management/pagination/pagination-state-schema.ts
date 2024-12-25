@@ -10,9 +10,8 @@ export type PaginationPageSize = z.infer<typeof paginationPageSizeSchema>;
 
 export const DEFAULT_PAGE_SIZE: PaginationPageSize = 10;
 
-export const paginationStateSchema = z.object({
-  pageSize: paginationPageSizeSchema
-    .default(DEFAULT_PAGE_SIZE)
-    .catch(DEFAULT_PAGE_SIZE),
-  pageIndex: z.number().int().min(0).default(0),
-});
+export const pageSizeSchema = paginationPageSizeSchema
+  .default(DEFAULT_PAGE_SIZE)
+  .catch(DEFAULT_PAGE_SIZE);
+
+export const pageIndexSchema = z.number().int().min(0).default(0);
