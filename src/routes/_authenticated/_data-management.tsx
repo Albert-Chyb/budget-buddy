@@ -6,11 +6,13 @@ import {
 } from '@/data-management/pagination/pagination-state-schema.ts';
 import { z } from 'zod';
 import { sortingSchema } from '@/data-management/sorting/sorting-state.ts';
+import { columnFiltersSchema } from '@/data-management/filtering/column-filters-state.ts';
 
 const tableStateSchema = z.object({
   pageSize: pageSizeSchema,
   pageIndex: pageIndexSchema,
   sorting: sortingSchema,
+  columnFilters: columnFiltersSchema,
 });
 
 export const Route = createFileRoute('/_authenticated/_data-management')({
