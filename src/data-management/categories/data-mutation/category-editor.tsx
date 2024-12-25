@@ -4,7 +4,7 @@ import { Pen } from 'lucide-react';
 import {
   CategoryForm,
   CategoryFormProps,
-} from '@/data-management/categories/category-form.tsx';
+} from '@/data-management/categories/data-mutation/category-form.tsx';
 
 type CategoryEditorProps = CategoryFormProps;
 

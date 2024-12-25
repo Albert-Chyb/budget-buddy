@@ -3,7 +3,7 @@ import { Button } from '@/components/button.tsx';
 import {
   CategoryForm,
   CategoryFormProps,
-} from '@/data-management/categories/category-form.tsx';
+} from '@/data-management/categories/data-mutation/category-form.tsx';
 
 export type CategoryCreatorProps = CategoryFormProps;
 

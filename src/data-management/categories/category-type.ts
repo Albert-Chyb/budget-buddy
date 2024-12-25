@@ -1,4 +1,4 @@
-import { CategoryType } from '@/data-management/categories/category-form-schema.ts';
+import { CategoryType } from '@/data-management/categories/data-mutation/category-form-schema.ts';
 
 export interface CategoryColor {
   rgb: [string, string, string];

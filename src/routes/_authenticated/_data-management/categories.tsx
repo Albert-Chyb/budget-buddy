@@ -1,11 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { DataTable } from '@/data-management/data-view/data-table.tsx';
 import { DataManagementCard } from '@/data-management/data-managment.tsx';
-import { CategoriesFilters } from '@/data-management/categories/categories-filters.tsx';
-import { useCategoriesTable } from '@/data-management/categories/categories-table-model.ts';
+import { CategoriesFilters } from '@/data-management/categories/filters/categories-filters.tsx';
+import { useCategoriesTable } from '@/data-management/categories/data-view/categories-table-model.ts';
 import { categories } from '@/data-management/categories/dummy-categories.ts';
-import { CategoryCreator } from '@/data-management/categories/category-creator.tsx';
-import { CategoryFormValue } from '@/data-management/categories/category-form-schema.ts';
+import { CategoryCreator } from '@/data-management/categories/data-mutation/category-creator.tsx';
+import { CategoryFormValue } from '@/data-management/categories/data-mutation/category-form-schema.ts';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/categories',

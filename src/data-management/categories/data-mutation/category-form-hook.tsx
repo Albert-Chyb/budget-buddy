@@ -3,7 +3,7 @@ import {
   CATEGORY_FORM_PLACEHOLDER_VALUE,
   categoryFormSchema,
   CategoryFormValue,
-} from '@/data-management/categories/category-form-schema.ts';
+} from '@/data-management/categories/data-mutation/category-form-schema.ts';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 export const useCategoryForm = (initialValue?: CategoryFormValue) => {

@@ -1,10 +1,10 @@
-import { CategoryFormValue } from '@/data-management/categories/category-form-schema.ts';
-import { Form } from '@/components/form';
-import { useCategoryForm } from '@/data-management/categories/category-form-hook.tsx';
+import { CategoryFormValue } from '@/data-management/categories/data-mutation/category-form-schema.ts';
+import { Form } from '@/components/form.tsx';
+import { useCategoryForm } from '@/data-management/categories/data-mutation/category-form-hook.tsx';
 import { Button } from '@/components/button.tsx';
-import { CategoryNameFormField } from '@/data-management/categories/category-name-form-field.tsx';
-import { CategoryTypeFormField } from '@/data-management/categories/category-type-form-field.tsx';
-import { CategoryColorIdFormField } from '@/data-management/categories/category-color-id-form-field.tsx';
+import { CategoryNameFormField } from '@/data-management/categories/data-mutation/category-name-form-field.tsx';
+import { CategoryTypeFormField } from '@/data-management/categories/data-mutation/category-type-form-field.tsx';
+import { CategoryColorIdFormField } from '@/data-management/categories/data-mutation/category-color-id-form-field.tsx';
 
 export interface CategoryFormProps {
   onSubmit: (formValue: CategoryFormValue) => void;

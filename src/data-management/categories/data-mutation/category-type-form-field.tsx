@@ -7,8 +7,8 @@ import {
   FormMessage,
 } from '@/components/form.tsx';
 import { ToggleGroup, ToggleGroupItem } from '@/components/toggle-group.tsx';
-import { categoryTypeSchema } from '@/data-management/categories/category-form-schema.ts';
-import { categoryTypeLabels } from '@/data-management/categories/category-type-labels.ts';
+import { categoryTypeSchema } from '@/data-management/categories/data-mutation/category-form-schema.ts';
+import { categoryTypeLabels } from '@/data-management/categories/data-view/category-type-labels.ts';
 
 const CATEGORY_TYPE_OPTIONS = categoryTypeSchema.options.map((option) => (
   <ToggleGroupItem

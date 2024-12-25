@@ -1,9 +1,9 @@
 import { Filters, FiltersProps } from '@/data-management/filtering/filters.tsx';
-import { CategoryNameFilter } from '@/data-management/categories/category-name-filter.tsx';
-import { CategoryTypeFilter } from '@/data-management/categories/category-type-filter.tsx';
-import { CategoryColorFilter } from '@/data-management/categories/category-color-filter.tsx';
+import { CategoryNameFilter } from '@/data-management/categories/filters/category-name-filter.tsx';
+import { CategoryTypeFilter } from '@/data-management/categories/filters/category-type-filter.tsx';
+import { CategoryColorFilter } from '@/data-management/categories/filters/category-color-filter.tsx';
 import { safelyGetTableColumn } from '@/helpers/safely-get-table-column.ts';
-import { CategoriesTableColumnsId } from '@/data-management/categories/categories-table-columns.tsx';
+import { CategoriesTableColumnsId } from '@/data-management/categories/data-view/categories-table-columns.tsx';
 import { DataTableProp } from '@/data-management/data-view/table-type.ts';
 
 interface CategoriesFiltersProps extends FiltersProps {

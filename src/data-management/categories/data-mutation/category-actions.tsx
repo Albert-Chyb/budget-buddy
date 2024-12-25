@@ -1,7 +1,7 @@
-import { CategoryEditor } from '@/data-management/categories/category-editor.tsx';
+import { CategoryEditor } from '@/data-management/categories/data-mutation/category-editor.tsx';
 import { Button } from '@/components/button.tsx';
 import { Trash } from 'lucide-react';
-import { CategoryFormValue } from '@/data-management/categories/category-form-schema.ts';
+import { CategoryFormValue } from '@/data-management/categories/data-mutation/category-form-schema.ts';
 
 export interface CategoryActionsProps {
   category: CategoryFormValue;
