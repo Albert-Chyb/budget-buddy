@@ -1,7 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 import { createContext, PropsWithChildren, useContext } from 'react';
+import { Database } from '@/database/types.ts';
 
-const supabaseClient = createClient(
+const supabaseClient = createClient<Database>(
   import.meta.env.VITE_SUPABASE_PROJECT_URL,
   import.meta.env.VITE_SUPABASE_ANON_KEY,
 );
