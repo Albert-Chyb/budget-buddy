@@ -13,15 +13,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/select.tsx';
+import { CategoryColor } from '@/database/category-color-schema.ts';
 
 interface CategoryColorIdFormFieldProps<T extends FieldValues> {
   name: Path<T>;
+  categoryColors: CategoryColor[];
 }
 
 export const CategoryColorIdFormField = <T extends FieldValues>(
   props: CategoryColorIdFormFieldProps<T>,
 ) => {
-  const { name } = props;
+  const { name, categoryColors } = props;
   const form = useFormContext();
 
   return (
@@ -45,8 +47,14 @@ export const CategoryColorIdFormField = <T extends FieldValues>(
                 <SelectValue placeholder='Wybierz kolor' />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value='1'>Pomarańczowy</SelectItem>
-                <SelectItem value='2'>Czerwony</SelectItem>
+                {categoryColors.map((color) => (
+                  <SelectItem
+                    key={color.id}
+                    value={color.id}
+                  >
+                    {color.name}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </FormControl>

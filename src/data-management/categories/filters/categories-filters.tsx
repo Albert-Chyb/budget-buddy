@@ -5,14 +5,17 @@ import { CategoryColorFilter } from '@/data-management/categories/filters/catego
 import { safelyGetTableColumn } from '@/helpers/safely-get-table-column.ts';
 import { CategoriesTableColumnsId } from '@/data-management/categories/data-view/categories-table-columns.tsx';
 import { DataTableProp } from '@/data-management/data-view/table-type.ts';
+import { CategoryColor } from '@/database/category-color-schema.ts';
+import { CategoryType } from '@/database/category-type-schema.ts';
 
 interface CategoriesFiltersProps extends FiltersProps {
   table: DataTableProp;
-  colors: string[];
+  categoryColors: CategoryColor[];
+  categoryTypes: CategoryType[];
 }
 
 export const CategoriesFilters = (props: CategoriesFiltersProps) => {
-  const { colors, table } = props;
+  const { categoryColors, table, categoryTypes } = props;
 
   return (
     <Filters>
@@ -22,11 +25,12 @@ export const CategoriesFilters = (props: CategoriesFiltersProps) => {
 
       <CategoryTypeFilter
         column={safelyGetTableColumn(table, CategoriesTableColumnsId.Type)}
+        categoryTypes={categoryTypes}
       />
 
       <CategoryColorFilter
         column={safelyGetTableColumn(table, CategoriesTableColumnsId.Color)}
-        colors={colors}
+        colors={categoryColors}
       />
     </Filters>
   );

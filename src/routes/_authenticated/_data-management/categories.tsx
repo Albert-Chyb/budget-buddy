@@ -3,7 +3,11 @@ import { DataTable } from '@/data-management/data-view/data-table.tsx';
 import { DataManagementCard } from '@/data-management/data-managment.tsx';
 import { CategoriesFilters } from '@/data-management/categories/filters/categories-filters.tsx';
 import { useCategoriesTable } from '@/data-management/categories/data-view/categories-table-model.ts';
-import { categories } from '@/data-management/categories/dummy-categories.ts';
+import {
+  colors,
+  categoryTypes,
+  categories,
+} from '@/data-management/categories/dummy-categories.ts';
 import { CategoryCreator } from '@/data-management/categories/data-mutation/category-creator.tsx';
 import { CategoryFormValue } from '@/data-management/categories/data-mutation/category-form-schema.ts';
 
@@ -14,8 +18,7 @@ export const Route = createFileRoute(
 });
 
 function RouteComponent() {
-  const table = useCategoriesTable();
-  const colors = categories.map((category) => category.color.name);
+  const table = useCategoriesTable(categories, categoryTypes, colors);
 
   function handleSubmit(formValue: CategoryFormValue) {
     console.log('Create category: ', formValue);
@@ -24,7 +27,8 @@ function RouteComponent() {
   const filters = (
     <CategoriesFilters
       table={table}
-      colors={colors}
+      categoryColors={colors}
+      categoryTypes={categoryTypes}
     />
   );
   const dataTable = (
@@ -33,7 +37,13 @@ function RouteComponent() {
       filters={filters}
     />
   );
-  const creator = <CategoryCreator onSubmit={handleSubmit} />;
+  const creator = (
+    <CategoryCreator
+      onSubmit={handleSubmit}
+      categoryTypes={categoryTypes}
+      categoryColors={colors}
+    />
+  );
 
   return (
     <DataManagementCard>

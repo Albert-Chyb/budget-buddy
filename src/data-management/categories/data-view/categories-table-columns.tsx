@@ -1,15 +1,20 @@
-import { createColumnHelper } from '@tanstack/react-table';
-import { Category } from '@/data-management/categories/category-type.ts';
-import { categoryTypeLabels } from '@/data-management/categories/data-view/category-type-labels.ts';
+import { createColumnHelper, FilterFn } from '@tanstack/react-table';
 import { CategoryActions } from '@/data-management/categories/data-mutation/category-actions.tsx';
 import { arrayIncludesFilterFn } from '@/helpers/array-includes-filter-fn.ts';
+import { CategoryType } from '@/database/category-type-schema.ts';
+import { Category } from '@/database/category-schema.ts';
+import { CategoryColor } from '@/database/category-color-schema.ts';
 
-enum CategoriesTableColumnsId {
-  Name = 'name',
-  Type = 'type',
-  Color = 'color',
-  Actions = 'actions',
-}
+const AccessorColumnsIds = Object.freeze({
+  Name: 'name',
+  Type: 'type_id',
+  Color: 'color_id',
+} satisfies Record<string, keyof Category>);
+
+const CategoriesTableColumnsId = Object.freeze({
+  ...AccessorColumnsIds,
+  Actions: 'actions',
+});
 
 const column = createColumnHelper<Category>();
 
@@ -19,30 +24,42 @@ const categoryNameColumn = column.accessor('name', {
   filterFn: 'includesString',
 });
 
-const categoryTypeColumn = column.accessor('type', {
+const categoryTypeColumn = column.accessor('type_id', {
   id: CategoriesTableColumnsId.Type,
   header: 'Typ',
-  cell: (context) => categoryTypeLabels[context.getValue()],
   filterFn: 'equalsString',
 });
 
-const categoryColorColumn = column.accessor('color.name', {
+const categoryColorColumn = column.accessor('color_id', {
   id: CategoriesTableColumnsId.Color,
   header: 'Kolor',
-  filterFn: arrayIncludesFilterFn,
+  filterFn: arrayIncludesFilterFn as FilterFn<Category>,
 });
 
-const categoryActionsColumn = column.display({
-  id: CategoriesTableColumnsId.Actions,
-  header: 'Akcje',
-  cell: (context) => <CategoryActions category={context.row.original} />,
-});
+const categoryActionsColumnBuilder = (
+  categoryTypes: CategoryType[],
+  categoryColors: CategoryColor[],
+) =>
+  column.display({
+    id: CategoriesTableColumnsId.Actions,
+    header: 'Akcje',
+    cell: (context) => (
+      <CategoryActions
+        category={context.row.original}
+        categoryTypes={categoryTypes}
+        categoryColors={categoryColors}
+      />
+    ),
+  });
 
-const categoriesTableColumns = [
+const categoriesTableColumns = (
+  categoryTypes: CategoryType[],
+  categoryColors: CategoryColor[],
+) => [
   categoryNameColumn,
   categoryTypeColumn,
   categoryColorColumn,
-  categoryActionsColumn,
+  categoryActionsColumnBuilder(categoryTypes, categoryColors),
 ];
 
 export { categoriesTableColumns, CategoriesTableColumnsId };

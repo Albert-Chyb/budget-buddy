@@ -7,28 +7,19 @@ import {
   FormMessage,
 } from '@/components/form.tsx';
 import { ToggleGroup, ToggleGroupItem } from '@/components/toggle-group.tsx';
-import { categoryTypeSchema } from '@/data-management/categories/data-mutation/category-form-schema.ts';
-import { categoryTypeLabels } from '@/data-management/categories/data-view/category-type-labels.ts';
 
-const CATEGORY_TYPE_OPTIONS = categoryTypeSchema.options.map((option) => (
-  <ToggleGroupItem
-    key={option}
-    className='basis-full'
-    value={option}
-  >
-    {categoryTypeLabels[option]}
-  </ToggleGroupItem>
-));
+import { CategoryType } from '@/database/category-type-schema.ts';
 
 interface CategoryTypeFormFieldProps<T extends FieldValues> {
   name: Path<T>;
+  categoryTypes: CategoryType[];
 }
 
 export const CategoryTypeFormField = <T extends FieldValues>(
   props: CategoryTypeFormFieldProps<T>,
 ) => {
-  const { name } = props;
-  const form = useFormContext();
+  const { name, categoryTypes } = props;
+  const form = useFormContext<T>();
 
   return (
     <FormField
@@ -44,7 +35,17 @@ export const CategoryTypeFormField = <T extends FieldValues>(
               type='single'
               variant='outline'
             >
-              {CATEGORY_TYPE_OPTIONS}
+              {categoryTypes.map((type) => {
+                return (
+                  <ToggleGroupItem
+                    key={type.id}
+                    className='basis-full'
+                    value={type.id}
+                  >
+                    {type.name}
+                  </ToggleGroupItem>
+                );
+              })}
             </ToggleGroup>
           </FormControl>
           <FormMessage />

@@ -3,14 +3,25 @@ import {
   SingleEnumFilterProps,
 } from '@/data-management/filtering/enum-filter.tsx';
 import { EnumFilterOption } from '@/data-management/filtering/enum-filter-option.tsx';
+import { CategoryType } from '@/database/category-type-schema.ts';
 
-export function CategoryTypeFilter(
-  props: Omit<SingleEnumFilterProps, 'children'>,
-) {
+export interface CategoryTypeFilterProps
+  extends Omit<SingleEnumFilterProps, 'children'> {
+  categoryTypes: CategoryType[];
+}
+
+export function CategoryTypeFilter(props: CategoryTypeFilterProps) {
+  const { categoryTypes, ...otherProps } = props;
   return (
-    <SingleEnumFilter {...props}>
-      <EnumFilterOption value='income'>Przychód</EnumFilterOption>
-      <EnumFilterOption value='expense'>Wydatek</EnumFilterOption>
+    <SingleEnumFilter {...otherProps}>
+      {categoryTypes.map((color) => (
+        <EnumFilterOption
+          key={color.id}
+          value={color.id}
+        >
+          {color.name}
+        </EnumFilterOption>
+      ))}
     </SingleEnumFilter>
   );
 }
