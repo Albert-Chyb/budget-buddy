@@ -1,13 +1,10 @@
 import { z } from 'zod';
-import { CATEGORY_NAME_LENGTH_CONSTRAINT } from '@/database/category-schema.ts';
-
-const { min, max } = CATEGORY_NAME_LENGTH_CONSTRAINT;
 
 export const categoryFormSchema = z.object({
   name: z
     .string()
-    .min(min, 'Nazwa kategorii jest wymagana')
-    .max(max, `Nazwa kategorii nie może być dłuższa niż ${max} znaków`),
+    .min(1, 'Nazwa kategorii jest wymagana')
+    .max(64, `Nazwa kategorii nie może być dłuższa niż 64 znaki`),
   type_id: z.string().min(1, 'Wybierz typ kategorii'),
   color_id: z.string().transform((value) => value ?? null),
 });

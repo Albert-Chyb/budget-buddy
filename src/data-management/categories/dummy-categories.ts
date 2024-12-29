@@ -2,7 +2,6 @@ import {
   CategoryType,
   categoryTypeSchema,
 } from '@/database/category-type-schema.ts';
-import { Category, categorySchema } from '@/database/category-schema.ts';
 import {
   CategoryColor,
   categoryColorSchema,
@@ -20,49 +19,6 @@ export const categoryTypes: CategoryType[] = [
     is_expense: false,
   },
 ].map((type) => categoryTypeSchema.parse(type));
-
-export const categories: Category[] = [
-  {
-    color_id: null,
-    id: 1,
-    name: 'Item One',
-    owner_id: 'owner123',
-    parent_category_id: null,
-    type_id: 1,
-  },
-  {
-    color_id: 1,
-    id: 2,
-    name: 'Item Two',
-    owner_id: 'owner123',
-    parent_category_id: null,
-    type_id: 2,
-  },
-  {
-    color_id: null,
-    id: 3,
-    name: 'Item Three',
-    owner_id: 'owner123',
-    parent_category_id: null,
-    type_id: 2,
-  },
-  {
-    color_id: 2,
-    id: 4,
-    name: 'Item Four',
-    owner_id: 'owner123',
-    parent_category_id: null,
-    type_id: 1,
-  },
-  {
-    color_id: 3,
-    id: 5,
-    name: 'Item Five',
-    owner_id: 'owner123',
-    parent_category_id: null,
-    type_id: 1,
-  },
-].map((category) => categorySchema.parse(category));
 
 export const colors: CategoryColor[] = [
   {

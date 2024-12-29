@@ -6,10 +6,10 @@ import { useCategoriesTable } from '@/data-management/categories/data-view/categ
 import {
   colors,
   categoryTypes,
-  categories,
 } from '@/data-management/categories/dummy-categories.ts';
 import { CategoryCreator } from '@/data-management/categories/data-mutation/category-creator.tsx';
 import { CategoryFormValue } from '@/data-management/categories/data-mutation/category-form-schema.ts';
+import { useCategoriesTableDataQuery } from '@/data-management/categories/categories-table-data-query.ts';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/categories',
@@ -18,7 +18,8 @@ export const Route = createFileRoute(
 });
 
 function RouteComponent() {
-  const table = useCategoriesTable(categories, categoryTypes, colors);
+  const { data } = useCategoriesTableDataQuery();
+  const table = useCategoriesTable(data ?? [], categoryTypes, colors);
 
   function handleSubmit(formValue: CategoryFormValue) {
     console.log('Create category: ', formValue);
