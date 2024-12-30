@@ -13,7 +13,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/select.tsx';
-import { CategoryColor } from '@/database/category-color-schema.ts';
+
+import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
 
 interface CategoryColorIdFormFieldProps<T extends FieldValues> {
   name: Path<T>;

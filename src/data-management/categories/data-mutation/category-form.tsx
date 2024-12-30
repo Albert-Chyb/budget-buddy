@@ -6,7 +6,8 @@ import { CategoryNameFormField } from '@/data-management/categories/data-mutatio
 import { CategoryTypeFormField } from '@/data-management/categories/data-mutation/category-type-form-field.tsx';
 import { CategoryColorIdFormField } from '@/data-management/categories/data-mutation/category-color-id-form-field.tsx';
 import { CategoryType } from '@/database/category-type-schema.ts';
-import { CategoryColor } from '@/database/category-color-schema.ts';
+
+import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
 
 export interface CategoryFormProps {
   onSubmit: (formValue: CategoryFormValue) => void;
