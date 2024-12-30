@@ -6,16 +6,17 @@ import { CategoryColor } from '@/data-management/categories/category-colors-quer
 import { CategoryType } from '@/data-management/categories/category-types-query.ts';
 import { useCategoryUpdateMutation } from '@/data-management/categories/category-update-mutation.ts';
 import { useCategoryDeleteMutation } from '@/data-management/categories/category-delete-mutation.ts';
+import { CategoryRowData } from '@/data-management/categories/categories-table-data-query.ts';
+import { categoryRowDataToFormValue } from '@/data-management/categories/category-row-data-to-form-value.ts';
 
 export interface CategoryActionsProps {
-  categoryId: string;
-  category: CategoryFormValue;
+  category: CategoryRowData;
   categoryTypes: CategoryType[];
   categoryColors: CategoryColor[];
 }
 
 export function CategoryActions(props: CategoryActionsProps) {
-  const { category, categoryTypes, categoryColors, categoryId } = props;
+  const { category, categoryTypes, categoryColors } = props;
   const { mutate: updateCategory } = useCategoryUpdateMutation();
   const { mutate: deleteCategory } = useCategoryDeleteMutation();
 
@@ -24,7 +25,7 @@ export function CategoryActions(props: CategoryActionsProps) {
 
     updateCategory(
       {
-        id: Number(categoryId),
+        id: Number(category.id),
         name,
         type_id: Number(type_id),
         color_id: color_id ? Number(color_id) : null,
@@ -34,7 +35,7 @@ export function CategoryActions(props: CategoryActionsProps) {
   }
 
   function handleDeleteBtnClick() {
-    deleteCategory(Number(categoryId), {
+    deleteCategory(Number(category.id), {
       onSuccess: () => alert('Usunięto kategorię'),
     });
   }
@@ -42,7 +43,7 @@ export function CategoryActions(props: CategoryActionsProps) {
   return (
     <>
       <CategoryEditor
-        category={category}
+        category={categoryRowDataToFormValue(category)}
         onSubmit={handleSubmit}
         categoryTypes={categoryTypes}
         categoryColors={categoryColors}

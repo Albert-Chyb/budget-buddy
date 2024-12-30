@@ -6,7 +6,6 @@ import {
 import { CategoryActions } from '@/data-management/categories/data-mutation/category-actions.tsx';
 import { arrayIncludesFilterFn } from '@/helpers/array-includes-filter-fn.ts';
 import { CategoryRowData } from '@/data-management/categories/categories-table-data-query.ts';
-import { categoryRowDataToFormValue } from '@/data-management/categories/category-row-data-to-form-value.ts';
 import { Tables } from '@/database/types.ts';
 import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
 import { CategoryType } from '@/data-management/categories/category-types-query.ts';
@@ -53,8 +52,7 @@ const categoryActionsColumnBuilder = (
     header: 'Akcje',
     cell: (context) => (
       <CategoryActions
-        categoryId={context.row.original.id}
-        category={categoryRowDataToFormValue(context.row.original)}
+        category={context.row.original}
         categoryTypes={categoryTypes}
         categoryColors={categoryColors}
       />
