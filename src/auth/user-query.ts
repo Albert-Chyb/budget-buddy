@@ -1,7 +1,7 @@
 import { QueryKey, useQuery } from '@tanstack/react-query';
 import { useSupabase } from '@/init/supabase.tsx';
 
-export const USER_QUERY_KEY: Readonly<QueryKey> = ['user'];
+export const USER_QUERY_KEY = ['user'] as const satisfies QueryKey;
 
 export function useUserQuery() {
   const supabase = useSupabase();
