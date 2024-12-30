@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { TablesInsert } from '@/database/types.ts';
 import { useSupabase } from '@/init/supabase.tsx';
-import { CATEGORIES_QUERY_KEY } from '@/data-management/categories/categories-table-data-query.ts';
+import { CATEGORIES_TABLE_DATA_QUERY_KEY } from '@/data-management/categories/categories-table-data-query.ts';
 
 export const useCreateCategoryMutation = () => {
   const supabase = useSupabase();
@@ -14,6 +14,8 @@ export const useCreateCategoryMutation = () => {
       if (error) throw error;
     },
     onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: CATEGORIES_QUERY_KEY }),
+      queryClient.invalidateQueries({
+        queryKey: CATEGORIES_TABLE_DATA_QUERY_KEY,
+      }),
   });
 };
