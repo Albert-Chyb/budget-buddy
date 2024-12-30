@@ -5,9 +5,9 @@ import { Button } from '@/components/button.tsx';
 import { CategoryNameFormField } from '@/data-management/categories/data-mutation/category-name-form-field.tsx';
 import { CategoryTypeFormField } from '@/data-management/categories/data-mutation/category-type-form-field.tsx';
 import { CategoryColorIdFormField } from '@/data-management/categories/data-mutation/category-color-id-form-field.tsx';
-import { CategoryType } from '@/database/category-type-schema.ts';
 
 import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
+import { CategoryType } from '@/data-management/categories/category-types-query.ts';
 
 export interface CategoryFormProps {
   onSubmit: (formValue: CategoryFormValue) => void;

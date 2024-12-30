@@ -1,32 +1,32 @@
+import { SupabaseClient } from '@supabase/supabase-js';
+import { Database } from '@/database/types.ts';
 import { QueryKey, useQuery } from '@tanstack/react-query';
 import { USER_QUERY_KEY, useUserQuery } from '@/auth/user-query.ts';
 import { useSupabase } from '@/init/supabase.tsx';
-import { SupabaseClient } from '@supabase/supabase-js';
-import { Database } from '@/database/types.ts';
 
 const queryFn = async (supabase: SupabaseClient<Database>) => {
   const { data, error } = await supabase
-    .from('category_colors')
-    .select('id::text, name, red, green, blue');
+    .from('category_types')
+    .select('id::text, name, is_expense');
 
   if (error) throw error;
 
   return data ?? [];
 };
-export type CategoryColor = Awaited<ReturnType<typeof queryFn>>[number];
+export type CategoryType = Awaited<ReturnType<typeof queryFn>>[number];
 
-export const CATEGORIES_COLORS_QUERY_KEY = [
+export const CATEGORY_TYPES_QUERY_KEY = [
   ...USER_QUERY_KEY,
-  'category-colors',
+  'category-types',
 ] as const satisfies QueryKey;
 
-export const useCategoryColorsQuery = () => {
+export const useCategoryTypesQuery = () => {
   const supabase = useSupabase();
   const { data: user } = useUserQuery();
 
-  return useQuery<CategoryColor[]>({
+  return useQuery<CategoryType[]>({
     enabled: !!user,
-    queryKey: CATEGORIES_COLORS_QUERY_KEY,
+    queryKey: CATEGORY_TYPES_QUERY_KEY,
     queryFn: () => queryFn(supabase),
   });
 };

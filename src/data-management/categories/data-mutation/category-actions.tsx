@@ -3,9 +3,8 @@ import { Button } from '@/components/button.tsx';
 import { Trash } from 'lucide-react';
 import { CategoryFormValue } from '@/data-management/categories/data-mutation/category-form-schema.ts';
 
-import { CategoryType } from '@/database/category-type-schema.ts';
-
 import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
+import { CategoryType } from '@/data-management/categories/category-types-query.ts';
 
 export interface CategoryActionsProps {
   category: CategoryFormValue;

@@ -3,7 +3,8 @@ import {
   SingleEnumFilterProps,
 } from '@/data-management/filtering/enum-filter.tsx';
 import { EnumFilterOption } from '@/data-management/filtering/enum-filter-option.tsx';
-import { CategoryType } from '@/database/category-type-schema.ts';
+
+import { CategoryType } from '@/data-management/categories/category-types-query.ts';
 
 export interface CategoryTypeFilterProps
   extends Omit<SingleEnumFilterProps, 'children'> {

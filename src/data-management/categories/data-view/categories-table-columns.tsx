@@ -5,11 +5,11 @@ import {
 } from '@tanstack/react-table';
 import { CategoryActions } from '@/data-management/categories/data-mutation/category-actions.tsx';
 import { arrayIncludesFilterFn } from '@/helpers/array-includes-filter-fn.ts';
-import { CategoryType } from '@/database/category-type-schema.ts';
 import { CategoryRowData } from '@/data-management/categories/categories-table-data-query.ts';
 import { categoryRowDataToFormValue } from '@/data-management/categories/category-row-data-to-form-value.ts';
 import { Tables } from '@/database/types.ts';
 import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
+import { CategoryType } from '@/data-management/categories/category-types-query.ts';
 
 const AccessorColumnsIds = Object.freeze({
   Name: 'name',
