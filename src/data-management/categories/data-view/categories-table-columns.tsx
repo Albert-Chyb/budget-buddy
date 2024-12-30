@@ -53,6 +53,7 @@ const categoryActionsColumnBuilder = (
     header: 'Akcje',
     cell: (context) => (
       <CategoryActions
+        categoryId={context.row.original.id}
         category={categoryRowDataToFormValue(context.row.original)}
         categoryTypes={categoryTypes}
         categoryColors={categoryColors}

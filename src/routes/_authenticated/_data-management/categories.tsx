@@ -8,6 +8,8 @@ import { CategoryFormValue } from '@/data-management/categories/data-mutation/ca
 import { useCategoriesTableDataQuery } from '@/data-management/categories/categories-table-data-query.ts';
 import { useCategoryColorsQuery } from '@/data-management/categories/category-colors-query.ts';
 import { useCategoryTypesQuery } from '@/data-management/categories/category-types-query.ts';
+import { useCreateCategoryMutation } from '@/data-management/categories/create-category-mutation.ts';
+import { useUserQuery } from '@/auth/user-query.ts';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/categories',
@@ -27,6 +29,8 @@ function RouteComponent() {
     categoryTypes ?? [],
     categoryColors ?? [],
   );
+  const { mutate: createCategory } = useCreateCategoryMutation();
+  const { data: user } = useUserQuery();
 
   if (
     categoriesStatus !== 'success' ||
@@ -36,7 +40,19 @@ function RouteComponent() {
     return <p>Błąd w ładowaniu danych</p>;
 
   function handleSubmit(formValue: CategoryFormValue) {
-    console.log('Create category: ', formValue);
+    const { name, type_id, color_id } = formValue;
+
+    createCategory(
+      {
+        name,
+        type_id: Number(type_id),
+        color_id: color_id ? Number(color_id) : null,
+        owner_id: user!.id,
+      },
+      {
+        onSuccess: () => alert('Dodano nową kategorię'),
+      },
+    );
   }
 
   const filters = (
