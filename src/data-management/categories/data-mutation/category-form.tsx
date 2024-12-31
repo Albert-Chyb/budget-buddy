@@ -5,7 +5,6 @@ import { Button } from '@/components/button.tsx';
 import { CategoryNameFormField } from '@/data-management/categories/data-mutation/category-name-form-field.tsx';
 import { CategoryTypeFormField } from '@/data-management/categories/data-mutation/category-type-form-field.tsx';
 import { CategoryColorIdFormField } from '@/data-management/categories/data-mutation/category-color-id-form-field.tsx';
-
 import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
 import { CategoryType } from '@/data-management/categories/category-types-query.ts';
 
@@ -27,10 +26,12 @@ export const CategoryForm = (props: CategoryFormProps) => {
         className='space-y-2'
       >
         <CategoryNameFormField<CategoryFormValue> name='name' />
+
         <CategoryTypeFormField<CategoryFormValue>
           name='type_id'
           categoryTypes={categoryTypes}
         />
+
         <CategoryColorIdFormField<CategoryFormValue>
           name='color_id'
           categoryColors={categoryColors}

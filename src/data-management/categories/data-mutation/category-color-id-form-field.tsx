@@ -13,8 +13,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/select.tsx';
-
 import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
+import { recordIdValueAdapter } from '@/helpers/input-value-adapter.ts';
+
+const NO_VALUE_PLACEHOLDER = 'Bez koloru';
 
 interface CategoryColorIdFormFieldProps<T extends FieldValues> {
   name: Path<T>;
@@ -26,6 +28,7 @@ export const CategoryColorIdFormField = <T extends FieldValues>(
 ) => {
   const { name, categoryColors } = props;
   const form = useFormContext();
+  const { toInputValue, fromInputValue, resetFlag } = recordIdValueAdapter;
 
   return (
     <FormField
@@ -33,21 +36,24 @@ export const CategoryColorIdFormField = <T extends FieldValues>(
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Kolor</FormLabel>
+          <FormLabel>Wybierz kolor</FormLabel>
           <FormControl>
             <Select
               name={field.name}
-              value={field.value}
-              onValueChange={field.onChange}
+              value={toInputValue(field.value)}
+              onValueChange={(value) => field.onChange(fromInputValue(value))}
               disabled={field.disabled}
             >
               <SelectTrigger
                 ref={field.ref}
                 onBlur={field.onBlur}
               >
-                <SelectValue placeholder='Wybierz kolor' />
+                <SelectValue placeholder={NO_VALUE_PLACEHOLDER} />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value={resetFlag}>
+                  {NO_VALUE_PLACEHOLDER}
+                </SelectItem>
                 {categoryColors.map((color) => (
                   <SelectItem
                     key={color.id}

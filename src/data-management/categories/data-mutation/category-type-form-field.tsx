@@ -9,6 +9,7 @@ import {
 import { ToggleGroup, ToggleGroupItem } from '@/components/toggle-group.tsx';
 
 import { CategoryType } from '@/data-management/categories/category-types-query.ts';
+import { recordIdValueAdapter } from '@/helpers/input-value-adapter.ts';
 
 interface CategoryTypeFormFieldProps<T extends FieldValues> {
   name: Path<T>;
@@ -20,6 +21,7 @@ export const CategoryTypeFormField = <T extends FieldValues>(
 ) => {
   const { name, categoryTypes } = props;
   const form = useFormContext<T>();
+  const { fromInputValue, toInputValue } = recordIdValueAdapter;
 
   return (
     <FormField
@@ -31,7 +33,8 @@ export const CategoryTypeFormField = <T extends FieldValues>(
           <FormControl>
             <ToggleGroup
               {...field}
-              onValueChange={field.onChange}
+              value={toInputValue(field.value)}
+              onValueChange={(value) => field.onChange(fromInputValue(value))}
               type='single'
               variant='outline'
             >
