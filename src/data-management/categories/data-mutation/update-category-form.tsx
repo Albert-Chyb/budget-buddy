@@ -1,23 +1,30 @@
-import { CategoryFormValue } from '@/data-management/categories/data-mutation/category-form-schema.ts';
+import {
+  updateCategoryFormSchema,
+  UpdateCategoryFormValue,
+} from '@/data-management/categories/data-mutation/update-category-form-schema.ts';
 import { Form } from '@/components/form.tsx';
-import { useCategoryForm } from '@/data-management/categories/data-mutation/category-form-hook.tsx';
 import { Button } from '@/components/button.tsx';
 import { CategoryNameFormField } from '@/data-management/categories/data-mutation/category-name-form-field.tsx';
 import { CategoryTypeFormField } from '@/data-management/categories/data-mutation/category-type-form-field.tsx';
 import { CategoryColorIdFormField } from '@/data-management/categories/data-mutation/category-color-id-form-field.tsx';
 import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
 import { CategoryType } from '@/data-management/categories/category-types-query.ts';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-export interface CategoryFormProps {
-  onSubmit: (formValue: CategoryFormValue) => void;
-  category?: CategoryFormValue;
+export interface UpdateCategoryFormProps {
+  onSubmit: (formValue: UpdateCategoryFormValue) => void;
+  category?: UpdateCategoryFormValue;
   categoryTypes: CategoryType[];
   categoryColors: CategoryColor[];
 }
 
-export const CategoryForm = (props: CategoryFormProps) => {
+export const UpdateCategoryForm = (props: UpdateCategoryFormProps) => {
   const { onSubmit, category, categoryTypes, categoryColors } = props;
-  const form = useCategoryForm(category);
+  const form = useForm<UpdateCategoryFormValue>({
+    resolver: zodResolver(updateCategoryFormSchema),
+    defaultValues: category,
+  });
 
   return (
     <Form {...form}>
@@ -25,14 +32,14 @@ export const CategoryForm = (props: CategoryFormProps) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className='space-y-2'
       >
-        <CategoryNameFormField<CategoryFormValue> name='name' />
+        <CategoryNameFormField<UpdateCategoryFormValue> name='name' />
 
-        <CategoryTypeFormField<CategoryFormValue>
+        <CategoryTypeFormField<UpdateCategoryFormValue>
           name='type_id'
           categoryTypes={categoryTypes}
         />
 
-        <CategoryColorIdFormField<CategoryFormValue>
+        <CategoryColorIdFormField<UpdateCategoryFormValue>
           name='color_id'
           categoryColors={categoryColors}
         />

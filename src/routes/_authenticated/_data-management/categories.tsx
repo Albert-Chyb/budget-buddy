@@ -4,12 +4,11 @@ import { DataManagementCard } from '@/data-management/data-managment.tsx';
 import { CategoriesFilters } from '@/data-management/categories/filters/categories-filters.tsx';
 import { useCategoriesTable } from '@/data-management/categories/data-view/categories-table-model.ts';
 import { CategoryCreator } from '@/data-management/categories/data-mutation/category-creator.tsx';
-import { CategoryFormValue } from '@/data-management/categories/data-mutation/category-form-schema.ts';
 import { useCategoriesTableDataQuery } from '@/data-management/categories/categories-table-data-query.ts';
 import { useCategoryColorsQuery } from '@/data-management/categories/category-colors-query.ts';
 import { useCategoryTypesQuery } from '@/data-management/categories/category-types-query.ts';
 import { useCreateCategoryMutation } from '@/data-management/categories/create-category-mutation.ts';
-import { useUserQuery } from '@/auth/user-query.ts';
+import { CreateCategoryFormValue } from '@/data-management/categories/data-mutation/create-category-form-schema.ts';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/categories',
@@ -30,7 +29,6 @@ function RouteComponent() {
     categoryColors ?? [],
   );
   const { mutate: createCategory } = useCreateCategoryMutation();
-  const { data: user } = useUserQuery();
 
   if (
     categoriesStatus !== 'success' ||
@@ -39,20 +37,10 @@ function RouteComponent() {
   )
     return <p>Błąd w ładowaniu danych</p>;
 
-  function handleSubmit(formValue: CategoryFormValue) {
-    const { name, type_id, color_id } = formValue;
-
-    createCategory(
-      {
-        name,
-        type_id: Number(type_id),
-        color_id: color_id ? Number(color_id) : null,
-        owner_id: user!.id,
-      },
-      {
-        onSuccess: () => alert('Dodano nową kategorię'),
-      },
-    );
+  function handleSubmit(formValue: CreateCategoryFormValue) {
+    createCategory(formValue, {
+      onSuccess: () => alert('Dodano nową kategorię'),
+    });
   }
 
   const filters = (

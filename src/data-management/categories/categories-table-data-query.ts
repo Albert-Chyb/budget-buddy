@@ -12,7 +12,9 @@ const queryFn = async (supabase: SupabaseClient<Database>, userId: string) => {
         id, 
         name, 
         type:category_types!inner (id, name), 
-        color:category_colors (id, name, red, green, blue)
+        color:category_colors (id, name, red, green, blue),
+        owner_id,
+        parent_category_id
       `,
     )
     .eq('owner_id', userId);

@@ -1,11 +1,11 @@
 import { Editor } from '@/data-management/data-mutation/editor.tsx';
 import { Button } from '@/components/button.tsx';
 import {
-  CategoryForm,
-  CategoryFormProps,
-} from '@/data-management/categories/data-mutation/category-form.tsx';
+  CreateCategoryForm,
+  CreateCategoryFormProps,
+} from '@/data-management/categories/data-mutation/create-category-form.tsx';
 
-export type CategoryCreatorProps = CategoryFormProps;
+export type CategoryCreatorProps = CreateCategoryFormProps;
 
 export function CategoryCreator(props: CategoryCreatorProps) {
   const trigger = (
@@ -16,7 +16,7 @@ export function CategoryCreator(props: CategoryCreatorProps) {
       Nowa kategoria
     </Button>
   );
-  const form = <CategoryForm {...props} />;
+  const form = <CreateCategoryForm {...props} />;
 
   return (
     <Editor>

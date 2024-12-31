@@ -2,11 +2,11 @@ import { Editor } from '@/data-management/data-mutation/editor.tsx';
 import { Button } from '@/components/button.tsx';
 import { Pen } from 'lucide-react';
 import {
-  CategoryForm,
-  CategoryFormProps,
-} from '@/data-management/categories/data-mutation/category-form.tsx';
+  UpdateCategoryForm,
+  UpdateCategoryFormProps,
+} from '@/data-management/categories/data-mutation/update-category-form.tsx';
 
-type CategoryEditorProps = CategoryFormProps;
+type CategoryEditorProps = UpdateCategoryFormProps;
 
 export function CategoryEditor(props: CategoryEditorProps) {
   return (
@@ -17,7 +17,7 @@ export function CategoryEditor(props: CategoryEditorProps) {
             <Pen /> Edytuj
           </Button>
         ),
-        form: <CategoryForm {...props} />,
+        form: <UpdateCategoryForm {...props} />,
       }}
     </Editor>
   );
