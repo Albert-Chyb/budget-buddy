@@ -4,9 +4,9 @@ import { useFormContext } from 'react-hook-form';
 import { CategoryNameFormField } from '@/data-management/categories/data-mutation/category-name-form-field.tsx';
 import { CategoryTypeFormField } from '@/data-management/categories/data-mutation/category-type-form-field.tsx';
 import { CategoryColorIdFormField } from '@/data-management/categories/data-mutation/category-color-id-form-field.tsx';
-import { Button } from '@/components/button.tsx';
 import { UpdateCategoryFormValue } from '@/data-management/categories/data-mutation/update-category-form-schema.ts';
 import { CreateCategoryFormValue } from '@/data-management/categories/data-mutation/create-category-form-schema.ts';
+import { PendingButton } from '@/components/pending-button.tsx';
 
 type CategoryFormValueShape = CreateCategoryFormValue | UpdateCategoryFormValue;
 
@@ -14,12 +14,13 @@ export interface CategoryFormProps<TValue extends CategoryFormValueShape> {
   onSubmit: (formValue: TValue) => void;
   categoryTypes: CategoryType[];
   categoryColors: CategoryColor[];
+  isPending: boolean;
 }
 
 export const CategoryForm = <T extends CategoryFormValueShape>(
   props: CategoryFormProps<T>,
 ) => {
-  const { onSubmit, categoryTypes, categoryColors } = props;
+  const { onSubmit, categoryTypes, categoryColors, isPending } = props;
   const form = useFormContext<T>();
 
   return (
@@ -39,7 +40,12 @@ export const CategoryForm = <T extends CategoryFormValueShape>(
         categoryColors={categoryColors}
       />
 
-      <Button className='w-full'>Zapisz</Button>
+      <PendingButton
+        isPending={isPending}
+        className='w-full'
+      >
+        Zapisz
+      </PendingButton>
     </form>
   );
 };

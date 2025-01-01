@@ -28,7 +28,8 @@ function RouteComponent() {
     categoryTypes ?? [],
     categoryColors ?? [],
   );
-  const { mutate: createCategory } = useCreateCategoryMutation();
+  const { mutate: createCategory, isPending: isCreatePending } =
+    useCreateCategoryMutation();
 
   if (
     categoriesStatus !== 'success' ||
@@ -61,6 +62,7 @@ function RouteComponent() {
       onSubmit={handleSubmit}
       categoryTypes={categoryTypes}
       categoryColors={categoryColors}
+      isPending={isCreatePending}
     />
   );
 

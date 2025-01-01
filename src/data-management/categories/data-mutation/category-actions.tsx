@@ -1,6 +1,4 @@
 import { CategoryEditor } from '@/data-management/categories/data-mutation/category-editor.tsx';
-import { Button } from '@/components/button.tsx';
-import { Trash } from 'lucide-react';
 import { UpdateCategoryFormValue } from '@/data-management/categories/data-mutation/update-category-form-schema.ts';
 import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
 import { CategoryType } from '@/data-management/categories/category-types-query.ts';
@@ -8,6 +6,7 @@ import { useCategoryUpdateMutation } from '@/data-management/categories/update-c
 import { useCategoryDeleteMutation } from '@/data-management/categories/category-delete-mutation.ts';
 import { CategoryRowData } from '@/data-management/categories/categories-table-data-query.ts';
 import { categoryRowDataToFormValue } from '@/data-management/categories/category-row-data-to-form-value.ts';
+import { PendingButton } from '@/components/pending-button.tsx';
 
 export interface CategoryActionsProps {
   category: CategoryRowData;
@@ -17,8 +16,10 @@ export interface CategoryActionsProps {
 
 export function CategoryActions(props: CategoryActionsProps) {
   const { category, categoryTypes, categoryColors } = props;
-  const { mutate: updateCategory } = useCategoryUpdateMutation();
-  const { mutate: deleteCategory } = useCategoryDeleteMutation();
+  const { mutate: updateCategory, isPending: isUpdatePending } =
+    useCategoryUpdateMutation();
+  const { mutate: deleteCategory, isPending: isDeletePending } =
+    useCategoryDeleteMutation();
 
   function handleSubmit(formValue: UpdateCategoryFormValue) {
     updateCategory(
@@ -42,14 +43,16 @@ export function CategoryActions(props: CategoryActionsProps) {
         onSubmit={handleSubmit}
         categoryTypes={categoryTypes}
         categoryColors={categoryColors}
+        isPending={isUpdatePending}
       />
 
-      <Button
+      <PendingButton
         variant='destructive'
         onClick={handleDeleteBtnClick}
+        isPending={isDeletePending}
       >
-        <Trash /> Usuń
-      </Button>
+        Usuń
+      </PendingButton>
     </>
   );
 }
