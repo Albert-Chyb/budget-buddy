@@ -6,7 +6,6 @@ import { CategoryColorIdFormField } from '@/data-management/categories/data-muta
 import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
 import { CategoryType } from '@/data-management/categories/category-types-query.ts';
 import { useForm } from 'react-hook-form';
-import { useUserQuery } from '@/auth/user-query.ts';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   CREATE_CATEGORY_FORM_PLACEHOLDER,
@@ -22,13 +21,9 @@ export interface CreateCategoryFormProps {
 
 export const CreateCategoryForm = (props: CreateCategoryFormProps) => {
   const { onSubmit, categoryTypes, categoryColors } = props;
-  const { data: user } = useUserQuery();
   const form = useForm<CreateCategoryFormValue>({
     resolver: zodResolver(createCategoryFormSchema),
-    defaultValues: {
-      ...CREATE_CATEGORY_FORM_PLACEHOLDER,
-      owner_id: user?.id ?? '',
-    },
+    defaultValues: CREATE_CATEGORY_FORM_PLACEHOLDER,
   });
 
   return (

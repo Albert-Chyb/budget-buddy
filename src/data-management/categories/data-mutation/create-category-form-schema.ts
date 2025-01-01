@@ -1,26 +1,22 @@
 import { z } from 'zod';
-import { TablesInsert } from '@/database/types.ts';
-import {
-  colorIdSchema,
-  nameSchema,
-  ownerIdSchema,
-  parentCategoryIdSchema,
-  typeIdSchema,
-} from '@/data-management/categories/data-mutation/category-form-fields-schemas.ts';
+
+import { CategoryInsertInput } from '@/database/category.ts';
 
 export const createCategoryFormSchema = z.object({
-  name: nameSchema,
-  type_id: typeIdSchema,
-  owner_id: ownerIdSchema,
-  color_id: colorIdSchema,
-  parent_category_id: parentCategoryIdSchema,
-}) satisfies z.ZodType<TablesInsert<'categories'>>;
+  name: z
+    .string()
+    .min(1, 'Nazwa kategorii jest wymagana')
+    .max(64, `Nazwa kategorii nie może być dłuższa niż 64 znaki`),
+  type_id: z.number({ message: 'Wybierz typ transakcji' }),
+  color_id: z.number().nullable(),
+  parent_category_id: z.number().nullable(),
+}) satisfies z.ZodType<CategoryInsertInput>;
 export type CreateCategoryFormValue = z.infer<typeof createCategoryFormSchema>;
 
-export const CREATE_CATEGORY_FORM_PLACEHOLDER: CreateCategoryFormValue = {
-  name: '',
-  type_id: null as unknown as number,
-  owner_id: '',
-  color_id: null,
-  parent_category_id: null,
-};
+export const CREATE_CATEGORY_FORM_PLACEHOLDER: Readonly<CreateCategoryFormValue> =
+  {
+    name: '',
+    type_id: null as unknown as number,
+    color_id: null,
+    parent_category_id: null,
+  } as const;

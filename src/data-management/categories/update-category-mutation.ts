@@ -1,10 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSupabase } from '@/init/supabase.tsx';
-import { TablesUpdate } from '@/database/types.ts';
 import { CATEGORIES_TABLE_DATA_QUERY_KEY } from '@/data-management/categories/categories-table-data-query.ts';
 import { useUserQuery } from '@/auth/user-query.ts';
+import { Category, CategoryUpdateInput } from '@/database/category.ts';
+import { TablesUpdate } from '@/database/types.ts';
 
-type RequireRecordId = { id: number };
+interface CategoryUpdateMutationVariables {
+  id: Category['id'];
+  category: CategoryUpdateInput;
+}
 
 export const useCategoryUpdateMutation = () => {
   const supabase = useSupabase();
@@ -12,16 +16,15 @@ export const useCategoryUpdateMutation = () => {
   const { data: user } = useUserQuery();
 
   return useMutation({
-    mutationFn: async (
-      category: Omit<TablesUpdate<'categories'>, 'id'> & RequireRecordId,
-    ) => {
+    mutationFn: async ({ id, category }: CategoryUpdateMutationVariables) => {
       if (!user)
         throw new Error('CategoryUpdateMutation requires user to be logged in');
 
+      const categoryUpdate: TablesUpdate<'categories'> = category;
       const { error } = await supabase
         .from('categories')
-        .update(category)
-        .eq('id', category.id)
+        .update(categoryUpdate)
+        .eq('id', id)
         .eq('owner_id', user.id);
 
       if (error) throw error;
