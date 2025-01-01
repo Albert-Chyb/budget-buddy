@@ -19,7 +19,7 @@ export function CategoryCreator(props: CategoryCreatorProps) {
   const form = <CreateCategoryForm {...props} />;
 
   return (
-    <Editor>
+    <Editor isDismissible={!props.isPending}>
       {{
         trigger,
         form,

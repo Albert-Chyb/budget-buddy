@@ -9,7 +9,7 @@ type CategoryEditorProps = UpdateCategoryFormProps;
 
 export function CategoryEditor(props: CategoryEditorProps) {
   return (
-    <Editor>
+    <Editor isDismissible={!props.isPending}>
       {{
         trigger: <Button variant='secondary'>Edytuj</Button>,
         form: <UpdateCategoryForm {...props} />,
