@@ -43,7 +43,7 @@ export const CategoryTypeFormField = <T extends FieldValues>(
                   <ToggleGroupItem
                     key={type.id}
                     className='basis-full'
-                    value={type.id}
+                    value={toInputValue(type.id)}
                   >
                     {type.name}
                   </ToggleGroupItem>

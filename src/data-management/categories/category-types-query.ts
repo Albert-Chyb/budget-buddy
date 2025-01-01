@@ -7,7 +7,7 @@ import { useSupabase } from '@/init/supabase.tsx';
 const queryFn = async (supabase: SupabaseClient<Database>) => {
   const { data, error } = await supabase
     .from('category_types')
-    .select('id::text, name, is_expense');
+    .select('id, name, is_expense');
 
   if (error) throw error;
 

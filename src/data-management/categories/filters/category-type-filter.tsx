@@ -18,7 +18,7 @@ export function CategoryTypeFilter(props: CategoryTypeFilterProps) {
       {categoryTypes.map((color) => (
         <EnumFilterOption
           key={color.id}
-          value={color.id}
+          value={String(color.id)}
         >
           {color.name}
         </EnumFilterOption>

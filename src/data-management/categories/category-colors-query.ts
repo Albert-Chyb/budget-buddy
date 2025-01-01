@@ -7,7 +7,7 @@ import { Database } from '@/database/types.ts';
 const queryFn = async (supabase: SupabaseClient<Database>) => {
   const { data, error } = await supabase
     .from('category_colors')
-    .select('id::text, name, red, green, blue');
+    .select('id, name, red, green, blue');
 
   if (error) throw error;
 

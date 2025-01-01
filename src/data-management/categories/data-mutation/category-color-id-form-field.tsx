@@ -57,7 +57,7 @@ export const CategoryColorIdFormField = <T extends FieldValues>(
                 {categoryColors.map((color) => (
                   <SelectItem
                     key={color.id}
-                    value={color.id}
+                    value={toInputValue(color.id)}
                   >
                     {color.name}
                   </SelectItem>
