@@ -17,12 +17,7 @@ export const CategoryUpdateButton = (props: CategoryUpdateButtonProps) => {
   const { mutate, isPending } = useCategoryUpdateMutation();
 
   function handleSubmit(formValue: UpdateCategoryFormValue) {
-    mutate(
-      { id: category.id, category: formValue },
-      {
-        onSuccess: () => alert('Zaktualizowano kategorie'),
-      },
-    );
+    mutate({ id: category.id, category: formValue });
   }
 
   return (

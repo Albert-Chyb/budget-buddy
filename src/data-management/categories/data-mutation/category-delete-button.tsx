@@ -10,9 +10,7 @@ export const CategoryDeleteButton = ({ id }: CategoryDeleteButton) => {
   const { mutate, isPending } = useCategoryDeleteMutation();
 
   function handleDeleteBtnClick() {
-    mutate(id, {
-      onSuccess: () => alert('Usunięto kategorię'),
-    });
+    mutate(id);
   }
 
   return (

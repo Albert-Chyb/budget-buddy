@@ -39,9 +39,7 @@ function RouteComponent() {
     return <p>Błąd w ładowaniu danych</p>;
 
   function handleSubmit(formValue: CreateCategoryFormValue) {
-    createCategory(formValue, {
-      onSuccess: () => alert('Dodano nową kategorię'),
-    });
+    createCategory(formValue);
   }
 
   const filters = (
