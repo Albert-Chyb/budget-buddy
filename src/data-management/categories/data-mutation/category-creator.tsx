@@ -5,9 +5,10 @@ import {
   CreateCategoryFormProps,
 } from '@/data-management/categories/data-mutation/create-category-form.tsx';
 
-export type CategoryCreatorProps = CreateCategoryFormProps;
+export type CategoryCreatorProps = CreateCategoryFormProps & { id: string };
 
 export function CategoryCreator(props: CategoryCreatorProps) {
+  const { id, ...formProps } = props;
   const trigger = (
     <Button
       variant='secondary'
@@ -16,10 +17,13 @@ export function CategoryCreator(props: CategoryCreatorProps) {
       Nowa kategoria
     </Button>
   );
-  const form = <CreateCategoryForm {...props} />;
+  const form = <CreateCategoryForm {...formProps} />;
 
   return (
-    <Editor isDismissible={!props.isPending}>
+    <Editor
+      isDismissible={!formProps.isPending}
+      id={id}
+    >
       {{
         trigger,
         form,

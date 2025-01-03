@@ -7,6 +7,7 @@ import { ReactNode } from 'react';
 import { useEditorOpenState } from '@/data-management/data-mutation/editor-open-state.tsx';
 
 export type EditorProps = {
+  id: string;
   isDismissible: boolean;
   children: {
     trigger: ReactNode;
@@ -15,9 +16,9 @@ export type EditorProps = {
 };
 
 export const Editor = (props: EditorProps) => {
-  const { children, isDismissible } = props;
+  const { children, isDismissible, id } = props;
   const { trigger, form } = children;
-  const [isOpened, setIsOpened] = useEditorOpenState(false, isDismissible);
+  const [isOpened, setIsOpened] = useEditorOpenState(isDismissible, id);
 
   return (
     <Popover

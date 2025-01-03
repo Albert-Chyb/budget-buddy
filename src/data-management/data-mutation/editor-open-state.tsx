@@ -1,28 +1,62 @@
-import { useEffect, useState } from 'react';
-import { usePrevValueMonitor } from '@/helpers/prev-value-monitor.ts';
+import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
-function useAutoDismissEffect(isDismissible: boolean, close: () => void) {
-  const prevIsDismissible = usePrevValueMonitor(isDismissible);
-  useEffect(() => {
-    if (prevIsDismissible === null) return;
-
-    if (!prevIsDismissible) close();
-  }, [prevIsDismissible, close]);
+interface EditorContextValue {
+  isInsideProvider: boolean;
+  currentEditor: string;
+  openEditor(editorId: string): void;
+  closeEditor(): void;
 }
 
-export function useEditorOpenState(
-  initialValue: boolean = false,
-  isDismissible: boolean,
-) {
-  const [isOpened, setIsOpened] = useState(initialValue);
+const EditorContext = createContext<EditorContextValue>({
+  isInsideProvider: false,
+  currentEditor: '',
+  openEditor() {},
+  closeEditor() {},
+});
 
-  function handleOpenChange(open: boolean) {
-    if (!open && !isDismissible) return;
+export const useEditorContext = () => {
+  const context = useContext(EditorContext);
 
-    setIsOpened(open);
+  if (!context.isInsideProvider)
+    throw new Error('EditorContext can only be used inside a provider');
+
+  return context;
+};
+
+export const EditorContextProvider = ({ children }: PropsWithChildren) => {
+  const [currentEditor, setCurrentEditor] = useState('');
+
+  const open = (editorId: string) => {
+    setCurrentEditor(editorId);
+  };
+
+  const close = () => {
+    setCurrentEditor('');
+  };
+
+  return (
+    <EditorContext.Provider
+      value={{
+        currentEditor,
+        openEditor: open,
+        closeEditor: close,
+        isInsideProvider: true,
+      }}
+    >
+      {children}
+    </EditorContext.Provider>
+  );
+};
+
+export function useEditorOpenState(isDismissible: boolean, id: string) {
+  const { currentEditor, openEditor, closeEditor } = useEditorContext();
+
+  function handleOpenChange(newOpenState: boolean) {
+    if (!newOpenState && !isDismissible) return;
+
+    if (newOpenState) openEditor(id);
+    else closeEditor();
   }
 
-  useAutoDismissEffect(isDismissible, () => handleOpenChange(false));
-
-  return [isOpened, handleOpenChange] as const;
+  return [id === currentEditor, handleOpenChange] as const;
 }

@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from '@/components/card.tsx';
 import { ReactNode } from 'react';
+import { EditorContextProvider } from '@/data-management/data-mutation/editor-open-state.tsx';
 
 interface DataManagementCardProps {
   children: {
@@ -21,17 +22,19 @@ export const DataManagementCard = (props: DataManagementCardProps) => {
   const { title, description, content, creator } = children;
 
   return (
-    <Card>
-      <div className='flex items-center'>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
-        </CardHeader>
+    <EditorContextProvider>
+      <Card>
+        <div className='flex items-center'>
+          <CardHeader>
+            <CardTitle>{title}</CardTitle>
+            <CardDescription>{description}</CardDescription>
+          </CardHeader>
 
-        {creator}
-      </div>
+          {creator}
+        </div>
 
-      <CardContent className='space-y-4'>{content}</CardContent>
-    </Card>
+        <CardContent className='space-y-4'>{content}</CardContent>
+      </Card>
+    </EditorContextProvider>
   );
 };

@@ -3,12 +3,10 @@ import { DataTable } from '@/data-management/data-view/data-table.tsx';
 import { DataManagementCard } from '@/data-management/data-managment.tsx';
 import { CategoriesFilters } from '@/data-management/categories/filters/categories-filters.tsx';
 import { useCategoriesTable } from '@/data-management/categories/data-view/categories-table-model.ts';
-import { CategoryCreator } from '@/data-management/categories/data-mutation/category-creator.tsx';
 import { useCategoriesTableDataQuery } from '@/data-management/categories/categories-table-data-query.ts';
 import { useCategoryColorsQuery } from '@/data-management/categories/category-colors-query.ts';
 import { useCategoryTypesQuery } from '@/data-management/categories/category-types-query.ts';
-import { useCreateCategoryMutation } from '@/data-management/categories/create-category-mutation.ts';
-import { CreateCategoryFormValue } from '@/data-management/categories/data-mutation/create-category-form-schema.ts';
+import { CategoryCreateButton } from '@/data-management/categories/data-mutation/category-create-button.tsx';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/categories',
@@ -28,8 +26,6 @@ function RouteComponent() {
     categoryTypes ?? [],
     categoryColors ?? [],
   );
-  const { mutate: createCategory, isPending: isCreatePending } =
-    useCreateCategoryMutation();
 
   if (
     categoriesStatus !== 'success' ||
@@ -37,10 +33,6 @@ function RouteComponent() {
     categoryTypesStatus !== 'success'
   )
     return <p>Błąd w ładowaniu danych</p>;
-
-  function handleSubmit(formValue: CreateCategoryFormValue) {
-    createCategory(formValue);
-  }
 
   const filters = (
     <CategoriesFilters
@@ -56,11 +48,9 @@ function RouteComponent() {
     />
   );
   const creator = (
-    <CategoryCreator
-      onSubmit={handleSubmit}
+    <CategoryCreateButton
       categoryTypes={categoryTypes}
       categoryColors={categoryColors}
-      isPending={isCreatePending}
     />
   );
 
