@@ -2,7 +2,7 @@ import { Editor } from '@/data-management/data-mutation/editor.tsx';
 import {
   UpdateCategoryForm,
   UpdateCategoryFormProps,
-} from '@/data-management/categories/data-mutation/update-category-form.tsx';
+} from '@/data-management/categories/data-mutation/forms/update-category-form.tsx';
 import { Button } from '@/components/button.tsx';
 
 type CategoryEditorProps = UpdateCategoryFormProps & { id: string };

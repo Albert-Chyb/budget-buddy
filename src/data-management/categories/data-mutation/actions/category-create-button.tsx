@@ -2,7 +2,7 @@ import { CategoryType } from '@/data-management/categories/category-types-query.
 import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
 import { useCreateCategoryMutation } from '@/data-management/categories/create-category-mutation.ts';
 import { useEditorContext } from '@/data-management/data-mutation/editor-open-state.tsx';
-import { CreateCategoryFormValue } from '@/data-management/categories/data-mutation/create-category-form-schema.ts';
+import { CreateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/create-category-form-schema.ts';
 import { CategoryCreator } from '@/data-management/categories/data-mutation/category-creator.tsx';
 
 interface CategoryCreateButtonProps {

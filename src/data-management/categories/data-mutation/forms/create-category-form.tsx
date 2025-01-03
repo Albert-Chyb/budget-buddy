@@ -5,11 +5,11 @@ import {
   CREATE_CATEGORY_FORM_PLACEHOLDER,
   createCategoryFormSchema,
   CreateCategoryFormValue,
-} from '@/data-management/categories/data-mutation/create-category-form-schema.ts';
+} from '@/data-management/categories/data-mutation/forms/create-category-form-schema.ts';
 import {
   CategoryForm,
   CategoryFormProps,
-} from '@/data-management/categories/data-mutation/category-form.tsx';
+} from '@/data-management/categories/data-mutation/forms/category-form.tsx';
 
 export type CreateCategoryFormProps =
   CategoryFormProps<CreateCategoryFormValue>;

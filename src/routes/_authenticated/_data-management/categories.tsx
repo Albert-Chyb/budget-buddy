@@ -6,7 +6,7 @@ import { useCategoriesTable } from '@/data-management/categories/data-view/categ
 import { useCategoriesTableDataQuery } from '@/data-management/categories/categories-table-data-query.ts';
 import { useCategoryColorsQuery } from '@/data-management/categories/category-colors-query.ts';
 import { useCategoryTypesQuery } from '@/data-management/categories/category-types-query.ts';
-import { CategoryCreateButton } from '@/data-management/categories/data-mutation/category-create-button.tsx';
+import { CategoryCreateButton } from '@/data-management/categories/data-mutation/actions/category-create-button.tsx';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/categories',

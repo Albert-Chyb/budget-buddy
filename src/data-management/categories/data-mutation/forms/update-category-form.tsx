@@ -1,14 +1,14 @@
 import {
   updateCategoryFormSchema,
   UpdateCategoryFormValue,
-} from '@/data-management/categories/data-mutation/update-category-form-schema.ts';
+} from '@/data-management/categories/data-mutation/forms/update-category-form-schema.ts';
 import { Form } from '@/components/form.tsx';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   CategoryForm,
   CategoryFormProps,
-} from '@/data-management/categories/data-mutation/category-form.tsx';
+} from '@/data-management/categories/data-mutation/forms/category-form.tsx';
 
 export interface UpdateCategoryFormProps
   extends CategoryFormProps<UpdateCategoryFormValue> {
