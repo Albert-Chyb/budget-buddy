@@ -8,6 +8,7 @@ import { useCategoryColorsQuery } from '@/database/category-colors/query.ts';
 import { useCategoryTypesQuery } from '@/database/category-types/query.ts';
 import { CategoryCreateButton } from '@/data-management/categories/data-mutation/actions/category-create-button.tsx';
 import { EmptyCategoriesTableInfo } from '@/data-management/categories/data-view/empty-categories-table-info.tsx';
+import { DataManagementCardSkeleton } from '@/data-management/data-management-card-skeleton.tsx';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/categories',
@@ -27,6 +28,13 @@ function RouteComponent() {
     categoryTypes ?? [],
     categoryColors ?? [],
   );
+
+  const isLoading =
+    categoriesStatus === 'pending' ||
+    categoryColorsStatus === 'pending' ||
+    categoryTypesStatus === 'pending';
+
+  if (isLoading) return <DataManagementCardSkeleton />;
 
   if (
     categoriesStatus !== 'success' ||
