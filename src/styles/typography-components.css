@@ -3,6 +3,14 @@
     @apply text-4xl font-extrabold tracking-tight lg:text-5xl;
   }
 
+  .typography-h2 {
+    @apply text-3xl font-semibold tracking-tight;
+  }
+
+  .typography-p {
+    @apply leading-7;
+  }
+
   .typography-muted {
     @apply text-sm text-muted-foreground;
   }

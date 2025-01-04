@@ -7,6 +7,7 @@ import { useCategoriesTableDataQuery } from '@/database/categories/table-data-qu
 import { useCategoryColorsQuery } from '@/database/category-colors/query.ts';
 import { useCategoryTypesQuery } from '@/database/category-types/query.ts';
 import { CategoryCreateButton } from '@/data-management/categories/data-mutation/actions/category-create-button.tsx';
+import { EmptyCategoriesTableInfo } from '@/data-management/categories/data-view/empty-categories-table-info.tsx';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/categories',
@@ -41,11 +42,13 @@ function RouteComponent() {
       categoryTypes={categoryTypes}
     />
   );
-  const dataTable = (
+  const dataTable = categories.length ? (
     <DataTable
       table={table}
       filters={filters}
     />
+  ) : (
+    <EmptyCategoriesTableInfo />
   );
   const creator = (
     <CategoryCreateButton
