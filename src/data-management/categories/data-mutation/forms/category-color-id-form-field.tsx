@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/select.tsx';
-import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
+import { CategoryColor } from '@/database/category-colors/query.ts';
 import { recordIdValueAdapter } from '@/helpers/input-value-adapter.ts';
 
 const NO_VALUE_PLACEHOLDER = 'Bez koloru';

@@ -1,10 +1,10 @@
-import { useCategoryUpdateMutation } from '@/data-management/categories/update-category-mutation.ts';
+import { useCategoryUpdateMutation } from '@/database/categories/update-mutation.ts';
 import { UpdateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/update-category-form-schema.ts';
 import { CategoryEditor } from '@/data-management/categories/data-mutation/category-editor.tsx';
 import { categoryRowDataToFormValue } from '@/data-management/categories/category-row-data-to-form-value.ts';
-import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
-import { CategoryType } from '@/data-management/categories/category-types-query.ts';
-import { CategoryRowData } from '@/data-management/categories/categories-table-data-query.ts';
+import { CategoryColor } from '@/database/category-colors/query.ts';
+import { CategoryType } from '@/database/category-types/query.ts';
+import { CategoryRowData } from '@/database/categories/table-data-query.ts';
 import { useEditorContext } from '@/data-management/data-mutation/editor-open-state.tsx';
 
 interface CategoryUpdateButtonProps {

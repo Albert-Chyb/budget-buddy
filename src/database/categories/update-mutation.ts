@@ -1,8 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSupabase } from '@/init/supabase.tsx';
-import { CATEGORIES_TABLE_DATA_QUERY_KEY } from '@/data-management/categories/categories-table-data-query.ts';
+import { CATEGORIES_TABLE_DATA_QUERY_KEY } from '@/database/categories/table-data-query.ts';
 import { useUserQuery } from '@/auth/user-query.ts';
-import { Category, CategoryUpdateInput } from '@/database/category.ts';
+import {
+  Category,
+  CategoryUpdateInput,
+} from '@/database/categories/category.ts';
 import { TablesUpdate } from '@/database/types.ts';
 
 interface CategoryUpdateMutationVariables {

@@ -8,7 +8,7 @@ import {
 } from '@/components/form.tsx';
 import { ToggleGroup, ToggleGroupItem } from '@/components/toggle-group.tsx';
 
-import { CategoryType } from '@/data-management/categories/category-types-query.ts';
+import { CategoryType } from '@/database/category-types/query.ts';
 import { recordIdValueAdapter } from '@/helpers/input-value-adapter.ts';
 
 interface CategoryTypeFormFieldProps<T extends FieldValues> {

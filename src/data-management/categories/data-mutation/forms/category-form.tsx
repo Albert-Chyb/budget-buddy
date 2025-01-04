@@ -1,5 +1,5 @@
-import { CategoryType } from '@/data-management/categories/category-types-query.ts';
-import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
+import { CategoryType } from '@/database/category-types/query.ts';
+import { CategoryColor } from '@/database/category-colors/query.ts';
 import { useFormContext } from 'react-hook-form';
 import { CategoryNameFormField } from '@/data-management/categories/data-mutation/forms/category-name-form-field.tsx';
 import { CategoryTypeFormField } from '@/data-management/categories/data-mutation/forms/category-type-form-field.tsx';

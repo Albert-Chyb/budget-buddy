@@ -3,9 +3,9 @@ import { DataTable } from '@/data-management/data-view/data-table.tsx';
 import { DataManagementCard } from '@/data-management/data-managment.tsx';
 import { CategoriesFilters } from '@/data-management/categories/filters/categories-filters.tsx';
 import { useCategoriesTable } from '@/data-management/categories/data-view/categories-table-model.ts';
-import { useCategoriesTableDataQuery } from '@/data-management/categories/categories-table-data-query.ts';
-import { useCategoryColorsQuery } from '@/data-management/categories/category-colors-query.ts';
-import { useCategoryTypesQuery } from '@/data-management/categories/category-types-query.ts';
+import { useCategoriesTableDataQuery } from '@/database/categories/table-data-query.ts';
+import { useCategoryColorsQuery } from '@/database/category-colors/query.ts';
+import { useCategoryTypesQuery } from '@/database/category-types/query.ts';
 import { CategoryCreateButton } from '@/data-management/categories/data-mutation/actions/category-create-button.tsx';
 
 export const Route = createFileRoute(

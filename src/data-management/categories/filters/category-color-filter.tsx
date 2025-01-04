@@ -4,7 +4,7 @@ import {
 } from '@/data-management/filtering/checkbox-filter.tsx';
 import { CheckboxFilterOption } from '@/data-management/filtering/checkbox-filter-option.tsx';
 
-import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
+import { CategoryColor } from '@/database/category-colors/query.ts';
 
 interface CategoryColorFilterProps extends CheckboxFilterProps {
   colors: CategoryColor[];

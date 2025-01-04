@@ -1,4 +1,4 @@
-import { CategoryRowData } from '@/data-management/categories/categories-table-data-query.ts';
+import { CategoryRowData } from '@/database/categories/table-data-query.ts';
 import { Tables } from '@/database/types.ts';
 
 export const categoryRowDataToFormValue = (

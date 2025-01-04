@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { CategoryInsertInput } from '@/database/category.ts';
+import { CategoryInsertInput } from '@/database/categories/category.ts';
 
 export const createCategoryFormSchema = z.object({
   name: z

@@ -5,8 +5,8 @@ import { CategoryColorFilter } from '@/data-management/categories/filters/catego
 import { safelyGetTableColumn } from '@/helpers/safely-get-table-column.ts';
 import { CategoriesTableColumnsId } from '@/data-management/categories/data-view/categories-table-columns.tsx';
 import { DataTableProp } from '@/data-management/data-view/table-type.ts';
-import { CategoryColor } from '@/data-management/categories/category-colors-query.ts';
-import { CategoryType } from '@/data-management/categories/category-types-query.ts';
+import { CategoryColor } from '@/database/category-colors/query.ts';
+import { CategoryType } from '@/database/category-types/query.ts';
 
 interface CategoriesFiltersProps extends FiltersProps {
   table: DataTableProp;

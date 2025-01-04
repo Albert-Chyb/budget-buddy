@@ -1,6 +1,6 @@
-import { useCategoryDeleteMutation } from '@/data-management/categories/category-delete-mutation.ts';
+import { useCategoryDeleteMutation } from '@/database/categories/delete-mutation.ts';
 import { PendingButton } from '@/components/pending-button.tsx';
-import { Category } from '@/database/category.ts';
+import { Category } from '@/database/categories/category.ts';
 
 interface CategoryDeleteButton {
   id: Category['id'];
