@@ -36,7 +36,7 @@ const categoryTypeColumn = column.accessor('type.id', {
   cell: (context) => context.row.original.type?.name,
 });
 
-const categoryColorColumn = column.accessor('color.id', {
+const categoryColorColumn = column.accessor((color) => color?.id, {
   id: CategoriesTableColumnsId.Color,
   header: 'Kolor',
   filterFn: arrayIncludesFilterFn as FilterFn<CategoryRowData>,
