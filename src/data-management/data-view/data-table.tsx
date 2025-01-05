@@ -9,17 +9,35 @@ import { TableResets } from '@/data-management/table-resets.tsx';
 export interface DataTableProps extends PropsWithChildren {
   table: DataTableProp;
   filters: ReactNode;
+  emptyDatasetInfo: ReactNode;
+  emptyFilteredDatasetInfo: ReactNode;
 }
 
 export function DataTable(props: DataTableProps) {
-  const { table, filters } = props;
+  const { table, filters, emptyDatasetInfo, emptyFilteredDatasetInfo } = props;
+
+  if (!table.getPreFilteredRowModel().rows.length) return emptyDatasetInfo;
+
+  const filtersSection = (
+    <div className='flex items-end gap-2 flex-wrap'>
+      {filters}
+
+      <TableResets table={table} />
+    </div>
+  );
+
+  if (!table.getFilteredRowModel().rows.length)
+    return (
+      <>
+        {filtersSection}
+
+        {emptyFilteredDatasetInfo}
+      </>
+    );
 
   return (
     <>
-      <div className='flex items-end gap-2 flex-wrap'>
-        {filters}
-        <TableResets table={table} />
-      </div>
+      {filtersSection}
 
       <div className='border rounded'>
         <Table>
