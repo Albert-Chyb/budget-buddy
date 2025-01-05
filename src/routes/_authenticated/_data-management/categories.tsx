@@ -24,7 +24,13 @@ function RouteComponent() {
     categoryColors ?? [],
   );
 
-  if (status === 'pending') return <DataManagementCardSkeleton />;
+  if (status === 'pending')
+    return (
+      <DataManagementCardSkeleton
+        rowsCount={5}
+        colsCount={table.getAllColumns().length}
+      />
+    );
 
   if (status === 'error') return <p>Błąd w ładowaniu danych</p>;
 

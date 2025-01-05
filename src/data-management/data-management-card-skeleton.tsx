@@ -5,10 +5,17 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/card.tsx';
-import { TableSkeleton } from '@/components/table-skeleton.tsx';
+import {
+  TableSkeleton,
+  TableSkeletonProps,
+} from '@/components/table-skeleton.tsx';
 import { Skeleton } from '@/components/skeleton.tsx';
 
-export const DataManagementCardSkeleton = () => {
+type DataManagementCardSkeletonProps = TableSkeletonProps;
+
+export const DataManagementCardSkeleton = (
+  props: DataManagementCardSkeletonProps,
+) => {
   return (
     <Card>
       <CardHeader>
@@ -21,10 +28,7 @@ export const DataManagementCardSkeleton = () => {
       </CardHeader>
 
       <CardContent>
-        <TableSkeleton
-          rowsCount={5}
-          colsCount={4}
-        />
+        <TableSkeleton {...props} />
       </CardContent>
     </Card>
   );
