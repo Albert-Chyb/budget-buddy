@@ -15,12 +15,12 @@ export function CategoryTypeFilter(props: CategoryTypeFilterProps) {
   const { categoryTypes, ...otherProps } = props;
   return (
     <SingleEnumFilter {...otherProps}>
-      {categoryTypes.map((color) => (
+      {categoryTypes.map((type) => (
         <EnumFilterOption
-          key={color.id}
-          value={String(color.id)}
+          key={type.id}
+          value={String(type.name)}
         >
-          {color.name}
+          {type.name}
         </EnumFilterOption>
       ))}
     </SingleEnumFilter>

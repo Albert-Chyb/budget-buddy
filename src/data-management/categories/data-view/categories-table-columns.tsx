@@ -30,21 +30,24 @@ const categoryNameColumn = column.accessor('name', {
   filterFn: 'includesString',
 });
 
-const categoryTypeColumn = column.accessor('type.id', {
+const categoryTypeColumn = column.accessor('type.name', {
   id: CategoriesTableColumnsId.Type,
   header: 'Typ',
   filterFn: 'equalsString',
   cell: (context) => context.row.original.type?.name,
 });
 
-const categoryColorColumn = column.accessor((category) => category.color?.id, {
-  id: CategoriesTableColumnsId.Color,
-  header: 'Kolor',
-  filterFn: arrayIncludesFilterFn as FilterFn<CategoryRowData>,
-  cell: (context) => (
-    <CategoryColorCell categoryColor={context.row.original.color} />
-  ),
-});
+const categoryColorColumn = column.accessor(
+  (category) => category.color?.name,
+  {
+    id: CategoriesTableColumnsId.Color,
+    header: 'Kolor',
+    filterFn: arrayIncludesFilterFn as FilterFn<CategoryRowData>,
+    cell: (context) => (
+      <CategoryColorCell categoryColor={context.row.original.color} />
+    ),
+  },
+);
 
 const categoryActionsColumnBuilder = (
   categoryTypes: CategoryType[],

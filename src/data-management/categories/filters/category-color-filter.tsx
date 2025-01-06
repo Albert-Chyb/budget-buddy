@@ -17,7 +17,7 @@ export function CategoryColorFilter(props: CategoryColorFilterProps) {
       {colors.map((color) => (
         <CheckboxFilterOption
           key={color.id}
-          value={color.id}
+          value={color.name}
         >
           {color.name}
         </CheckboxFilterOption>
