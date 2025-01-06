@@ -9,6 +9,7 @@ import { CategoryRowData } from '@/database/categories/table-data-query.ts';
 import { Tables } from '@/database/types.ts';
 import { CategoryColor } from '@/database/category-colors/query.ts';
 import { CategoryType } from '@/database/category-types/query.ts';
+import { CategoryColorCell } from '@/data-management/categories/data-view/category-color-cell.tsx';
 
 const AccessorColumnsIds = Object.freeze({
   Name: 'name',
@@ -40,7 +41,9 @@ const categoryColorColumn = column.accessor((category) => category.color?.id, {
   id: CategoriesTableColumnsId.Color,
   header: 'Kolor',
   filterFn: arrayIncludesFilterFn as FilterFn<CategoryRowData>,
-  cell: (context) => context.row.original.color?.name,
+  cell: (context) => (
+    <CategoryColorCell categoryColor={context.row.original.color} />
+  ),
 });
 
 const categoryActionsColumnBuilder = (
