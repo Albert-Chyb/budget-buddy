@@ -25,6 +25,9 @@ export function CategoryCreator(props: CategoryCreatorProps) {
       id={id}
     >
       {{
+        title: 'Tworzenie nowej kategorii',
+        description:
+          'Po wypełnieniu formularza wyślij go, aby dodać nową kategorię',
         trigger,
         form,
       }}

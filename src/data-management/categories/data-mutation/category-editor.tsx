@@ -14,6 +14,9 @@ export function CategoryEditor(props: CategoryEditorProps) {
       id={props.id}
     >
       {{
+        title: 'Edycja kategorii',
+        description:
+          'Po wprowadzeniu żądanych zmian wyślij formularz, aby zachować zmiany',
         trigger: <Button variant='secondary'>Edytuj</Button>,
         form: <UpdateCategoryForm {...props} />,
       }}
