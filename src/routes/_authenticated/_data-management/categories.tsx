@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { DataTable } from '@/data-management/data-view/data-table.tsx';
-import { DataManagementCard } from '@/data-management/data-managment.tsx';
+import { DataManagementPage } from '@/data-management/data-management-page.tsx';
 import { CategoriesFilters } from '@/data-management/categories/filters/categories-filters.tsx';
 import { useCategoriesTable } from '@/data-management/categories/data-view/categories-table-model.ts';
 import { CategoryCreateButton } from '@/data-management/categories/data-mutation/actions/category-create-button.tsx';
@@ -53,13 +53,13 @@ function RouteComponent() {
   );
 
   return (
-    <DataManagementCard>
+    <DataManagementPage>
       {{
         title: <h1>Kategorie</h1>,
         description: <p>Zarządzaj kategoriami transakcji</p>,
         content: dataTable,
         creator,
       }}
-    </DataManagementCard>
+    </DataManagementPage>
   );
 }

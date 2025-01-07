@@ -9,14 +9,7 @@ export type CategoryCreatorProps = CreateCategoryFormProps & { id: string };
 
 export function CategoryCreator(props: CategoryCreatorProps) {
   const { id, ...formProps } = props;
-  const trigger = (
-    <Button
-      variant='secondary'
-      className='ml-auto mr-6'
-    >
-      Nowa kategoria
-    </Button>
-  );
+  const trigger = <Button variant='secondary'>Nowa kategoria</Button>;
   const form = <CreateCategoryForm {...formProps} />;
 
   return (

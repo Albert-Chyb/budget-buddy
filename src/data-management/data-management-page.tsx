@@ -7,6 +7,7 @@ import {
 } from '@/components/card.tsx';
 import { ReactNode } from 'react';
 import { EditorContextProvider } from '@/data-management/data-mutation/editor-open-state.tsx';
+import { useIsMobile } from '@/data-management/is-mobile.ts';
 
 interface DataManagementCardProps {
   children: {
@@ -17,9 +18,28 @@ interface DataManagementCardProps {
   };
 }
 
-export const DataManagementCard = (props: DataManagementCardProps) => {
+export const DataManagementPage = (props: DataManagementCardProps) => {
   const { children } = props;
+  const isMobile = useIsMobile();
   const { title, description, content, creator } = children;
+
+  if (isMobile)
+    return (
+      <EditorContextProvider>
+        <section>
+          <header className='flex items-center mb-4'>
+            <hgroup>
+              <span className='typography-large'>{title}</span>
+              <span className='typography-p'>{description}</span>
+            </hgroup>
+
+            <div className='ml-auto'>{creator}</div>
+          </header>
+
+          <div className='space-y-4'>{content}</div>
+        </section>
+      </EditorContextProvider>
+    );
 
   return (
     <EditorContextProvider>
@@ -30,7 +50,7 @@ export const DataManagementCard = (props: DataManagementCardProps) => {
             <CardDescription>{description}</CardDescription>
           </CardHeader>
 
-          {creator}
+          <div className='ml-auto mr-6'>{creator}</div>
         </div>
 
         <CardContent className='space-y-4'>{content}</CardContent>
