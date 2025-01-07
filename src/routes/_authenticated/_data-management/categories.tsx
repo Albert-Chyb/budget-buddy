@@ -18,11 +18,7 @@ export const Route = createFileRoute(
 function RouteComponent() {
   const { categoryTypes, categoryColors, categories, status } =
     useCategoriesPageData();
-  const table = useCategoriesTable(
-    categories ?? [],
-    categoryTypes ?? [],
-    categoryColors ?? [],
-  );
+  const table = useCategoriesTable(categories, categoryTypes, categoryColors);
 
   if (status === 'pending')
     return (
