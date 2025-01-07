@@ -8,14 +8,12 @@ export function Filters(props: FiltersProps) {
     <section>
       <h2 className='typography-large mb-2'>Filtry</h2>
 
-      <div className='flex gap-2 flex-wrap'>
-        <ul
-          className='flex gap-4'
-          aria-label='Lista filtrów'
-        >
-          {children}
-        </ul>
-      </div>
+      <ul
+        className='flex gap-4'
+        aria-label='Lista filtrów'
+      >
+        {children}
+      </ul>
     </section>
   );
 }
