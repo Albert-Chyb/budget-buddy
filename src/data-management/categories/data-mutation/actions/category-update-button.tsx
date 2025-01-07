@@ -6,6 +6,7 @@ import { CategoryColor } from '@/database/category-colors/query.ts';
 import { CategoryType } from '@/database/category-types/query.ts';
 import { CategoryRowData } from '@/database/categories/table-data-query.ts';
 import { useEditorContext } from '@/data-management/data-mutation/editor-open-state.tsx';
+import { MutationErrorDialog } from '@/data-management/data-mutation/mutation-error-dialog.tsx';
 
 interface CategoryUpdateButtonProps {
   categoryColors: CategoryColor[];
@@ -16,7 +17,8 @@ interface CategoryUpdateButtonProps {
 export const CategoryUpdateButton = (props: CategoryUpdateButtonProps) => {
   const { categoryColors, categoryTypes, category } = props;
   const { closeEditor } = useEditorContext();
-  const { mutate, isPending } = useCategoryUpdateMutation();
+  const { mutate, isPending, status, error, reset } =
+    useCategoryUpdateMutation();
 
   function handleSubmit(formValue: UpdateCategoryFormValue) {
     mutate(
@@ -28,13 +30,23 @@ export const CategoryUpdateButton = (props: CategoryUpdateButtonProps) => {
   }
 
   return (
-    <CategoryEditor
-      id={String(category.id)}
-      category={categoryRowDataToFormValue(category)}
-      onSubmit={handleSubmit}
-      categoryTypes={categoryTypes}
-      categoryColors={categoryColors}
-      isPending={isPending}
-    />
+    <>
+      {status === 'error' && (
+        <MutationErrorDialog
+          message={`Nie udało się zaktualizować transakcji: ${category.name}`}
+          onReset={reset}
+          error={error}
+        />
+      )}
+
+      <CategoryEditor
+        id={String(category.id)}
+        category={categoryRowDataToFormValue(category)}
+        onSubmit={handleSubmit}
+        categoryTypes={categoryTypes}
+        categoryColors={categoryColors}
+        isPending={isPending}
+      />
+    </>
   );
 };
