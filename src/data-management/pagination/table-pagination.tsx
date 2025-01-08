@@ -9,6 +9,7 @@ import { Table } from '@tanstack/react-table';
 import { PageSizeSelect } from '@/data-management/pagination/page-size-select.tsx';
 import { usePrevAndNextPageSearchParams } from '@/data-management/pagination/pagination-state.ts';
 import { PageIndicator } from '@/data-management/pagination/page-indicator.tsx';
+import { useIsMobile } from '@/data-management/is-mobile.ts';
 
 export interface TablePaginationProps {
   table: Table<unknown>;
@@ -16,30 +17,47 @@ export interface TablePaginationProps {
 
 export function TablePagination({ table }: TablePaginationProps) {
   const [prevPage, nextPage] = usePrevAndNextPageSearchParams();
+  const isMobile = useIsMobile();
+
+  const pageSizeSelect = <PageSizeSelect table={table} />;
+  const pageIndicator = <PageIndicator table={table} />;
+  const paginator = (
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious
+            disabled={!table.getCanPreviousPage()}
+            to='.'
+            search={prevPage}
+          />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext
+            disabled={!table.getCanNextPage()}
+            to='.'
+            search={nextPage}
+          />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+  );
+
+  if (isMobile)
+    return (
+      <div className='flex flex-col items-center gap-y-2'>
+        {paginator}
+        {pageIndicator}
+        {pageSizeSelect}
+      </div>
+    );
+
   return (
     <div className='flex items-center gap-x-2'>
-      <PageIndicator table={table} />
+      {pageIndicator}
 
-      <Pagination className='ml-auto'>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              disabled={!table.getCanPreviousPage()}
-              to='.'
-              search={prevPage}
-            />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext
-              disabled={!table.getCanNextPage()}
-              to='.'
-              search={nextPage}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+      <div className='ml-auto'>{paginator}</div>
 
-      <PageSizeSelect table={table} />
+      {pageSizeSelect}
     </div>
   );
 }
