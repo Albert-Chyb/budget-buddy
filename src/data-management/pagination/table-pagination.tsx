@@ -20,7 +20,7 @@ export function TablePagination({ table }: TablePaginationProps) {
     <div className='flex items-center gap-x-2'>
       <PageIndicator table={table} />
 
-      <Pagination className='justify-end w-min ml-auto mr-0'>
+      <Pagination className='ml-auto'>
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious

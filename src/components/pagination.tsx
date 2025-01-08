@@ -5,11 +5,10 @@ import { cn } from '@/helpers/cn';
 import { ButtonProps, buttonVariants } from '@/components/button';
 import { Link, LinkComponentProps } from '@tanstack/react-router';
 
-const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
+const Pagination = (props: React.ComponentProps<'nav'>) => (
   <nav
     aria-label='paginacja'
     role='navigation'
-    className={cn('mx-auto flex w-full justify-center', className)}
     {...props}
   />
 );
