@@ -22,7 +22,12 @@ export function CheckboxFilter(props: CheckboxFilterProps) {
     <li>
       <Popover>
         <PopoverTrigger asChild>
-          <Button variant='outline'>Kolor</Button>
+          <Button
+            variant='outline'
+            className='w-full'
+          >
+            Kolor
+          </Button>
         </PopoverTrigger>
         <PopoverContent>
           <ScrollArea className='h-64'>

@@ -5,6 +5,7 @@ import { DataTableBody } from '@/data-management/data-view/data-table-body.tsx';
 import { DataTableHeader } from '@/data-management/data-view/data-table-header.tsx';
 import { DataTableProp } from '@/data-management/data-view/table-type.ts';
 import { TableResets } from '@/data-management/table-resets.tsx';
+import { TableTools } from '@/data-management/data-view/table-tools.tsx';
 
 export interface DataTableProps extends PropsWithChildren {
   table: DataTableProp;
@@ -18,18 +19,17 @@ export function DataTable(props: DataTableProps) {
 
   if (!table.getPreFilteredRowModel().rows.length) return emptyDatasetInfo;
 
-  const filtersSection = (
-    <div className='flex items-end gap-2 flex-wrap'>
-      {filters}
-
-      <TableResets table={table} />
-    </div>
+  const tableTools = (
+    <TableTools
+      filters={filters}
+      tableResets={<TableResets table={table} />}
+    />
   );
 
   if (!table.getFilteredRowModel().rows.length)
     return (
       <>
-        {filtersSection}
+        {tableTools}
 
         {emptyFilteredDatasetInfo}
       </>
@@ -37,7 +37,7 @@ export function DataTable(props: DataTableProps) {
 
   return (
     <>
-      {filtersSection}
+      {tableTools}
 
       <div className='border rounded'>
         <Table>

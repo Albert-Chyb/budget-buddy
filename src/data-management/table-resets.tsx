@@ -8,7 +8,7 @@ interface TableResetsProps {
 
 export function TableResets({ table }: TableResetsProps) {
   return (
-    <div className='ml-auto space-x-2'>
+    <section className='space-x-2'>
       <Button onClick={() => table.resetColumnFilters()}>
         <FilterX /> Wyczyść filtry
       </Button>
@@ -16,6 +16,6 @@ export function TableResets({ table }: TableResetsProps) {
       <Button onClick={() => table.resetSorting()}>
         <Eraser /> Wyczyść sortowanie
       </Button>
-    </div>
+    </section>
   );
 }

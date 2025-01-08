@@ -8,5 +8,12 @@ export interface EnumFilterOptionProps extends PropsWithChildren {
 
 export function EnumFilterOption(props: EnumFilterOptionProps) {
   const { children, value } = props;
-  return <ToggleGroupItem value={value}>{children}</ToggleGroupItem>;
+  return (
+    <ToggleGroupItem
+      value={value}
+      className='w-full'
+    >
+      {children}
+    </ToggleGroupItem>
+  );
 }
