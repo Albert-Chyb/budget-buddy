@@ -1,11 +1,11 @@
-import { Table } from '@/components/table.tsx';
 import { PropsWithChildren, ReactNode } from 'react';
 import { TablePagination } from '@/data-management/pagination/table-pagination.tsx';
-import { DataTableBody } from '@/data-management/data-view/data-table-body.tsx';
-import { DataTableHeader } from '@/data-management/data-view/data-table-header.tsx';
 import { DataTableProp } from '@/data-management/data-view/table-type.ts';
 import { TableResets } from '@/data-management/table-resets.tsx';
 import { TableTools } from '@/data-management/data-view/table-tools.tsx';
+import { useIsMobile } from '@/data-management/is-mobile.ts';
+import { MobileDataTables } from '@/data-management/data-view/mobile-data-tables.tsx';
+import { DesktopDataTable } from '@/data-management/data-view/desktop-data-table.tsx';
 
 export interface DataTableProps extends PropsWithChildren {
   table: DataTableProp;
@@ -16,6 +16,7 @@ export interface DataTableProps extends PropsWithChildren {
 
 export function DataTable(props: DataTableProps) {
   const { table, filters, emptyDatasetInfo, emptyFilteredDatasetInfo } = props;
+  const isMobile = useIsMobile();
 
   if (!table.getPreFilteredRowModel().rows.length) return emptyDatasetInfo;
 
@@ -39,12 +40,11 @@ export function DataTable(props: DataTableProps) {
     <>
       {tableTools}
 
-      <div className='border rounded'>
-        <Table>
-          <DataTableHeader table={table} />
-          <DataTableBody table={table} />
-        </Table>
-      </div>
+      {isMobile ? (
+        <MobileDataTables table={table} />
+      ) : (
+        <DesktopDataTable table={table} />
+      )}
 
       <TablePagination table={table} />
     </>

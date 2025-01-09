@@ -2,11 +2,13 @@ import { flexRender, Table } from '@tanstack/react-table';
 import { TableHead, TableHeader, TableRow } from '@/components/table.tsx';
 import { SortableTableHead } from '@/data-management/sorting/sortable-table-head.tsx';
 
-export interface DataTableHeaderProps {
+export interface DesktopDataTableHeaderProps {
   table: Table<unknown>;
 }
 
-export const DataTableHeader = ({ table }: DataTableHeaderProps) => {
+export const DesktopDataTableHeader = ({
+  table,
+}: DesktopDataTableHeaderProps) => {
   const rows = table.getHeaderGroups().map(({ id, headers }) => {
     const cells = headers.map((header) => {
       const cellContent = flexRender(

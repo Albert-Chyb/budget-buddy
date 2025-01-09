@@ -5,7 +5,7 @@ export interface DataTableBodyProps {
   table: Table<unknown>;
 }
 
-export const DataTableBody = (props: DataTableBodyProps) => {
+export const DesktopDataTableBody = (props: DataTableBodyProps) => {
   const { table } = props;
 
   const rows = table.getRowModel().rows.map((row) => {
