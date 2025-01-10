@@ -44,8 +44,10 @@ export function TablePagination({ table }: TablePaginationProps) {
 
   if (isMobile)
     return (
-      <div className='flex flex-col items-center gap-y-2'>
-        {paginator}
+      <div className='flex flex-wrap items-center justify-center gap-2'>
+        <span className='basis-full'>
+          <div className='mx-auto w-min'>{paginator}</div>
+        </span>
         {pageIndicator}
         {pageSizeSelect}
       </div>
