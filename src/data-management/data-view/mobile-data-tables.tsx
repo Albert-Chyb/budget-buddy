@@ -11,11 +11,15 @@ export const MobileDataTables = ({ table }: MobileDataTablesProps) => {
     table.getFlatHeaders().map((header) => [header.column.id, header]),
   );
 
-  return table.getRowModel().rows.map((row) => (
-    <MobileDataTable
-      key={row.id}
-      row={row}
-      headers={headers}
-    />
-  ));
+  return (
+    <div className='grid grid-cols-1 gap-2 sm:grid-cols-2'>
+      {table.getRowModel().rows.map((row) => (
+        <MobileDataTable
+          key={row.id}
+          row={row}
+          headers={headers}
+        />
+      ))}
+    </div>
+  );
 };
