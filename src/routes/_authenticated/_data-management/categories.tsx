@@ -8,6 +8,7 @@ import { EmptyCategoriesTableInfo } from '@/data-management/categories/data-view
 import { DataManagementCardSkeleton } from '@/data-management/data-management-card-skeleton.tsx';
 import { EmptyFilteredCategoriesTableInfo } from '@/data-management/categories/data-view/empty-filtered-categories-table-info.tsx';
 import { useCategoriesPageData } from '@/data-management/categories/data-view/categories-page-data.ts';
+import { CategoriesMobileSorting } from '@/data-management/categories/sorting/categories-mobile-sorting.tsx';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/categories',
@@ -30,6 +31,8 @@ function RouteComponent() {
 
   if (status === 'error') return <p>Błąd w ładowaniu danych</p>;
 
+  const sorting = <CategoriesMobileSorting table={table} />;
+
   const filters = (
     <CategoriesFilters
       table={table}
@@ -39,6 +42,7 @@ function RouteComponent() {
   );
   const dataTable = (
     <DataTable
+      sorting={sorting}
       table={table}
       filters={filters}
       emptyDatasetInfo={<EmptyCategoriesTableInfo />}
