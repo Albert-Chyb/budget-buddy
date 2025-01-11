@@ -12,9 +12,9 @@ import { Column } from '@tanstack/react-table';
 import {
   getSortingDirection,
   setSortingDirection,
-  SortingDirection,
 } from '@/helpers/tanstack-table-sort-bridge.ts';
 import { SortDirectionDropdownMenuGroup } from '@/data-management/sorting/sort-direction-dropdown-menu-group.tsx';
+import { twMerge } from 'tailwind-merge';
 
 interface ColumnSortMenuProps extends Omit<ButtonProps, 'children'> {
   column: Column<unknown>;
@@ -25,15 +25,7 @@ export const ColumnSortMenu = forwardRef(
     props: ColumnSortMenuProps,
     forwardedRef: ForwardedRef<ComponentRef<typeof Button>>,
   ) => {
-    const { column, ...otherProps } = props;
-
-    const sortDirection = getSortingDirection(column);
-    function handleSortDirectionChange(
-      newDirection: SortingDirection,
-      isMultiSort: boolean,
-    ) {
-      setSortingDirection(column, newDirection, isMultiSort);
-    }
+    const { column, className, ...otherProps } = props;
 
     return (
       <DropdownMenu>
@@ -41,6 +33,10 @@ export const ColumnSortMenu = forwardRef(
           <Button
             variant='ghost'
             size='icon'
+            className={twMerge(
+              className,
+              column.getIsSorted() ? 'text-foreground' : '',
+            )}
             {...otherProps}
             ref={forwardedRef}
           >
@@ -52,8 +48,10 @@ export const ColumnSortMenu = forwardRef(
           <DropdownMenuSeparator />
 
           <SortDirectionDropdownMenuGroup
-            value={sortDirection}
-            onValueChange={handleSortDirectionChange}
+            value={getSortingDirection(column)}
+            onValueChange={(direction, isMultiSort) =>
+              setSortingDirection(column, direction, isMultiSort)
+            }
           />
         </DropdownMenuContent>
       </DropdownMenu>

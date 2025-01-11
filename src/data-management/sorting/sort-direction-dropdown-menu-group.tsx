@@ -3,8 +3,8 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
 } from '@/components/dropdown-menu.tsx';
-import { useIsMultiSort } from '@/data-management/sorting/use-is-multi-sort.tsx';
 import { SORTING_OPTIONS } from '@/data-management/sorting/sorting-options.tsx';
+import { useState } from 'react';
 
 interface SortDropdownMenuGroupProps {
   value: SortingDirection;
@@ -15,7 +15,7 @@ export const SortDirectionDropdownMenuGroup = (
   props: SortDropdownMenuGroupProps,
 ) => {
   const { value, onValueChange } = props;
-  const isMultiSortEnabled = useIsMultiSort();
+  const [isMultiSortEnabled, setIsMultiSortEnabled] = useState(false);
 
   const sortingOptions = SORTING_OPTIONS.map((option) => {
     const { direction, label, icon } = option;
@@ -36,6 +36,8 @@ export const SortDirectionDropdownMenuGroup = (
       onValueChange={(value) =>
         onValueChange(value as SortingDirection, isMultiSortEnabled)
       }
+      onKeyDown={($event) => setIsMultiSortEnabled($event.shiftKey)}
+      onKeyUp={() => setIsMultiSortEnabled(false)}
     >
       {sortingOptions}
     </DropdownMenuRadioGroup>
