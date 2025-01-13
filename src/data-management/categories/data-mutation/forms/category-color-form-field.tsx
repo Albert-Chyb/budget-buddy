@@ -18,13 +18,13 @@ import { recordIdValueAdapter } from '@/helpers/input-value-adapter.ts';
 
 const NO_VALUE_PLACEHOLDER = 'Bez koloru';
 
-interface CategoryColorIdFormFieldProps<T extends FieldValues> {
+interface CategoryColorFormFieldProps<T extends FieldValues> {
   name: Path<T>;
   categoryColors: CategoryColor[];
 }
 
-export const CategoryColorIdFormField = <T extends FieldValues>(
-  props: CategoryColorIdFormFieldProps<T>,
+export const CategoryColorFormField = <T extends FieldValues>(
+  props: CategoryColorFormFieldProps<T>,
 ) => {
   const { name, categoryColors } = props;
   const form = useFormContext();

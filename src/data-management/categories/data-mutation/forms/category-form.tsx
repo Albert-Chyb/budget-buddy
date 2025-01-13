@@ -3,7 +3,7 @@ import { CategoryColor } from '@/database/category-colors/query.ts';
 import { useFormContext } from 'react-hook-form';
 import { CategoryNameFormField } from '@/data-management/categories/data-mutation/forms/category-name-form-field.tsx';
 import { CategoryTypeFormField } from '@/data-management/categories/data-mutation/forms/category-type-form-field.tsx';
-import { CategoryColorIdFormField } from '@/data-management/categories/data-mutation/forms/category-color-id-form-field.tsx';
+import { CategoryColorFormField } from '@/data-management/categories/data-mutation/forms/category-color-form-field.tsx';
 import { UpdateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/update-category-form-schema.ts';
 import { CreateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/create-category-form-schema.ts';
 import { PendingButton } from '@/components/pending-button.tsx';
@@ -35,7 +35,7 @@ export const CategoryForm = <T extends CategoryFormValueShape>(
         categoryTypes={categoryTypes}
       />
 
-      <CategoryColorIdFormField<CategoryFormValueShape>
+      <CategoryColorFormField<CategoryFormValueShape>
         name='color_id'
         categoryColors={categoryColors}
       />
