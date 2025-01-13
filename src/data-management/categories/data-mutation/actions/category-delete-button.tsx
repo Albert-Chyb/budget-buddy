@@ -1,18 +1,22 @@
 import { useCategoryDeleteMutation } from '@/database/categories/delete-mutation.ts';
-import { PendingButton } from '@/components/pending-button.tsx';
 import { Category } from '@/database/categories/category.ts';
 import { MutationErrorDialog } from '@/data-management/data-mutation/mutation-error-dialog.tsx';
+import { useState } from 'react';
+import { CategoryDeleteConfirmationAlert } from '@/data-management/categories/data-mutation/actions/category-delete-confirmation-alert.tsx';
 
 interface CategoryDeleteButton {
   id: Category['id'];
 }
 
 export const CategoryDeleteButton = ({ id }: CategoryDeleteButton) => {
+  const [isOpened, setIsOpened] = useState(false);
   const { mutate, isPending, error, status, reset } =
     useCategoryDeleteMutation();
 
-  function handleDeleteBtnClick() {
-    mutate(id);
+  function handleDeleteConfirmation() {
+    mutate(id, {
+      onSettled: () => setIsOpened(false),
+    });
   }
 
   return (
@@ -25,13 +29,12 @@ export const CategoryDeleteButton = ({ id }: CategoryDeleteButton) => {
         />
       )}
 
-      <PendingButton
-        variant='destructive'
-        onClick={handleDeleteBtnClick}
+      <CategoryDeleteConfirmationAlert
+        isOpened={isOpened}
+        onOpenedChange={setIsOpened}
+        onConfirm={handleDeleteConfirmation}
         isPending={isPending}
-      >
-        Usuń
-      </PendingButton>
+      />
     </>
   );
 };
