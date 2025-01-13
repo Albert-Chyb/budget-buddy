@@ -14,7 +14,7 @@ export function CategoryActions(props: CategoryActionsProps) {
   const { category, categoryTypes, categoryColors } = props;
 
   return (
-    <>
+    <div className='flex items-center gap-2'>
       <CategoryUpdateButton
         categoryColors={categoryColors}
         categoryTypes={categoryTypes}
@@ -22,6 +22,6 @@ export function CategoryActions(props: CategoryActionsProps) {
       />
 
       <CategoryDeleteButton id={category.id} />
-    </>
+    </div>
   );
 }
