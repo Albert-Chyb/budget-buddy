@@ -1,8 +1,3 @@
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/popover.tsx';
 import { ReactNode } from 'react';
 import { useEditorOpenState } from '@/data-management/data-mutation/editor-open-state.tsx';
 import { useIsMobile } from '@/data-management/is-mobile.ts';
@@ -14,6 +9,14 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/drawer.tsx';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/dialog.tsx';
 
 export type EditorProps = {
   id: string;
@@ -52,13 +55,19 @@ export const Editor = (props: EditorProps) => {
     );
 
   return (
-    <Popover
-      modal
+    <Dialog
       open={isOpened}
       onOpenChange={setIsOpened}
     >
-      <PopoverTrigger asChild>{trigger}</PopoverTrigger>
-      <PopoverContent>{form}</PopoverContent>
-    </Popover>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
+        </DialogHeader>
+
+        {form}
+      </DialogContent>
+    </Dialog>
   );
 };
