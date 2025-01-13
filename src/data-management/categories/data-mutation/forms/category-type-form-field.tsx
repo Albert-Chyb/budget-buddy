@@ -1,6 +1,7 @@
 import { FieldValues, Path, useFormContext } from 'react-hook-form';
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -51,6 +52,10 @@ export const CategoryTypeFormField = <T extends FieldValues>(
               })}
             </ToggleGroup>
           </FormControl>
+          <FormDescription>
+            To ustawienie określa, czy transakcje w tej kategorii to wydatek czy
+            przychód.
+          </FormDescription>
           <FormMessage />
         </FormItem>
       )}
