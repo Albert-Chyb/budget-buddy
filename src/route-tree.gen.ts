@@ -21,6 +21,7 @@ import { Route as AuthenticatedSignOutImport } from './routes/_authenticated/sig
 import { Route as AuthenticatedChangePasswordImport } from './routes/_authenticated/change-password'
 import { Route as AuthenticatedDataManagementImport } from './routes/_authenticated/_data-management'
 import { Route as UnauthenticatedResetPasswordOtpDialogImport } from './routes/_unauthenticated/reset-password.otp-dialog'
+import { Route as AuthenticatedDataManagementWalletsImport } from './routes/_authenticated/_data-management/wallets'
 import { Route as AuthenticatedDataManagementCategoriesImport } from './routes/_authenticated/_data-management/categories'
 
 // Create/Update Routes
@@ -84,6 +85,13 @@ const UnauthenticatedResetPasswordOtpDialogRoute =
     id: '/otp-dialog',
     path: '/otp-dialog',
     getParentRoute: () => UnauthenticatedResetPasswordRoute,
+  } as any)
+
+const AuthenticatedDataManagementWalletsRoute =
+  AuthenticatedDataManagementWalletsImport.update({
+    id: '/wallets',
+    path: '/wallets',
+    getParentRoute: () => AuthenticatedDataManagementRoute,
   } as any)
 
 const AuthenticatedDataManagementCategoriesRoute =
@@ -167,6 +175,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDataManagementCategoriesImport
       parentRoute: typeof AuthenticatedDataManagementImport
     }
+    '/_authenticated/_data-management/wallets': {
+      id: '/_authenticated/_data-management/wallets'
+      path: '/wallets'
+      fullPath: '/wallets'
+      preLoaderRoute: typeof AuthenticatedDataManagementWalletsImport
+      parentRoute: typeof AuthenticatedDataManagementImport
+    }
     '/_unauthenticated/reset-password/otp-dialog': {
       id: '/_unauthenticated/reset-password/otp-dialog'
       path: '/otp-dialog'
@@ -181,12 +196,15 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedDataManagementRouteChildren {
   AuthenticatedDataManagementCategoriesRoute: typeof AuthenticatedDataManagementCategoriesRoute
+  AuthenticatedDataManagementWalletsRoute: typeof AuthenticatedDataManagementWalletsRoute
 }
 
 const AuthenticatedDataManagementRouteChildren: AuthenticatedDataManagementRouteChildren =
   {
     AuthenticatedDataManagementCategoriesRoute:
       AuthenticatedDataManagementCategoriesRoute,
+    AuthenticatedDataManagementWalletsRoute:
+      AuthenticatedDataManagementWalletsRoute,
   }
 
 const AuthenticatedDataManagementRouteWithChildren =
@@ -254,6 +272,7 @@ export interface FileRoutesByFullPath {
   '/sign-up': typeof UnauthenticatedSignUpRoute
   '/': typeof AuthenticatedIndexRoute
   '/categories': typeof AuthenticatedDataManagementCategoriesRoute
+  '/wallets': typeof AuthenticatedDataManagementWalletsRoute
   '/reset-password/otp-dialog': typeof UnauthenticatedResetPasswordOtpDialogRoute
 }
 
@@ -266,6 +285,7 @@ export interface FileRoutesByTo {
   '/sign-up': typeof UnauthenticatedSignUpRoute
   '/': typeof AuthenticatedIndexRoute
   '/categories': typeof AuthenticatedDataManagementCategoriesRoute
+  '/wallets': typeof AuthenticatedDataManagementWalletsRoute
   '/reset-password/otp-dialog': typeof UnauthenticatedResetPasswordOtpDialogRoute
 }
 
@@ -281,6 +301,7 @@ export interface FileRoutesById {
   '/_unauthenticated/sign-up': typeof UnauthenticatedSignUpRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/_data-management/categories': typeof AuthenticatedDataManagementCategoriesRoute
+  '/_authenticated/_data-management/wallets': typeof AuthenticatedDataManagementWalletsRoute
   '/_unauthenticated/reset-password/otp-dialog': typeof UnauthenticatedResetPasswordOtpDialogRoute
 }
 
@@ -295,6 +316,7 @@ export interface FileRouteTypes {
     | '/sign-up'
     | '/'
     | '/categories'
+    | '/wallets'
     | '/reset-password/otp-dialog'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -306,6 +328,7 @@ export interface FileRouteTypes {
     | '/sign-up'
     | '/'
     | '/categories'
+    | '/wallets'
     | '/reset-password/otp-dialog'
   id:
     | '__root__'
@@ -319,6 +342,7 @@ export interface FileRouteTypes {
     | '/_unauthenticated/sign-up'
     | '/_authenticated/'
     | '/_authenticated/_data-management/categories'
+    | '/_authenticated/_data-management/wallets'
     | '/_unauthenticated/reset-password/otp-dialog'
   fileRoutesById: FileRoutesById
 }
@@ -368,7 +392,8 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/_data-management.tsx",
       "parent": "/_authenticated",
       "children": [
-        "/_authenticated/_data-management/categories"
+        "/_authenticated/_data-management/categories",
+        "/_authenticated/_data-management/wallets"
       ]
     },
     "/_authenticated/change-password": {
@@ -400,6 +425,10 @@ export const routeTree = rootRoute
     },
     "/_authenticated/_data-management/categories": {
       "filePath": "_authenticated/_data-management/categories.tsx",
+      "parent": "/_authenticated/_data-management"
+    },
+    "/_authenticated/_data-management/wallets": {
+      "filePath": "_authenticated/_data-management/wallets.tsx",
       "parent": "/_authenticated/_data-management"
     },
     "/_unauthenticated/reset-password/otp-dialog": {
