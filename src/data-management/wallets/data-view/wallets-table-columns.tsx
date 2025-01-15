@@ -4,6 +4,7 @@ import {
   createColumnHelper,
 } from '@tanstack/react-table';
 import { WalletsQueryRecord } from '@/database/wallets/wallets-query.ts';
+import { APP_CURRENCY_CODE, APP_LOCALE } from '@/localization.ts';
 
 const AccessorColumnsIds = {
   Name: 'name',
@@ -26,7 +27,11 @@ const nameColumn = column.accessor('name', {
 const balanceColumn = column.accessor('balance', {
   id: WalletsColumnsIds.Balance,
   header: 'Aktualny balans',
-  cell: (context) => context.getValue() / 100,
+  cell: (context) =>
+    (context.getValue() / 100).toLocaleString(APP_LOCALE, {
+      style: 'currency',
+      currency: APP_CURRENCY_CODE,
+    }),
 });
 
 const actionsColumn = column.display({
