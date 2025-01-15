@@ -8,8 +8,12 @@ import {
 import { ReactNode } from 'react';
 import { EditorContextProvider } from '@/data-management/data-mutation/editor-open-state.tsx';
 import { useIsMobile } from '@/data-management/is-mobile.ts';
+import { QueryStatus } from '@tanstack/react-query';
+import { DataManagementCardSkeleton } from '@/data-management/data-management-card-skeleton.tsx';
 
 interface DataManagementCardProps {
+  status: QueryStatus;
+  colsCount: number;
   children: {
     title: ReactNode;
     description: ReactNode;
@@ -19,9 +23,19 @@ interface DataManagementCardProps {
 }
 
 export const DataManagementPage = (props: DataManagementCardProps) => {
-  const { children } = props;
+  const { children, status, colsCount } = props;
   const isMobile = useIsMobile();
   const { title, description, content, creator } = children;
+
+  if (status === 'pending')
+    return (
+      <DataManagementCardSkeleton
+        rowsCount={5}
+        colsCount={colsCount}
+      />
+    );
+
+  if (status === 'error') return <p>Błąd w ładowaniu danych</p>;
 
   if (isMobile)
     return (
