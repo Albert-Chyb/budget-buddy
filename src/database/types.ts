@@ -125,6 +125,27 @@ export type Database = {
         }
         Relationships: []
       }
+      wallets: {
+        Row: {
+          balance: number
+          id: number
+          name: string
+          owner_id: string
+        }
+        Insert: {
+          balance: number
+          id?: number
+          name: string
+          owner_id: string
+        }
+        Update: {
+          balance?: number
+          id?: number
+          name?: string
+          owner_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
