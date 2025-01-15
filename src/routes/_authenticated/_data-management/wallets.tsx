@@ -5,8 +5,8 @@ import { useWalletsQuery } from '@/database/wallets/wallets-query.ts';
 import { useDataTable } from '@/data-management/data-view/data-table-state.ts';
 import { walletsTableColumns } from '@/data-management/wallets/data-view/wallets-table-columns.tsx';
 import { DataTable } from '@/data-management/data-view/data-table.tsx';
-import { EmptyWalletsTableInfo } from '@/data-management/wallets/data-view/EmptyWalletsTableInfo.tsx';
-import { EmptyFilteredWalletsTableInfo } from '@/data-management/wallets/data-view/EmptyFilteredWalletsTableInfo.tsx';
+import { EmptyWalletsTableInfo } from '@/data-management/wallets/data-view/empty-wallets-table-info.tsx';
+import { EmptyFilteredWalletsTableInfo } from '@/data-management/wallets/data-view/empty-filtered-wallets-table-info.tsx';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/wallets',
