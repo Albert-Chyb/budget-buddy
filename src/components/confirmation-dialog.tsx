@@ -8,38 +8,39 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/alert.tsx';
-import { Button } from '@/components/button.tsx';
 import { PendingButton } from '@/components/pending-button.tsx';
+import { ReactNode } from 'react';
 
-interface CategoryDeleteConfirmationAlertProps {
+interface ConfirmationDialogProps {
   isOpened: boolean;
-  onOpenedChange: (open: boolean) => void;
+  onOpenedChange: (isOpened: boolean) => void;
   isPending: boolean;
   onConfirm: () => void;
+  trigger: ReactNode;
+  title: ReactNode;
+  description: ReactNode;
 }
 
-export const CategoryDeleteConfirmationAlert = ({
+export const ConfirmationDialog = ({
   isOpened,
   onOpenedChange,
-  onConfirm,
   isPending,
-}: CategoryDeleteConfirmationAlertProps) => {
+  onConfirm,
+  trigger,
+  title,
+  description,
+}: ConfirmationDialogProps) => {
   return (
     <AlertDialog
       open={isOpened}
       onOpenChange={onOpenedChange}
     >
-      <AlertDialogTrigger asChild>
-        <Button variant='destructive'>Usuń</Button>
-      </AlertDialogTrigger>
+      <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
 
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Potwierdzenie usunięcia kategorii</AlertDialogTitle>
-          <AlertDialogDescription>
-            Czy na pewno chcesz usunąć tę kategorię? Tej operacji nie można
-            cofnąć.
-          </AlertDialogDescription>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
 
         <AlertDialogFooter>
@@ -48,7 +49,7 @@ export const CategoryDeleteConfirmationAlert = ({
             isPending={isPending}
             onClick={onConfirm}
           >
-            Usuń
+            Ok
           </PendingButton>
         </AlertDialogFooter>
       </AlertDialogContent>

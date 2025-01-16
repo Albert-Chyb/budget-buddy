@@ -5,6 +5,7 @@ import {
 } from '@tanstack/react-table';
 import { WalletsQueryRecord } from '@/database/wallets/wallets-query.ts';
 import { APP_CURRENCY_CODE, APP_LOCALE } from '@/localization.ts';
+import { DeleteWalletButton } from '@/data-management/wallets/data-mutation/actions/delete-wallet.tsx';
 
 const AccessorColumnsIds = {
   Name: 'name',
@@ -37,7 +38,11 @@ const balanceColumn = column.accessor('balance', {
 const actionsColumn = column.display({
   id: WalletsColumnsIds.Actions,
   header: 'Akcje',
-  cell: () => <p>Akcje</p>,
+  cell: ({ row }) => (
+    <div>
+      <DeleteWalletButton id={row.original.id} />
+    </div>
+  ),
 });
 
 const walletsTableColumns = [
