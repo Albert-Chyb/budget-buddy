@@ -6,6 +6,7 @@ import {
 import { WalletsQueryRecord } from '@/database/wallets/wallets-query.ts';
 import { APP_CURRENCY_CODE, APP_LOCALE } from '@/localization.ts';
 import { DeleteWalletButton } from '@/data-management/wallets/data-mutation/actions/delete-wallet.tsx';
+import { UpdateWalletButton } from '@/data-management/wallets/data-mutation/actions/update-wallet.tsx';
 
 const AccessorColumnsIds = {
   Name: 'name',
@@ -39,8 +40,9 @@ const actionsColumn = column.display({
   id: WalletsColumnsIds.Actions,
   header: 'Akcje',
   cell: ({ row }) => (
-    <div>
+    <div className='flex items-center gap-x-2'>
       <DeleteWalletButton id={row.original.id} />
+      <UpdateWalletButton wallet={row.original} />
     </div>
   ),
 });

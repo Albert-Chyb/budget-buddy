@@ -1,4 +1,4 @@
-import { FormProvider, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { WalletNameFormField } from '@/data-management/wallets/data-mutation/forms/form-fields/wallet-name.tsx';
 import { WalletBalanceFormField } from '@/data-management/wallets/data-mutation/forms/form-fields/wallet-balance.tsx';
 import { PendingButton } from '@/components/pending-button.tsx';
@@ -7,6 +7,7 @@ import {
   createWalletFormSchema,
   CreateWalletFormValue,
 } from '@/data-management/wallets/data-mutation/forms/create-wallet-form-schema.ts';
+import { Form } from '@/components/form.tsx';
 
 export interface CreateWalletFormProps {
   onSubmit: (formValue: CreateWalletFormValue) => void;
@@ -26,14 +27,14 @@ export const CreateWalletForm = ({
   });
 
   return (
-    <FormProvider {...form}>
+    <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className='space-y-2'
       >
-        <WalletNameFormField name='name' />
+        <WalletNameFormField<CreateWalletFormValue> name='name' />
 
-        <WalletBalanceFormField name='balance' />
+        <WalletBalanceFormField<CreateWalletFormValue> name='balance' />
 
         <PendingButton
           className='w-full'
@@ -42,6 +43,6 @@ export const CreateWalletForm = ({
           Zapisz
         </PendingButton>
       </form>
-    </FormProvider>
+    </Form>
   );
 };
