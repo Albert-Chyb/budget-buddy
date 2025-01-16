@@ -11,15 +11,17 @@ import {
   DrawerTrigger,
 } from '@/components/drawer.tsx';
 import { Button } from '@/components/button.tsx';
+import { MobileSortingMenu } from '@/data-management/sorting/mobile-sorting-menu.tsx';
+import { DataTableProp } from '@/data-management/data-view/table-type.ts';
 
 interface TableToolsProps {
   filters: ReactNode;
   tableResets: ReactNode;
-  sorting: ReactNode;
+  table: DataTableProp;
 }
 
 export const TableTools = (props: TableToolsProps) => {
-  const { filters, tableResets, sorting } = props;
+  const { filters, tableResets, table } = props;
   const isMobile = useIsMobile();
 
   if (isMobile)
@@ -38,7 +40,7 @@ export const TableTools = (props: TableToolsProps) => {
 
           <div className='px-[var(--global-layout-space)] flex flex-col gap-y-2'>
             <div className='ml-auto'>{tableResets}</div>
-            {sorting}
+            <MobileSortingMenu table={table} />
             {filters}
           </div>
 

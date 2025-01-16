@@ -7,7 +7,6 @@ import { CategoryCreateButton } from '@/data-management/categories/data-mutation
 import { EmptyCategoriesTableInfo } from '@/data-management/categories/data-view/empty-categories-table-info.tsx';
 import { EmptyFilteredCategoriesTableInfo } from '@/data-management/categories/data-view/empty-filtered-categories-table-info.tsx';
 import { useCategoriesPageData } from '@/data-management/categories/data-view/categories-page-data.ts';
-import { CategoriesMobileSorting } from '@/data-management/categories/sorting/categories-mobile-sorting.tsx';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/categories',
@@ -20,8 +19,6 @@ function RouteComponent() {
     useCategoriesPageData();
   const table = useCategoriesTable(categories, categoryTypes, categoryColors);
 
-  const sorting = <CategoriesMobileSorting table={table} />;
-
   const filters = (
     <CategoriesFilters
       table={table}
@@ -31,7 +28,6 @@ function RouteComponent() {
   );
   const dataTable = (
     <DataTable
-      sorting={sorting}
       table={table}
       filters={filters}
       emptyDatasetInfo={<EmptyCategoriesTableInfo />}

@@ -10,19 +10,12 @@ import { DesktopDataTable } from '@/data-management/data-view/desktop-data-table
 export interface DataTableProps extends PropsWithChildren {
   table: DataTableProp;
   filters: ReactNode;
-  sorting: ReactNode;
   emptyDatasetInfo: ReactNode;
   emptyFilteredDatasetInfo: ReactNode;
 }
 
 export function DataTable(props: DataTableProps) {
-  const {
-    table,
-    filters,
-    emptyDatasetInfo,
-    emptyFilteredDatasetInfo,
-    sorting,
-  } = props;
+  const { table, filters, emptyDatasetInfo, emptyFilteredDatasetInfo } = props;
   const isMobile = useIsMobile();
 
   if (!table.getPreFilteredRowModel().rows.length) return emptyDatasetInfo;
@@ -30,7 +23,7 @@ export function DataTable(props: DataTableProps) {
   const tableTools = (
     <TableTools
       filters={filters}
-      sorting={sorting}
+      table={table}
       tableResets={<TableResets table={table} />}
     />
   );
