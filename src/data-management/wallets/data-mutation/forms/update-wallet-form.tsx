@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   updateWalletFormSchema,
   UpdateWalletFormValue,
-} from '@/data-management/wallets/data-mutation/forms/update-wallet-form-schema.ts';
+} from '@/data-management/wallets/data-mutation/forms/form-schemas/update-wallet-form-schema.ts';
 import { Form } from '@/components/form.tsx';
 import { WalletNameFormField } from '@/data-management/wallets/data-mutation/forms/form-fields/wallet-name.tsx';
 import { PendingButton } from '@/components/pending-button.tsx';

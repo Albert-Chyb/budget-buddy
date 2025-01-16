@@ -1,5 +1,5 @@
 import { useCategoryUpdateMutation } from '@/database/categories/update-mutation.ts';
-import { UpdateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/update-category-form-schema.ts';
+import { UpdateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/update-category-form-schema.ts';
 import { CategoryEditor } from '@/data-management/categories/data-mutation/category-editor.tsx';
 import { categoryRowDataToFormValue } from '@/data-management/categories/category-row-data-to-form-value.ts';
 import { CategoryColor } from '@/database/category-colors/query.ts';

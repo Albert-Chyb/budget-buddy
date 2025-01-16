@@ -5,7 +5,7 @@ import {
   CREATE_CATEGORY_FORM_PLACEHOLDER,
   createCategoryFormSchema,
   CreateCategoryFormValue,
-} from '@/data-management/categories/data-mutation/forms/create-category-form-schema.ts';
+} from '@/data-management/categories/data-mutation/forms/form-schemas/create-category-form-schema.ts';
 import {
   CategoryForm,
   CategoryFormProps,

@@ -1,7 +1,7 @@
 import { useCreateWalletMutation } from '@/database/wallets/create-mutation.ts';
 import { WalletCreator } from '@/data-management/wallets/data-mutation/wallet-creator.tsx';
 import { MutationErrorDialog } from '@/data-management/data-mutation/mutation-error-dialog.tsx';
-import { CreateWalletFormValue } from '@/data-management/wallets/data-mutation/forms/create-wallet-form-schema.ts';
+import { CreateWalletFormValue } from '@/data-management/wallets/data-mutation/forms/form-schemas/create-wallet-form-schema.ts';
 import { useEditorContext } from '@/data-management/data-mutation/editor-open-state.tsx';
 
 export const WalletCreateButton = () => {

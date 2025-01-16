@@ -1,7 +1,7 @@
 import {
   updateCategoryFormSchema,
   UpdateCategoryFormValue,
-} from '@/data-management/categories/data-mutation/forms/update-category-form-schema.ts';
+} from '@/data-management/categories/data-mutation/forms/form-schemas/update-category-form-schema.ts';
 import { Form } from '@/components/form.tsx';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';

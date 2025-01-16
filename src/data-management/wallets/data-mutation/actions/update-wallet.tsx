@@ -2,7 +2,7 @@ import { useUpdateWalletMutation } from '@/database/wallets/update-mutation.ts';
 import { MutationErrorDialog } from '@/data-management/data-mutation/mutation-error-dialog.tsx';
 import { WalletEditor } from '@/data-management/wallets/data-mutation/wallet-editor.tsx';
 import { useEditorContext } from '@/data-management/data-mutation/editor-open-state.tsx';
-import { UpdateWalletFormValue } from '@/data-management/wallets/data-mutation/forms/update-wallet-form-schema.ts';
+import { UpdateWalletFormValue } from '@/data-management/wallets/data-mutation/forms/form-schemas/update-wallet-form-schema.ts';
 import { WalletsQueryRecord } from '@/database/wallets/wallets-query.ts';
 
 export interface UpdateWalletButtonProps {

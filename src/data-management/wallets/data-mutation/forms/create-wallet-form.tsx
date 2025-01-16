@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   createWalletFormSchema,
   CreateWalletFormValue,
-} from '@/data-management/wallets/data-mutation/forms/create-wallet-form-schema.ts';
+} from '@/data-management/wallets/data-mutation/forms/form-schemas/create-wallet-form-schema.ts';
 import { Form } from '@/components/form.tsx';
 
 export interface CreateWalletFormProps {

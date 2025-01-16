@@ -1,11 +1,11 @@
 import { CategoryType } from '@/database/category-types/query.ts';
 import { CategoryColor } from '@/database/category-colors/query.ts';
 import { useFormContext } from 'react-hook-form';
-import { CategoryNameFormField } from '@/data-management/categories/data-mutation/forms/category-name-form-field.tsx';
-import { CategoryTypeFormField } from '@/data-management/categories/data-mutation/forms/category-type-form-field.tsx';
-import { CategoryColorFormField } from '@/data-management/categories/data-mutation/forms/category-color-form-field.tsx';
-import { UpdateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/update-category-form-schema.ts';
-import { CreateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/create-category-form-schema.ts';
+import { CategoryNameFormField } from '@/data-management/categories/data-mutation/forms/form-fields/category-name-form-field.tsx';
+import { CategoryTypeFormField } from '@/data-management/categories/data-mutation/forms/form-fields/category-type-form-field.tsx';
+import { CategoryColorFormField } from '@/data-management/categories/data-mutation/forms/form-fields/category-color-form-field.tsx';
+import { UpdateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/update-category-form-schema.ts';
+import { CreateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/create-category-form-schema.ts';
 import { PendingButton } from '@/components/pending-button.tsx';
 
 type CategoryFormValueShape = CreateCategoryFormValue | UpdateCategoryFormValue;
