@@ -1,6 +1,6 @@
 import { TableCell, TableHead, TableRow } from '@/components/table.tsx';
 import { flexRender, Row } from '@tanstack/react-table';
-import { HeadersMap } from '@/data-management/data-view/mobile-data-tables.tsx';
+import { HeadersMap } from '@/data-management/data-view/mobile/mobile-data-tables.tsx';
 
 interface MobileDataTableRowProps {
   row: Row<unknown>;

@@ -1,6 +1,6 @@
 import { Table as TanStackTable } from '@tanstack/react-table';
-import { DesktopDataTableHeader } from '@/data-management/data-view/desktop-data-table-header.tsx';
-import { DesktopDataTableBody } from '@/data-management/data-view/desktop-data-table-body.tsx';
+import { DesktopDataTableHeader } from '@/data-management/data-view/desktop/desktop-data-table-header.tsx';
+import { DesktopDataTableBody } from '@/data-management/data-view/desktop/desktop-data-table-body.tsx';
 import { Table } from '@/components/table.tsx';
 
 interface DesktopDataTableProps {

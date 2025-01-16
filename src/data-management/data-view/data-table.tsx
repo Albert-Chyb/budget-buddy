@@ -4,8 +4,8 @@ import { DataTableProp } from '@/data-management/data-view/table-type.ts';
 import { TableResets } from '@/data-management/table-resets.tsx';
 import { TableTools } from '@/data-management/data-view/table-tools.tsx';
 import { useIsMobile } from '@/data-management/is-mobile.ts';
-import { MobileDataTables } from '@/data-management/data-view/mobile-data-tables.tsx';
-import { DesktopDataTable } from '@/data-management/data-view/desktop-data-table.tsx';
+import { MobileDataTables } from '@/data-management/data-view/mobile/mobile-data-tables.tsx';
+import { DesktopDataTable } from '@/data-management/data-view/desktop/desktop-data-table.tsx';
 
 export interface DataTableProps extends PropsWithChildren {
   table: DataTableProp;
