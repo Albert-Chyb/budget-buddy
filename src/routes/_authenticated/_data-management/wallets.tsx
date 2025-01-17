@@ -7,6 +7,7 @@ import { walletsTableColumns } from '@/data-management/wallets/data-view/wallets
 import { DataTable } from '@/data-management/data-view/data-table.tsx';
 import { EmptyWalletsTableInfo } from '@/data-management/wallets/data-view/empty-wallets-table-info.tsx';
 import { EmptyFilteredWalletsTableInfo } from '@/data-management/wallets/data-view/empty-filtered-wallets-table-info.tsx';
+import { WalletsFilters } from '@/data-management/wallets/filtering/wallets-filters.tsx';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/wallets',
@@ -30,7 +31,7 @@ function RouteComponent() {
         content: (
           <DataTable
             table={table}
-            filters='Filtry'
+            filters={<WalletsFilters table={table} />}
             emptyDatasetInfo={<EmptyWalletsTableInfo />}
             emptyFilteredDatasetInfo={<EmptyFilteredWalletsTableInfo />}
           />

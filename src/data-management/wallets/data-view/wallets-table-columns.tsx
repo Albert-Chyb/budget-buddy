@@ -26,14 +26,15 @@ const nameColumn = column.accessor('name', {
   filterFn: 'includesString',
 });
 
-const balanceColumn = column.accessor('balance', {
+const balanceColumn = column.accessor((wallet) => wallet.balance / 100, {
   id: WalletsColumnsIds.Balance,
   header: 'Aktualny balans',
   cell: (context) =>
-    (context.getValue() / 100).toLocaleString(APP_LOCALE, {
+    context.getValue().toLocaleString(APP_LOCALE, {
       style: 'currency',
       currency: APP_CURRENCY_CODE,
     }),
+  filterFn: 'inNumberRange',
 });
 
 const actionsColumn = column.display({
