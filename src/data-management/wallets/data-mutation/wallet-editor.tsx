@@ -6,7 +6,7 @@ import {
   UpdateWalletForm,
   UpdateWalletFormProps,
 } from '@/data-management/wallets/data-mutation/forms/update-wallet-form.tsx';
-import { Button } from '@/components/button.tsx';
+import { RowAction } from '@/data-management/data-mutation/row-actions.tsx';
 
 export type WalletEditorProps = UpdateWalletFormProps & Pick<EditorProps, 'id'>;
 
@@ -20,7 +20,7 @@ export const WalletEditor = ({ id, ...formProps }: WalletEditorProps) => {
         title: `Edycja portfela: ${formProps.wallet.name}`,
         description:
           'Po wypełnieniu formularza wyślij go, aby stworzyć zaktualizować portfel',
-        trigger: <Button size='sm'>Edytuj</Button>,
+        trigger: <RowAction>Edytuj</RowAction>,
         form: <UpdateWalletForm {...formProps} />,
       }}
     </Editor>

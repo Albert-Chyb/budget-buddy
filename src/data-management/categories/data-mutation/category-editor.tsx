@@ -3,7 +3,7 @@ import {
   UpdateCategoryForm,
   UpdateCategoryFormProps,
 } from '@/data-management/categories/data-mutation/forms/update-category-form.tsx';
-import { Button } from '@/components/button.tsx';
+import { RowAction } from '@/data-management/data-mutation/row-actions.tsx';
 
 type CategoryEditorProps = UpdateCategoryFormProps & { id: string };
 
@@ -17,7 +17,7 @@ export function CategoryEditor(props: CategoryEditorProps) {
         title: 'Edycja kategorii',
         description:
           'Po wprowadzeniu żądanych zmian wyślij formularz, aby zachować zmiany',
-        trigger: <Button variant='secondary'>Edytuj</Button>,
+        trigger: <RowAction>Edytuj</RowAction>,
         form: <UpdateCategoryForm {...props} />,
       }}
     </Editor>

@@ -3,7 +3,7 @@ import { MutationErrorDialog } from '@/data-management/data-mutation/mutation-er
 import { Wallet } from '@/database/wallets/wallet.ts';
 import { ConfirmationDialog } from '@/components/confirmation-dialog.tsx';
 import { useState } from 'react';
-import { Button } from '@/components/button.tsx';
+import { RowAction } from '@/data-management/data-mutation/row-actions.tsx';
 
 interface DeleteWalletButtonProps {
   id: Wallet['id'];
@@ -34,14 +34,7 @@ export const DeleteWalletButton = ({ id }: DeleteWalletButtonProps) => {
         onOpenedChange={setIsOpened}
         isPending={isPending}
         onConfirm={handleConfirmation}
-        trigger={
-          <Button
-            variant='destructive'
-            size='sm'
-          >
-            Usuń
-          </Button>
-        }
+        trigger={<RowAction variant='destructive'>Usuń</RowAction>}
         title='Potwierdzenie usunięcia portfela'
         description='Czy na pewno chcesz usunąć ten portfel? Tej operacji nie można cofnąć.'
       />

@@ -3,6 +3,7 @@ import { CategoryType } from '@/database/category-types/query.ts';
 import { CategoryRowData } from '@/database/categories/table-data-query.ts';
 import { CategoryUpdateButton } from '@/data-management/categories/data-mutation/actions/category-update-button.tsx';
 import { CategoryDeleteButton } from '@/data-management/categories/data-mutation/actions/category-delete-button.tsx';
+import { RowActions } from '@/data-management/data-mutation/row-actions.tsx';
 
 export interface CategoryActionsProps {
   category: CategoryRowData;
@@ -14,7 +15,7 @@ export function CategoryActions(props: CategoryActionsProps) {
   const { category, categoryTypes, categoryColors } = props;
 
   return (
-    <div className='flex items-center gap-2'>
+    <RowActions>
       <CategoryUpdateButton
         categoryColors={categoryColors}
         categoryTypes={categoryTypes}
@@ -22,6 +23,6 @@ export function CategoryActions(props: CategoryActionsProps) {
       />
 
       <CategoryDeleteButton id={category.id} />
-    </div>
+    </RowActions>
   );
 }

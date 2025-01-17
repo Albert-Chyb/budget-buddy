@@ -3,7 +3,7 @@ import { Category } from '@/database/categories/category.ts';
 import { MutationErrorDialog } from '@/data-management/data-mutation/mutation-error-dialog.tsx';
 import { useState } from 'react';
 import { ConfirmationDialog } from '@/components/confirmation-dialog.tsx';
-import { Button } from '@/components/button.tsx';
+import { RowAction } from '@/data-management/data-mutation/row-actions.tsx';
 
 interface CategoryDeleteButton {
   id: Category['id'];
@@ -35,7 +35,7 @@ export const CategoryDeleteButton = ({ id }: CategoryDeleteButton) => {
         onOpenedChange={setIsOpened}
         onConfirm={handleDeleteConfirmation}
         isPending={isPending}
-        trigger={<Button variant='destructive'>Usuń</Button>}
+        trigger={<RowAction variant='destructive'>Usuń</RowAction>}
         title='Potwierdzenie usunięcia kategorii'
         description='Czy na pewno chcesz usunąć tę kategorię? Tej operacji nie można cofnąć.'
       />
