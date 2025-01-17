@@ -13,10 +13,10 @@ import { Skeleton } from '@/components/skeleton.tsx';
 import { useIsMobile } from '@/data-management/is-mobile.ts';
 import { MobileTablesSkeletons } from '@/data-management/sorting/mobile-data-management-card-skeleton.tsx';
 
-type DataManagementCardSkeletonProps = TableSkeletonProps;
+type DataManagementPageSkeletonProps = TableSkeletonProps;
 
-export const DataManagementCardSkeleton = (
-  props: DataManagementCardSkeletonProps,
+export const DataManagementPageSkeleton = (
+  props: DataManagementPageSkeletonProps,
 ) => {
   const isMobile = useIsMobile();
 
