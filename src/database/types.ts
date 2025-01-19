@@ -125,6 +125,51 @@ export type Database = {
         }
         Relationships: []
       }
+      transactions: {
+        Row: {
+          amount: number
+          category_id: number
+          created_at: string
+          description: string | null
+          id: number
+          owner_id: string
+          wallet_id: number
+        }
+        Insert: {
+          amount: number
+          category_id: number
+          created_at?: string
+          description?: string | null
+          id?: number
+          owner_id: string
+          wallet_id: number
+        }
+        Update: {
+          amount?: number
+          category_id?: number
+          created_at?: string
+          description?: string | null
+          id?: number
+          owner_id?: string
+          wallet_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transactions_wallet_id_fkey"
+            columns: ["wallet_id"]
+            isOneToOne: false
+            referencedRelation: "wallets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       wallets: {
         Row: {
           balance: number
