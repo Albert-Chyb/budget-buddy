@@ -22,7 +22,7 @@ export const useWalletsQuery = () => {
   const supabase = useSupabase();
   const { data: user } = useUserQuery();
 
-  return useQuery<WalletsQueryData>({
+  return useQuery({
     queryKey: WALLETS_QUERY_KEY,
     enabled: !!user,
     queryFn: () => queryFn(supabase, user!.id),

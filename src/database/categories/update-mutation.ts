@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSupabase } from '@/init/supabase.tsx';
-import { CATEGORIES_TABLE_DATA_QUERY_KEY } from '@/database/categories/table-data-query.ts';
+import { CATEGORIES_QUERY_KEY } from '@/database/categories/categories-query.ts';
 import { useUserQuery } from '@/auth/user-query.ts';
 import {
   Category,
@@ -34,7 +34,7 @@ export const useCategoryUpdateMutation = () => {
     },
     onSuccess: () =>
       queryClient.invalidateQueries({
-        queryKey: CATEGORIES_TABLE_DATA_QUERY_KEY,
+        queryKey: CATEGORIES_QUERY_KEY,
       }),
   });
 };

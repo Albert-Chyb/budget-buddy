@@ -23,19 +23,20 @@ const queryFn = async (supabase: SupabaseClient<Database>, userId: string) => {
 
   return data;
 };
-export type CategoryRowData = Awaited<ReturnType<typeof queryFn>>[number];
+export type CategoriesQueryData = Awaited<ReturnType<typeof queryFn>>;
+export type CategoriesQueryRow = CategoriesQueryData[number];
 
-export const CATEGORIES_TABLE_DATA_QUERY_KEY = [
+export const CATEGORIES_QUERY_KEY = [
   ...USER_QUERY_KEY,
-  'categories-table-data',
+  'categories',
 ] as const satisfies QueryKey;
-export const useCategoriesTableDataQuery = () => {
+export const useCategoriesQuery = () => {
   const supabase = useSupabase();
   const { data: user } = useUserQuery();
 
-  return useQuery<CategoryRowData[]>({
+  return useQuery({
     enabled: !!user,
-    queryKey: CATEGORIES_TABLE_DATA_QUERY_KEY,
+    queryKey: CATEGORIES_QUERY_KEY,
     queryFn: () => queryFn(supabase, user!.id),
   });
 };

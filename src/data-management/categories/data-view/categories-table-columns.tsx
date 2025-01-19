@@ -5,7 +5,7 @@ import {
 } from '@tanstack/react-table';
 import { CategoryActions } from '@/data-management/categories/data-mutation/category-actions.tsx';
 import { arrayIncludesFilterFn } from '@/helpers/array-includes-filter-fn.ts';
-import { CategoryRowData } from '@/database/categories/table-data-query.ts';
+import { CategoriesQueryRow } from '@/database/categories/categories-query.ts';
 import { Tables } from '@/database/types.ts';
 import { CategoryColor } from '@/database/category-colors/query.ts';
 import { CategoryType } from '@/database/category-types/query.ts';
@@ -22,7 +22,7 @@ const CategoriesTableColumnsId = Object.freeze({
   Actions: 'actions',
 });
 
-const column = createColumnHelper<CategoryRowData>();
+const column = createColumnHelper<CategoriesQueryRow>();
 
 const categoryNameColumn = column.accessor('name', {
   id: CategoriesTableColumnsId.Name,
@@ -42,7 +42,7 @@ const categoryColorColumn = column.accessor(
   {
     id: CategoriesTableColumnsId.Color,
     header: 'Kolor',
-    filterFn: arrayIncludesFilterFn as FilterFn<CategoryRowData>,
+    filterFn: arrayIncludesFilterFn as FilterFn<CategoriesQueryRow>,
     cell: (context) => (
       <CategoryColorCell categoryColor={context.row.original.color} />
     ),
@@ -69,9 +69,9 @@ const categoriesTableColumns = (
   categoryTypes: CategoryType[],
   categoryColors: CategoryColor[],
 ) => [
-  categoryNameColumn as AccessorColumnDef<CategoryRowData>,
-  categoryTypeColumn as AccessorColumnDef<CategoryRowData>,
-  categoryColorColumn as AccessorColumnDef<CategoryRowData>,
+  categoryNameColumn as AccessorColumnDef<CategoriesQueryRow>,
+  categoryTypeColumn as AccessorColumnDef<CategoriesQueryRow>,
+  categoryColorColumn as AccessorColumnDef<CategoriesQueryRow>,
   categoryActionsColumnBuilder(categoryTypes, categoryColors),
 ];
 

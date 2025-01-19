@@ -1,8 +1,8 @@
-import { CategoryRowData } from '@/database/categories/table-data-query.ts';
+import { CategoriesQueryRow } from '@/database/categories/categories-query.ts';
 import { Tables } from '@/database/types.ts';
 
 export const categoryRowDataToFormValue = (
-  rowData: CategoryRowData,
+  rowData: CategoriesQueryRow,
 ): Tables<'categories'> => ({
   color_id: rowData.color?.id ?? null,
   id: rowData.id,
