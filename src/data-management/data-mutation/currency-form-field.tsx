@@ -8,14 +8,19 @@ import {
   FormMessage,
 } from '@/components/form.tsx';
 import { Input } from '@/components/input.tsx';
+import { ReactNode } from 'react';
 
-export interface WalletBalanceFormFieldProps<T> {
+export interface CurrencyFormFieldProps<T> {
+  label: ReactNode;
+  description?: ReactNode;
   name: Path<T>;
 }
 
-export const WalletBalanceFormField = <T,>({
+export const CurrencyFormField = <T,>({
   name,
-}: WalletBalanceFormFieldProps<T>) => {
+  label,
+  description,
+}: CurrencyFormFieldProps<T>) => {
   const form = useFormContext();
 
   return (
@@ -24,7 +29,7 @@ export const WalletBalanceFormField = <T,>({
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Początkowy balans</FormLabel>
+          <FormLabel>{label}</FormLabel>
           <FormControl>
             <Input
               type='number'
@@ -34,7 +39,7 @@ export const WalletBalanceFormField = <T,>({
             />
           </FormControl>
           <FormMessage />
-          <FormDescription>Tego pola nie można później zmienić</FormDescription>
+          {description && <FormDescription>{description}</FormDescription>}
         </FormItem>
       )}
     />

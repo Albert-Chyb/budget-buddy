@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
 import { WalletNameFormField } from '@/data-management/wallets/data-mutation/forms/form-fields/wallet-name.tsx';
-import { WalletBalanceFormField } from '@/data-management/wallets/data-mutation/forms/form-fields/wallet-balance.tsx';
 import { PendingButton } from '@/components/pending-button.tsx';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -8,6 +7,7 @@ import {
   CreateWalletFormValue,
 } from '@/data-management/wallets/data-mutation/forms/form-schemas/create-wallet-form-schema.ts';
 import { Form } from '@/components/form.tsx';
+import { CurrencyFormField } from '@/data-management/data-mutation/currency-form-field.tsx';
 
 export interface CreateWalletFormProps {
   onSubmit: (formValue: CreateWalletFormValue) => void;
@@ -34,7 +34,11 @@ export const CreateWalletForm = ({
       >
         <WalletNameFormField<CreateWalletFormValue> name='name' />
 
-        <WalletBalanceFormField<CreateWalletFormValue> name='balance' />
+        <CurrencyFormField<CreateWalletFormValue>
+          name='balance'
+          label='Początkowy balans'
+          description='Tego pola nie można później zmienić'
+        />
 
         <PendingButton
           className='w-full'
