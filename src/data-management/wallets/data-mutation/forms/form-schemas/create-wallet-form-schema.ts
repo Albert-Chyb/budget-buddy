@@ -7,7 +7,11 @@ export const createWalletFormSchema = z.object({
     .string()
     .min(1, { message: 'Nazwa jest wymagana' })
     .max(32, { message: 'Nazwa musi byc krótsza niż 32 znaki' }),
-  balance: currencyFormFieldSchema,
+  balance: currencyFormFieldSchema
+    .min(0, {
+      message: 'Balans nie może być ujemny',
+    })
+    .transform((v) => v * 100),
 }) satisfies z.ZodType<WalletInsertInput>;
 
 export type CreateWalletFormValue = z.infer<typeof createWalletFormSchema>;

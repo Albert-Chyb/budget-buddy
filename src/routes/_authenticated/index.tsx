@@ -94,7 +94,36 @@ function RouteComponent() {
 
               <CardFooter className='justify-end'>
                 <Link
-                  to='/categories'
+                  to='/wallets'
+                  className={buttonVariants({ variant: 'link' })}
+                >
+                  Zarządzaj portfelami
+                </Link>
+              </CardFooter>
+            </Card>
+          </section>
+        </li>
+
+        <li>
+          <section>
+            <Card>
+              <CardHeader>
+                <CardTitle>
+                  <h2>Transakcje</h2>
+                </CardTitle>
+                <CardDescription>
+                  <p>
+                    Funkcja "Transakcje" umożliwia zarządzanie wydatkami i
+                    przychodami, pomagając w lepszej kontroli budżetu
+                    osobistego. Użytkownik może dodawać, edytować, przeglądać
+                    oraz usuwać transakcje.
+                  </p>
+                </CardDescription>
+              </CardHeader>
+
+              <CardFooter className='justify-end'>
+                <Link
+                  to='/transactions'
                   className={buttonVariants({ variant: 'link' })}
                 >
                   Zarządzaj portfelami

@@ -6,8 +6,9 @@ export const inputValueAdapter = <TInput>(
   convertFromInputValue: (value: string) => TInput,
   resetFlag: ResetFlag = DEFAULT_RESET_FLAG,
 ) => {
-  const toInputValue = (value: TInput | null) => {
-    const hasValue = value !== null && value !== resetFlag;
+  const toInputValue = (value: TInput | null | undefined) => {
+    const hasValue =
+      value !== undefined && value !== null && value !== resetFlag;
     if (hasValue) return convertToInputValue(value);
 
     return '';
