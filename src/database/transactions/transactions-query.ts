@@ -15,7 +15,7 @@ const queryFn = async (supabase: SupabaseClient, userId: string) => {
         category:categories!inner (id, name)
       `,
     )
-    .eq('id', userId)
+    .eq('owner_id', userId)
     .order('created_at');
 
   if (error) throw error;
