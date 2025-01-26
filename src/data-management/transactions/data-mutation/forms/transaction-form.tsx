@@ -1,9 +1,9 @@
-import { useForm } from 'react-hook-form';
+import { DefaultValues, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  createTransactionFormSchema,
-  CreateTransactionFormValue,
-} from '@/data-management/transactions/data-mutation/forms/form-schemas/create-transaction-form-schema.ts';
+  transactionFormSchema,
+  TransactionFormValue,
+} from '@/data-management/transactions/data-mutation/forms/form-schemas/transaction-form-schema.ts';
 import { Form } from '@/components/form.tsx';
 import { CurrencyFormField } from '@/data-management/data-mutation/currency-form-field.tsx';
 import { CategoryFormField } from '@/data-management/transactions/data-mutation/forms/form-fields/category-form-field.tsx';
@@ -13,22 +13,24 @@ import { WalletsListQueryData } from '@/database/wallets/wallets-list-query.ts';
 import { PendingButton } from '@/components/pending-button.tsx';
 import { DescriptionFormField } from '@/data-management/transactions/data-mutation/forms/form-fields/description-form-field.tsx';
 
-export interface CreateTransactionFormProps {
+export interface TransactionFormProps {
   categories: CategoriesListQueryData;
   wallets: WalletsListQueryData;
-  onSubmit: (formValue: CreateTransactionFormValue) => void;
+  onSubmit: (formValue: TransactionFormValue) => void;
   isPending: boolean;
+  transaction?: DefaultValues<TransactionFormValue>;
 }
 
-export const CreateTransactionForm = ({
+export const TransactionForm = ({
   categories,
   onSubmit,
   wallets,
   isPending,
-}: CreateTransactionFormProps) => {
-  const form = useForm<CreateTransactionFormValue>({
-    resolver: zodResolver(createTransactionFormSchema),
-    defaultValues: {
+  transaction,
+}: TransactionFormProps) => {
+  const form = useForm<TransactionFormValue>({
+    resolver: zodResolver(transactionFormSchema),
+    defaultValues: transaction ?? {
       amount: 0,
       description: '',
     },
@@ -40,22 +42,22 @@ export const CreateTransactionForm = ({
         onSubmit={form.handleSubmit(onSubmit)}
         className='space-y-2'
       >
-        <CurrencyFormField<CreateTransactionFormValue>
+        <CurrencyFormField<TransactionFormValue>
           name='amount'
           label='Kwota'
         />
 
-        <CategoryFormField<CreateTransactionFormValue>
+        <CategoryFormField<TransactionFormValue>
           name='category_id'
           categories={categories}
         />
 
-        <WalletFormField<CreateTransactionFormValue>
+        <WalletFormField<TransactionFormValue>
           name='wallet_id'
           wallets={wallets}
         />
 
-        <DescriptionFormField<CreateTransactionFormValue> name='description' />
+        <DescriptionFormField<TransactionFormValue> name='description' />
 
         <PendingButton
           isPending={isPending}

@@ -1,12 +1,12 @@
 import {
-  CreateTransactionForm,
-  CreateTransactionFormProps,
-} from '@/data-management/transactions/data-mutation/forms/create-transaction-form.tsx';
+  TransactionForm,
+  TransactionFormProps,
+} from '@/data-management/transactions/data-mutation/forms/transaction-form.tsx';
 import { Editor } from '@/data-management/data-mutation/editor.tsx';
 import { ResponsiveButton } from '@/data-management/responsive-button.tsx';
 import { Plus } from 'lucide-react';
 
-export const TransactionCreator = (props: CreateTransactionFormProps) => {
+export const TransactionCreator = (props: TransactionFormProps) => {
   return (
     <Editor
       id='transaction-creator'
@@ -22,7 +22,7 @@ export const TransactionCreator = (props: CreateTransactionFormProps) => {
             label='Nowa transakcja'
           />
         ),
-        form: <CreateTransactionForm {...props} />,
+        form: <TransactionForm {...props} />,
       }}
     </Editor>
   );

@@ -4,7 +4,7 @@ import { WalletsListQueryData } from '@/database/wallets/wallets-list-query.ts';
 import { CategoriesListQueryData } from '@/database/categories/categories-list-query.ts';
 import { MutationErrorDialog } from '@/data-management/data-mutation/mutation-error-dialog.tsx';
 import { useEditorContext } from '@/data-management/data-mutation/editor-open-state.tsx';
-import { CreateTransactionFormValue } from '@/data-management/transactions/data-mutation/forms/form-schemas/create-transaction-form-schema.ts';
+import { TransactionFormValue } from '@/data-management/transactions/data-mutation/forms/form-schemas/transaction-form-schema.ts';
 
 export interface CreateTransactionActionProps {
   wallets: WalletsListQueryData;
@@ -19,7 +19,7 @@ export const CreateTransactionAction = ({
     useCreateTransactionMutation();
   const { closeEditor } = useEditorContext();
 
-  function handleSubmit(formValue: CreateTransactionFormValue) {
+  function handleSubmit(formValue: TransactionFormValue) {
     mutate(formValue, {
       onSuccess: () => closeEditor(),
     });

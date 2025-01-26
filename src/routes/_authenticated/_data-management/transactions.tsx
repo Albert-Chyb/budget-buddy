@@ -5,6 +5,7 @@ import { CreateTransactionAction } from '@/data-management/transactions/data-mut
 import { DataTable } from '@/data-management/data-view/data-table.tsx';
 import { useDataTable } from '@/data-management/data-view/data-table-state.ts';
 import { transactionsTableColumns } from '@/data-management/transactions/data-view/transactions-table-columns.tsx';
+import { useMemo } from 'react';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/transactions',
@@ -15,7 +16,11 @@ export const Route = createFileRoute(
 function RouteComponent() {
   const { wallets, categories, status, transactions } =
     useTransactionsPageData();
-  const table = useDataTable(transactions, transactionsTableColumns);
+  const columns = useMemo(
+    () => transactionsTableColumns(wallets, categories),
+    [wallets, categories],
+  );
+  const table = useDataTable(transactions, columns);
 
   return (
     <DataManagementPage

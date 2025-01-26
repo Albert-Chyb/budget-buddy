@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { TransactionInsertInput } from '@/database/transactions/transaction.ts';
 import { currencyFormFieldSchema } from '@/data-management/data-mutation/currency-form-field-schema.ts';
 
-export const createTransactionFormSchema = z.object({
+export const transactionFormSchema = z.object({
   amount: currencyFormFieldSchema
     .positive('Kwota transakcji musi być większa od 0')
     .transform((v) => v * 100),
@@ -15,6 +15,4 @@ export const createTransactionFormSchema = z.object({
   description: z.string().optional(),
 }) satisfies z.ZodType<TransactionInsertInput>;
 
-export type CreateTransactionFormValue = z.infer<
-  typeof createTransactionFormSchema
->;
+export type TransactionFormValue = z.infer<typeof transactionFormSchema>;

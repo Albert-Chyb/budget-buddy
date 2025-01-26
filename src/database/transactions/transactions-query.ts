@@ -2,8 +2,9 @@ import { useSupabase } from '@/init/supabase.tsx';
 import { USER_QUERY_KEY, useUserQuery } from '@/auth/user-query.ts';
 import { useQuery } from '@tanstack/react-query';
 import { SupabaseClient } from '@supabase/supabase-js';
+import { Database } from '@/database/types.ts';
 
-const queryFn = async (supabase: SupabaseClient, userId: string) => {
+const queryFn = async (supabase: SupabaseClient<Database>, userId: string) => {
   const { data, error } = await supabase
     .from('transactions')
     .select(

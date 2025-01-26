@@ -2,6 +2,10 @@ import { AccessorColumnDef, createColumnHelper } from '@tanstack/react-table';
 import { TransactionsQueryRow } from '@/database/transactions/transactions-query.ts';
 import { APP_CURRENCY_CODE, APP_LOCALE } from '@/localization.ts';
 import { Transaction } from '@/database/transactions/transaction.ts';
+import { RowActions } from '@/data-management/data-mutation/row-actions.tsx';
+import { EditTransactionAction } from '@/data-management/transactions/data-mutation/actions/edit-transaction-action.tsx';
+import { WalletsListQueryData } from '@/database/wallets/wallets-list-query.ts';
+import { CategoriesListQueryData } from '@/database/categories/categories-list-query.ts';
 
 const ACCESSOR_COLUMNS_IDS = {
   Wallet: 'wallet_id',
@@ -46,16 +50,31 @@ const descriptionColumn = column.accessor((data) => data.description, {
   filterFn: 'includesString',
 });
 
-const actionsColumn = column.display({
-  id: TRANSACTIONS_TABLE_COLUMNS_IDS.Actions,
-  header: 'Akcje',
-  cell: () => 'Akcje',
-});
+const actionsColumn = (
+  wallets: WalletsListQueryData,
+  categories: CategoriesListQueryData,
+) =>
+  column.display({
+    id: TRANSACTIONS_TABLE_COLUMNS_IDS.Actions,
+    header: 'Akcje',
+    cell: ({ row }) => (
+      <RowActions>
+        <EditTransactionAction
+          wallets={wallets}
+          categories={categories}
+          transaction={row.original}
+        />
+      </RowActions>
+    ),
+  });
 
-export const transactionsTableColumns = [
+export const transactionsTableColumns = (
+  wallets: WalletsListQueryData,
+  categories: CategoriesListQueryData,
+) => [
   walletColumn as AccessorColumnDef<TransactionsQueryRow>,
   categoryColumns as AccessorColumnDef<TransactionsQueryRow>,
   amountColumn as AccessorColumnDef<TransactionsQueryRow>,
   descriptionColumn as AccessorColumnDef<TransactionsQueryRow>,
-  actionsColumn,
+  actionsColumn(wallets, categories),
 ];
