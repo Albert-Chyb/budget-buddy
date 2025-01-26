@@ -6,6 +6,7 @@ import { RowActions } from '@/data-management/data-mutation/row-actions.tsx';
 import { EditTransactionAction } from '@/data-management/transactions/data-mutation/actions/edit-transaction-action.tsx';
 import { WalletsListQueryData } from '@/database/wallets/wallets-list-query.ts';
 import { CategoriesListQueryData } from '@/database/categories/categories-list-query.ts';
+import { DeleteTransactionAction } from '@/data-management/transactions/data-mutation/actions/delete-transaction-action.tsx';
 
 const ACCESSOR_COLUMNS_IDS = {
   Wallet: 'wallet_id',
@@ -64,6 +65,7 @@ const actionsColumn = (
           categories={categories}
           transaction={row.original}
         />
+        <DeleteTransactionAction id={row.original.id} />
       </RowActions>
     ),
   });
