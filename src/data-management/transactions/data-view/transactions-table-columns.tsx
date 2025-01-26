@@ -13,6 +13,7 @@ const ACCESSOR_COLUMNS_IDS = {
   Category: 'category_id',
   Amount: 'amount',
   Description: 'description',
+  CreatedAt: 'created_at',
 } satisfies Record<string, keyof Transaction>;
 
 export const TRANSACTIONS_TABLE_COLUMNS_IDS = Object.freeze({
@@ -28,10 +29,21 @@ const walletColumn = column.accessor('wallet.name', {
   filterFn: 'equalsString',
 });
 
-const categoryColumns = column.accessor('category.name', {
+const categoryColumn = column.accessor('category.name', {
   id: TRANSACTIONS_TABLE_COLUMNS_IDS.Category,
   header: 'Kategoria',
   filterFn: 'equalsString',
+});
+
+const createdAtColumn = column.accessor('created_at', {
+  id: TRANSACTIONS_TABLE_COLUMNS_IDS.CreatedAt,
+  header: 'Data',
+  cell: ({ getValue }) =>
+    new Date(getValue()).toLocaleString(APP_LOCALE, {
+      timeStyle: 'short',
+      dateStyle: 'short',
+    }),
+  sortingFn: 'datetime',
 });
 
 const amountColumn = column.accessor((data) => data.amount / 100, {
@@ -75,8 +87,9 @@ export const transactionsTableColumns = (
   categories: CategoriesListQueryData,
 ) => [
   walletColumn as AccessorColumnDef<TransactionsQueryRow>,
-  categoryColumns as AccessorColumnDef<TransactionsQueryRow>,
+  categoryColumn as AccessorColumnDef<TransactionsQueryRow>,
   amountColumn as AccessorColumnDef<TransactionsQueryRow>,
   descriptionColumn as AccessorColumnDef<TransactionsQueryRow>,
+  createdAtColumn as AccessorColumnDef<TransactionsQueryRow>,
   actionsColumn(wallets, categories),
 ];

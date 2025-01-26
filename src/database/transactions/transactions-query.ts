@@ -12,12 +12,13 @@ const queryFn = async (supabase: SupabaseClient<Database>, userId: string) => {
         id,
         amount,
         description,
+        created_at,
         wallet:wallets!inner (id, name),
         category:categories!inner (id, name)
       `,
     )
     .eq('owner_id', userId)
-    .order('created_at');
+    .order('created_at', { ascending: false });
 
   if (error) throw error;
 
