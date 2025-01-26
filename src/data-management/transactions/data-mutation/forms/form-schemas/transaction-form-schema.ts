@@ -1,11 +1,14 @@
 import { z } from 'zod';
 import { TransactionInsertInput } from '@/database/transactions/transaction.ts';
-import { currencyFormFieldSchema } from '@/data-management/data-mutation/currency-form-field-schema.ts';
+import {
+  convertCurrencyToInt,
+  currencyFormFieldSchema,
+} from '@/data-management/data-mutation/currency-form-field-schema.ts';
 
 export const transactionFormSchema = z.object({
   amount: currencyFormFieldSchema
     .positive('Kwota transakcji musi być większa od 0')
-    .transform((v) => v * 100),
+    .transform(convertCurrencyToInt),
   category_id: z.number({
     required_error: 'Transakcja musi posiadać kategorię',
   }),

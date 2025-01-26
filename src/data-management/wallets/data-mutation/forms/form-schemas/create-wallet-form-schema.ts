@@ -1,6 +1,9 @@
 import { z } from 'zod';
 import { WalletInsertInput } from '@/database/wallets/wallet.ts';
-import { currencyFormFieldSchema } from '@/data-management/data-mutation/currency-form-field-schema.ts';
+import {
+  convertCurrencyToInt,
+  currencyFormFieldSchema,
+} from '@/data-management/data-mutation/currency-form-field-schema.ts';
 
 export const createWalletFormSchema = z.object({
   name: z
@@ -11,7 +14,7 @@ export const createWalletFormSchema = z.object({
     .min(0, {
       message: 'Balans nie może być ujemny',
     })
-    .transform((v) => v * 100),
+    .transform(convertCurrencyToInt),
 }) satisfies z.ZodType<WalletInsertInput>;
 
 export type CreateWalletFormValue = z.infer<typeof createWalletFormSchema>;
