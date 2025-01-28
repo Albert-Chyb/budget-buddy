@@ -6,6 +6,8 @@ import { DataTable } from '@/data-management/data-view/data-table.tsx';
 import { useDataTable } from '@/data-management/data-view/data-table-state.ts';
 import { transactionsTableColumns } from '@/data-management/transactions/data-view/transactions-table-columns.tsx';
 import { useMemo } from 'react';
+import { EmptyTransactionsTableInfo } from '@/data-management/transactions/data-view/empty-transactions-table-info.tsx';
+import { EmptyFilteredTransactionsTableInfo } from '@/data-management/transactions/data-view/empty-filtered-transactions-table-info.tsx';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/transactions',
@@ -25,7 +27,7 @@ function RouteComponent() {
   return (
     <DataManagementPage
       status={status}
-      colsCount={3}
+      colsCount={table.getAllColumns().length}
     >
       {{
         title: <h1>Transakcje</h1>,
@@ -34,8 +36,8 @@ function RouteComponent() {
           <DataTable
             table={table}
             filters='Filtry'
-            emptyFilteredDatasetInfo='Brak danych do tych filtrów'
-            emptyDatasetInfo='Brak danych'
+            emptyFilteredDatasetInfo={<EmptyFilteredTransactionsTableInfo />}
+            emptyDatasetInfo={<EmptyTransactionsTableInfo />}
           />
         ),
         creator: (
