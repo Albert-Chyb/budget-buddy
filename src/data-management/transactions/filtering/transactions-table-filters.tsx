@@ -6,6 +6,7 @@ import { TRANSACTIONS_TABLE_COLUMNS_IDS } from '@/data-management/transactions/d
 import { TransactionsQueryRow } from '@/database/transactions/transactions-query.ts';
 import { TransactionCategoryFilter } from '@/data-management/transactions/filtering/transaction-category-filter.tsx';
 import { CategoriesListQueryData } from '@/database/categories/categories-list-query.ts';
+import { TransactionAmountFilter } from '@/data-management/transactions/filtering/transaction-amount-filter.tsx';
 
 export interface TransactionsTableFiltersProps {
   table: Table<TransactionsQueryRow>;
@@ -28,6 +29,10 @@ export const TransactionsTableFilters = ({
       <TransactionCategoryFilter
         column={table.getColumn(TRANSACTIONS_TABLE_COLUMNS_IDS.Category)!}
         categories={categories}
+      />
+
+      <TransactionAmountFilter
+        column={table.getColumn(TRANSACTIONS_TABLE_COLUMNS_IDS.Amount)!}
       />
     </Filters>
   );
