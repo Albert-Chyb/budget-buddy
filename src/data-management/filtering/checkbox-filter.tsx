@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 import {
   Popover,
   PopoverContent,
@@ -14,10 +14,13 @@ const filterValueSchema = z.array(z.any()).optional().default([]);
 
 export interface CheckboxFilterProps extends PropsWithChildren {
   column: Column<unknown>;
+  label: ReactNode;
 }
-export function CheckboxFilter(props: CheckboxFilterProps) {
-  const { children, column } = props;
-
+export function CheckboxFilter({
+  children,
+  column,
+  label,
+}: CheckboxFilterProps) {
   return (
     <li>
       <Popover>
@@ -26,7 +29,7 @@ export function CheckboxFilter(props: CheckboxFilterProps) {
             variant='outline'
             className='w-full'
           >
-            Kolor
+            {label}
           </Button>
         </PopoverTrigger>
         <PopoverContent>

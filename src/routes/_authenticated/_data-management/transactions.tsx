@@ -8,6 +8,7 @@ import { transactionsTableColumns } from '@/data-management/transactions/data-vi
 import { useMemo } from 'react';
 import { EmptyTransactionsTableInfo } from '@/data-management/transactions/data-view/empty-transactions-table-info.tsx';
 import { EmptyFilteredTransactionsTableInfo } from '@/data-management/transactions/data-view/empty-filtered-transactions-table-info.tsx';
+import { TransactionsTableFilters } from '@/data-management/transactions/filtering/transactions-table-filters';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/transactions',
@@ -35,7 +36,12 @@ function RouteComponent() {
         content: (
           <DataTable
             table={table}
-            filters='Filtry'
+            filters={
+              <TransactionsTableFilters
+                table={table}
+                wallets={wallets}
+              />
+            }
             emptyFilteredDatasetInfo={<EmptyFilteredTransactionsTableInfo />}
             emptyDatasetInfo={<EmptyTransactionsTableInfo />}
           />

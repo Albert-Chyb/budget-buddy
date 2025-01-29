@@ -26,7 +26,6 @@ const column = createColumnHelper<TransactionsQueryRow>();
 const walletColumn = column.accessor('wallet.name', {
   id: TRANSACTIONS_TABLE_COLUMNS_IDS.Wallet,
   header: 'Portfel',
-  filterFn: 'equalsString',
 });
 
 const categoryColumn = column.accessor('category.name', {
