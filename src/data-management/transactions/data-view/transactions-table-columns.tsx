@@ -1,4 +1,8 @@
-import { AccessorColumnDef, createColumnHelper } from '@tanstack/react-table';
+import {
+  AccessorColumnDef,
+  createColumnHelper,
+  FilterFn,
+} from '@tanstack/react-table';
 import { TransactionsQueryRow } from '@/database/transactions/transactions-query.ts';
 import { APP_CURRENCY_CODE, APP_LOCALE } from '@/localization.ts';
 import { Transaction } from '@/database/transactions/transaction.ts';
@@ -7,6 +11,7 @@ import { EditTransactionAction } from '@/data-management/transactions/data-mutat
 import { WalletsListQueryData } from '@/database/wallets/wallets-list-query.ts';
 import { CategoriesListQueryData } from '@/database/categories/categories-list-query.ts';
 import { DeleteTransactionAction } from '@/data-management/transactions/data-mutation/actions/delete-transaction-action.tsx';
+import { arrayIncludesFilterFn } from '@/helpers/array-includes-filter-fn.ts';
 
 const ACCESSOR_COLUMNS_IDS = {
   Wallet: 'wallet_id',
@@ -26,12 +31,13 @@ const column = createColumnHelper<TransactionsQueryRow>();
 const walletColumn = column.accessor('wallet.name', {
   id: TRANSACTIONS_TABLE_COLUMNS_IDS.Wallet,
   header: 'Portfel',
+  filterFn: arrayIncludesFilterFn as FilterFn<TransactionsQueryRow>,
 });
 
 const categoryColumn = column.accessor('category.name', {
   id: TRANSACTIONS_TABLE_COLUMNS_IDS.Category,
   header: 'Kategoria',
-  filterFn: 'equalsString',
+  filterFn: arrayIncludesFilterFn as FilterFn<TransactionsQueryRow>,
 });
 
 const createdAtColumn = column.accessor('created_at', {

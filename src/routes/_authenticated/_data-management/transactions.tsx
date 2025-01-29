@@ -40,6 +40,7 @@ function RouteComponent() {
               <TransactionsTableFilters
                 table={table}
                 wallets={wallets}
+                categories={categories}
               />
             }
             emptyFilteredDatasetInfo={<EmptyFilteredTransactionsTableInfo />}
