@@ -12,6 +12,7 @@ import { WalletsListQueryData } from '@/database/wallets/wallets-list-query.ts';
 import { CategoriesListQueryData } from '@/database/categories/categories-list-query.ts';
 import { DeleteTransactionAction } from '@/data-management/transactions/data-mutation/actions/delete-transaction-action.tsx';
 import { arrayIncludesFilterFn } from '@/helpers/array-includes-filter-fn.ts';
+import { dateRangeFilterFn } from '@/data-management/filtering/date-range-filter.tsx';
 
 const ACCESSOR_COLUMNS_IDS = {
   Wallet: 'wallet_id',
@@ -49,6 +50,7 @@ const createdAtColumn = column.accessor('created_at', {
       dateStyle: 'short',
     }),
   sortingFn: 'datetime',
+  filterFn: dateRangeFilterFn as FilterFn<TransactionsQueryRow>,
 });
 
 const amountColumn = column.accessor((data) => data.amount / 100, {

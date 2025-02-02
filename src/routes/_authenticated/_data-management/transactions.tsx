@@ -9,6 +9,7 @@ import { useMemo } from 'react';
 import { EmptyTransactionsTableInfo } from '@/data-management/transactions/data-view/empty-transactions-table-info.tsx';
 import { EmptyFilteredTransactionsTableInfo } from '@/data-management/transactions/data-view/empty-filtered-transactions-table-info.tsx';
 import { TransactionsTableFilters } from '@/data-management/transactions/filtering/transactions-table-filters';
+import { transactionsTableFiltersMapFn } from '@/data-management/transactions/filtering/transactions-table-filters-map-fn.tsx';
 
 export const Route = createFileRoute(
   '/_authenticated/_data-management/transactions',
@@ -23,7 +24,11 @@ function RouteComponent() {
     () => transactionsTableColumns(wallets, categories),
     [wallets, categories],
   );
-  const table = useDataTable(transactions, columns);
+  const table = useDataTable(
+    transactions,
+    columns,
+    transactionsTableFiltersMapFn,
+  );
 
   return (
     <DataManagementPage
