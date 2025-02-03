@@ -6,10 +6,17 @@ export const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(mobileViewBreakpoint.matches);
 
   useEffect(() => {
-    const listener = (query: MediaQueryListEvent) => setIsMobile(query.matches);
-    mobileViewBreakpoint.addEventListener('change', listener);
+    const abortController = new AbortController();
 
-    return () => mobileViewBreakpoint.removeEventListener('change', listener);
+    mobileViewBreakpoint.addEventListener(
+      'change',
+      (query) => setIsMobile(query.matches),
+      {
+        signal: abortController.signal,
+      },
+    );
+
+    return () => abortController.abort();
   }, []);
 
   return isMobile;
