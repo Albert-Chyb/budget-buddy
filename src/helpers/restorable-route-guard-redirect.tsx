@@ -11,23 +11,6 @@ import { z } from 'zod';
 export const DENIED_ROUTE_SEARCH_KEY = 'deniedRoute' as const;
 
 /**
- * Merges a given search object with the existing search options from ToOptions.
- *
- * @param toOptions - The routing options containing search parameters.
- * @param search - The additional search parameters to merge.
- * @returns The merged search parameters.
- */
-function mergeSearch(toOptions: ToOptions, search: Record<string, string>) {
-  if (toOptions.search && typeof toOptions.search === 'object')
-    return {
-      ...toOptions.search,
-      ...search,
-    };
-
-  return search;
-}
-
-/**
  * Checks if any of the specified routes match the current location, indicating a non-restorable routes.
  *
  * @param routes - An array of route destinations to check.
@@ -59,7 +42,8 @@ export function useRestorableRedirect(
     return (
       <Navigate
         {...redirectOptions}
-        search={mergeSearch(redirectOptions, {
+        search={(prev) => ({
+          ...prev,
           [DENIED_ROUTE_SEARCH_KEY]: location.href,
         })}
       />
