@@ -4,7 +4,6 @@ import {
   createColumnHelper,
 } from '@tanstack/react-table';
 import { WalletsQueryRecord } from '@/database/wallets/wallets-query.ts';
-import { APP_CURRENCY_CODE, APP_LOCALE } from '@/localization.ts';
 import { DeleteWalletButton } from '@/data-management/wallets/data-mutation/actions/delete-wallet.tsx';
 import { UpdateWalletButton } from '@/data-management/wallets/data-mutation/actions/update-wallet.tsx';
 import { RowActions } from '@/data-management/data-mutation/row-actions.tsx';
@@ -27,14 +26,10 @@ const nameColumn = column.accessor('name', {
   filterFn: 'includesString',
 });
 
-const balanceColumn = column.accessor('balance', {
+const balanceColumn = column.accessor((wallet) => wallet.balance.toDecimal(), {
   id: WalletsColumnsIds.Balance,
   header: 'Aktualny balans',
-  cell: (context) =>
-    context.getValue().toLocaleString(APP_LOCALE, {
-      style: 'currency',
-      currency: APP_CURRENCY_CODE,
-    }),
+  cell: (context) => context.cell.row.original.balance.toString(),
   filterFn: 'inNumberRange',
 });
 

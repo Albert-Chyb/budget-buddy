@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { Currency } from '@/helpers/currency.ts';
 
 export const walletSchema = z.object({
   id: z.number().int().positive(),
@@ -7,7 +8,7 @@ export const walletSchema = z.object({
     .number()
     .int()
     .min(0)
-    .transform((balanceAsInt) => balanceAsInt / 100),
+    .transform((balance) => new Currency(balance)),
   owner_id: z.string(),
 });
 export type WalletSchema = z.infer<typeof walletSchema>;

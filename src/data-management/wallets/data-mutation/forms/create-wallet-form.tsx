@@ -1,13 +1,14 @@
-import { useForm } from 'react-hook-form';
 import { WalletNameFormField } from '@/data-management/wallets/data-mutation/forms/form-fields/wallet-name.tsx';
 import { PendingButton } from '@/components/pending-button.tsx';
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
   createWalletFormSchema,
   CreateWalletFormValue,
 } from '@/data-management/wallets/data-mutation/forms/form-schemas/create-wallet-form-schema.ts';
 import { Form } from '@/components/form.tsx';
 import { CurrencyFormField } from '@/data-management/data-mutation/currency-form-field.tsx';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Currency } from '@/helpers/currency.ts';
 
 export interface CreateWalletFormProps {
   onSubmit: (formValue: CreateWalletFormValue) => void;
@@ -18,11 +19,11 @@ export const CreateWalletForm = ({
   onSubmit,
   isPending,
 }: CreateWalletFormProps) => {
-  const form = useForm<CreateWalletFormValue>({
+  const form = useForm({
     resolver: zodResolver(createWalletFormSchema),
     defaultValues: {
       name: '',
-      balance: 0,
+      balance: new Currency(0),
     },
   });
 
