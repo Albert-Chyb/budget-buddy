@@ -1,14 +1,13 @@
 import { z } from 'zod';
-import { TransactionInsertInput } from '@/database/transactions/transaction.ts';
-import {
-  convertCurrencyToInt,
-  currencyFormFieldSchema,
-} from '@/data-management/data-mutation/currency-form-field-schema.ts';
+import { Currency } from '@/helpers/currency.ts';
 
 export const transactionFormSchema = z.object({
-  amount: currencyFormFieldSchema
-    .positive('Kwota transakcji musi być większa od 0')
-    .transform(convertCurrencyToInt),
+  amount: z
+    .instanceof(Currency)
+    .refine(
+      (currency) => currency.toInt() > 0,
+      'Kwota transakcji musi być większa od 0',
+    ),
   category_id: z.number({
     required_error: 'Transakcja musi posiadać kategorię',
   }),
@@ -16,6 +15,6 @@ export const transactionFormSchema = z.object({
     required_error: 'Transakcja musi posiadać portfel',
   }),
   description: z.string().optional(),
-}) satisfies z.ZodType<TransactionInsertInput>;
+});
 
 export type TransactionFormValue = z.infer<typeof transactionFormSchema>;

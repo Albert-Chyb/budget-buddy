@@ -3,14 +3,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useUserQuery } from '@/auth/user-query.ts';
 import { TRANSACTIONS_QUERY_KEY } from '@/database/transactions/transactions-query.ts';
 import { WALLETS_QUERY_KEY } from '@/database/wallets/wallets-query.ts';
-import {
-  Transaction,
-  TransactionUpdateInput,
-} from '@/database/transactions/transaction.ts';
+import { Transaction } from '@/database/transactions/transaction.ts';
+import { TransactionFormValue } from '@/data-management/transactions/data-mutation/forms/form-schemas/transaction-form-schema.ts';
 
 export interface UpdateTransactionMutationVariables {
   id: Transaction['id'];
-  payload: TransactionUpdateInput;
+  payload: TransactionFormValue;
 }
 
 export const useUpdateTransactionMutation = () => {
@@ -27,7 +25,10 @@ export const useUpdateTransactionMutation = () => {
 
       const { error } = await supabase
         .from('transactions')
-        .update(payload)
+        .update({
+          ...payload,
+          amount: payload.amount.toInt(),
+        })
         .eq('id', id)
         .eq('owner_id', user.id);
 

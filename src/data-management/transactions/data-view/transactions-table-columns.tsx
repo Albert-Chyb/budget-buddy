@@ -4,7 +4,7 @@ import {
   FilterFn,
 } from '@tanstack/react-table';
 import { TransactionsQueryRow } from '@/database/transactions/transactions-query.ts';
-import { APP_CURRENCY_CODE, APP_LOCALE } from '@/localization.ts';
+import { APP_LOCALE } from '@/localization.ts';
 import { Transaction } from '@/database/transactions/transaction.ts';
 import { RowActions } from '@/data-management/data-mutation/row-actions.tsx';
 import { EditTransactionAction } from '@/data-management/transactions/data-mutation/actions/edit-transaction-action.tsx';
@@ -53,16 +53,15 @@ const createdAtColumn = column.accessor('created_at', {
   filterFn: dateRangeFilterFn as FilterFn<TransactionsQueryRow>,
 });
 
-const amountColumn = column.accessor('amount', {
-  id: TRANSACTIONS_TABLE_COLUMNS_IDS.Amount,
-  header: 'Kwota',
-  cell: (context) =>
-    context.getValue().toLocaleString(APP_LOCALE, {
-      style: 'currency',
-      currency: APP_CURRENCY_CODE,
-    }),
-  filterFn: 'inNumberRange',
-});
+const amountColumn = column.accessor(
+  (transaction) => transaction.amount.toDecimal(),
+  {
+    id: TRANSACTIONS_TABLE_COLUMNS_IDS.Amount,
+    header: 'Kwota',
+    cell: (context) => context.row.original.amount.toString(),
+    filterFn: 'inNumberRange',
+  },
+);
 
 const descriptionColumn = column.accessor((data) => data.description, {
   id: TRANSACTIONS_TABLE_COLUMNS_IDS.Description,

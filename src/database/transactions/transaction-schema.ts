@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { Currency } from '@/helpers/currency.ts';
 
 export const transactionSchema = z.object({
   id: z.number().int(),
@@ -10,7 +11,7 @@ export const transactionSchema = z.object({
     .number()
     .int()
     .positive()
-    .transform((amountAsInt) => amountAsInt / 100),
+    .transform((amountAsInt) => new Currency(amountAsInt)),
   created_at: z.string().transform((ISOString) => new Date(ISOString)),
   description: z.string().nullable(),
 });

@@ -1,12 +1,9 @@
 import { useSupabase } from '@/init/supabase.tsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import {
-  TransactionInsert,
-  TransactionInsertInput,
-} from '@/database/transactions/transaction.ts';
 import { useUserQuery } from '@/auth/user-query.ts';
 import { TRANSACTIONS_QUERY_KEY } from '@/database/transactions/transactions-query.ts';
 import { WALLETS_QUERY_KEY } from '@/database/wallets/wallets-query.ts';
+import { TransactionFormValue } from '@/data-management/transactions/data-mutation/forms/form-schemas/transaction-form-schema.ts';
 
 export const useCreateTransactionMutation = () => {
   const supabase = useSupabase();
@@ -14,17 +11,17 @@ export const useCreateTransactionMutation = () => {
   const { data: user } = useUserQuery();
 
   return useMutation({
-    mutationFn: async (payload: TransactionInsertInput) => {
+    mutationFn: async (payload: TransactionFormValue) => {
       if (!user)
         throw new Error(
           'CreateTransactionMutation requires the user to be logged in',
         );
 
-      const transaction: TransactionInsert = {
+      const { error } = await supabase.from('transactions').insert({
         ...payload,
+        amount: payload.amount.toInt(),
         owner_id: user.id,
-      };
-      const { error } = await supabase.from('transactions').insert(transaction);
+      });
 
       if (error) throw error;
     },

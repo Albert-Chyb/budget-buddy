@@ -40,7 +40,7 @@ export const EditTransactionAction = ({
     wallet_id: transaction.wallet.id,
     category_id: transaction.category.id,
     description: transaction.description ?? '',
-    amount: transaction.amount / 100,
+    amount: transaction.amount,
   };
 
   return (
