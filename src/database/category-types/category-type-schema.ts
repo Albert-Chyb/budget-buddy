@@ -1,7 +1,8 @@
 import { z } from 'zod';
+import { numericIdSchema } from '@/database/common-field-types-schemas.ts';
 
 export const categoryTypeSchema = z.object({
-  id: z.number().int().positive(),
+  id: numericIdSchema,
   name: z.string().min(1).max(32),
   is_expense: z.boolean(),
 });
