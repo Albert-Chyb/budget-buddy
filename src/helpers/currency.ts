@@ -23,6 +23,10 @@ export class Currency {
     return this.currencyAsInt / 100;
   }
 
+  isGreaterThan(other: Currency) {
+    return this.currencyAsInt > other.currencyAsInt;
+  }
+
   isGreaterOrEqualThan(other: Currency) {
     return this.currencyAsInt >= other.currencyAsInt;
   }
