@@ -1,4 +1,4 @@
-import { CategoryType } from '@/database/category-types/query.ts';
+import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
 import { CategoryColor } from '@/database/category-colors/query.ts';
 import { useFormContext } from 'react-hook-form';
 import { CategoryNameFormField } from '@/data-management/categories/data-mutation/forms/form-fields/category-name-form-field.tsx';
@@ -12,7 +12,7 @@ type CategoryFormValueShape = CreateCategoryFormValue | UpdateCategoryFormValue;
 
 export interface CategoryFormProps<TValue extends CategoryFormValueShape> {
   onSubmit: (formValue: TValue) => void;
-  categoryTypes: CategoryType[];
+  categoryTypes: CategoryTypesQueryRow[];
   categoryColors: CategoryColor[];
   isPending: boolean;
 }

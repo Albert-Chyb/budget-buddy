@@ -4,11 +4,11 @@ import {
 } from '@/data-management/filtering/enum-filter.tsx';
 import { EnumFilterOption } from '@/data-management/filtering/enum-filter-option.tsx';
 
-import { CategoryType } from '@/database/category-types/query.ts';
+import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
 
 export interface CategoryTypeFilterProps
   extends Omit<SingleEnumFilterProps, 'children'> {
-  categoryTypes: CategoryType[];
+  categoryTypes: CategoryTypesQueryRow[];
 }
 
 export function CategoryTypeFilter(props: CategoryTypeFilterProps) {

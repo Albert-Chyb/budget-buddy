@@ -1,21 +1,17 @@
-import { SupabaseClient } from '@supabase/supabase-js';
-import { Database } from '@/database/types.ts';
 import { useSupabase } from '@/init/supabase.tsx';
 import { USER_QUERY_KEY, useUserQuery } from '@/auth/user-query.ts';
 import { useQuery } from '@tanstack/react-query';
+import { z } from 'zod';
+import { walletSchema } from '@/database/wallets/wallet-schema.ts';
 
-const queryFn = async (supabase: SupabaseClient<Database>, userId: string) => {
-  const { data, error } = await supabase
-    .from('wallets')
-    .select('id, name')
-    .eq('owner_id', userId);
+const recordSchema = z.object({
+  id: walletSchema.shape.id,
+  name: walletSchema.shape.name,
+});
+export type WalletsListQueryRecord = z.infer<typeof recordSchema>;
 
-  if (error) throw error;
-
-  return data;
-};
-export type WalletsListQueryData = Awaited<ReturnType<typeof queryFn>>;
-export type WalletsListQueryRecord = WalletsListQueryData[number];
+const queryResultSchema = z.array(recordSchema);
+export type WalletsListQueryData = z.infer<typeof queryResultSchema>;
 
 export const WALLETS_LIST_QUERY_KEY = [
   ...USER_QUERY_KEY,
@@ -28,6 +24,15 @@ export const useWalletsListQuery = () => {
   return useQuery({
     enabled: !!user,
     queryKey: WALLETS_LIST_QUERY_KEY,
-    queryFn: () => queryFn(supabase, user!.id),
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('wallets')
+        .select('id, name')
+        .eq('owner_id', user!.id);
+
+      if (error) throw error;
+
+      return queryResultSchema.parse(data);
+    },
   });
 };

@@ -53,7 +53,7 @@ const createdAtColumn = column.accessor('created_at', {
   filterFn: dateRangeFilterFn as FilterFn<TransactionsQueryRow>,
 });
 
-const amountColumn = column.accessor((data) => data.amount / 100, {
+const amountColumn = column.accessor('amount', {
   id: TRANSACTIONS_TABLE_COLUMNS_IDS.Amount,
   header: 'Kwota',
   cell: (context) =>

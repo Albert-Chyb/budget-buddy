@@ -8,7 +8,7 @@ import { arrayIncludesFilterFn } from '@/helpers/array-includes-filter-fn.ts';
 import { CategoriesQueryRow } from '@/database/categories/categories-query.ts';
 import { Tables } from '@/database/types.ts';
 import { CategoryColor } from '@/database/category-colors/query.ts';
-import { CategoryType } from '@/database/category-types/query.ts';
+import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
 import { CategoryColorCell } from '@/data-management/categories/data-view/category-color-cell.tsx';
 
 const AccessorColumnsIds = Object.freeze({
@@ -50,7 +50,7 @@ const categoryColorColumn = column.accessor(
 );
 
 const categoryActionsColumnBuilder = (
-  categoryTypes: CategoryType[],
+  categoryTypes: CategoryTypesQueryRow[],
   categoryColors: CategoryColor[],
 ) =>
   column.display({
@@ -66,7 +66,7 @@ const categoryActionsColumnBuilder = (
   });
 
 const categoriesTableColumns = (
-  categoryTypes: CategoryType[],
+  categoryTypes: CategoryTypesQueryRow[],
   categoryColors: CategoryColor[],
 ) => [
   categoryNameColumn as AccessorColumnDef<CategoriesQueryRow>,

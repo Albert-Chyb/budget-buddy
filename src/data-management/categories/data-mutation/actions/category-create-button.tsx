@@ -1,4 +1,4 @@
-import { CategoryType } from '@/database/category-types/query.ts';
+import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
 import { CategoryColor } from '@/database/category-colors/query.ts';
 import { useCreateCategoryMutation } from '@/database/categories/create-mutation.ts';
 import { useEditorContext } from '@/data-management/data-mutation/editor-open-state.tsx';
@@ -7,7 +7,7 @@ import { CategoryCreator } from '@/data-management/categories/data-mutation/cate
 import { MutationErrorDialog } from '@/data-management/data-mutation/mutation-error-dialog.tsx';
 
 interface CategoryCreateButtonProps {
-  categoryTypes: CategoryType[];
+  categoryTypes: CategoryTypesQueryRow[];
   categoryColors: CategoryColor[];
 }
 

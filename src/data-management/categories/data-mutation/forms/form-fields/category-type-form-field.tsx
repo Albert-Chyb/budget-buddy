@@ -9,12 +9,12 @@ import {
 } from '@/components/form.tsx';
 import { ToggleGroup, ToggleGroupItem } from '@/components/toggle-group.tsx';
 
-import { CategoryType } from '@/database/category-types/query.ts';
+import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
 import { recordIdValueAdapter } from '@/helpers/input-value-adapter.ts';
 
 interface CategoryTypeFormFieldProps<T extends FieldValues> {
   name: Path<T>;
-  categoryTypes: CategoryType[];
+  categoryTypes: CategoryTypesQueryRow[];
 }
 
 export const CategoryTypeFormField = <T extends FieldValues>(

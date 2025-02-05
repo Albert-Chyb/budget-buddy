@@ -27,7 +27,7 @@ const nameColumn = column.accessor('name', {
   filterFn: 'includesString',
 });
 
-const balanceColumn = column.accessor((wallet) => wallet.balance / 100, {
+const balanceColumn = column.accessor('balance', {
   id: WalletsColumnsIds.Balance,
   header: 'Aktualny balans',
   cell: (context) =>
