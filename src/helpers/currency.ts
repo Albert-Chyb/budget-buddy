@@ -23,6 +23,10 @@ export class Currency {
     return this.currencyAsInt / 100;
   }
 
+  isGreaterOrEqualThan(other: Currency) {
+    return this.currencyAsInt >= other.currencyAsInt;
+  }
+
   toString() {
     return formatter.format(this.toDecimal());
   }
