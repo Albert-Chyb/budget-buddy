@@ -52,7 +52,6 @@ export const useTransactionsQuery = () => {
         .eq('owner_id', user!.id)
         .order('created_at', { ascending: false });
 
-      console.dir(error);
       if (error) throw error;
 
       return queryResultSchema.parse(data);
