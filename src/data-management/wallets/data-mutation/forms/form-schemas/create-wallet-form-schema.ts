@@ -6,7 +6,7 @@ import {
   NAME_TOO_SMALL_MSG,
 } from '@/data-management/wallets/data-mutation/forms/wallet-form-errors-messages.ts';
 import {
-  BALANCE_MIN,
+  walletBalanceRefinement,
   NAME_MAX_LENGTH,
   NAME_MIN_LENGTH,
 } from '@/database/wallets/wallet-schema.ts';
@@ -18,10 +18,7 @@ export const createWalletFormSchema = z.object({
     .max(NAME_MAX_LENGTH, { message: NAME_TOO_BIG_MSG }),
   balance: z
     .instanceof(Currency)
-    .refine(
-      (currency) => currency.isGreaterOrEqualThan(BALANCE_MIN),
-      BALANCE_TOO_SMALL_MSG,
-    ),
+    .refine(walletBalanceRefinement, BALANCE_TOO_SMALL_MSG),
 });
 
 export type CreateWalletFormValue = z.infer<typeof createWalletFormSchema>;

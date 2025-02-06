@@ -3,7 +3,7 @@ import { Currency } from '@/helpers/currency.ts';
 import {
   DESCRIPTION_MAX_LENGTH,
   DESCRIPTION_MIN_LENGTH,
-  MIN_AMOUNT,
+  transactionAmountRefinement,
 } from '@/database/transactions/transaction-schema.ts';
 import {
   AMOUNT_TOO_SMALL_MSG,
@@ -26,10 +26,7 @@ const populatedDescriptionSchema = z
 export const transactionFormSchema = z.object({
   amount: z
     .instanceof(Currency)
-    .refine(
-      (currency) => currency.isGreaterThan(MIN_AMOUNT),
-      AMOUNT_TOO_SMALL_MSG,
-    ),
+    .refine(transactionAmountRefinement, AMOUNT_TOO_SMALL_MSG),
   category_id: z.number({
     required_error: CATEGORY_REQUIRED_MSG,
   }),

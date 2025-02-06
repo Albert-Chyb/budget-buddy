@@ -11,6 +11,8 @@ import { walletSchema } from '@/database/wallets/wallet-schema.ts';
 export const MIN_AMOUNT = new Currency(0);
 export const DESCRIPTION_MIN_LENGTH = 1;
 export const DESCRIPTION_MAX_LENGTH = 64;
+export const transactionAmountRefinement = (currency: Currency) =>
+  currency.isGreaterThan(MIN_AMOUNT);
 
 export const transactionSchema = z.object({
   id: numericIdSchema,
@@ -20,7 +22,7 @@ export const transactionSchema = z.object({
   amount: currencyCellSchema
     .transform((amountAsInt) => new Currency(amountAsInt))
     .refine(
-      (currency) => currency.isGreaterThan(MIN_AMOUNT),
+      transactionAmountRefinement,
       `Expected a value that is greater than ${MIN_AMOUNT.toString()}`,
     ),
   created_at: z.string().transform((ISOString) => new Date(ISOString)),
