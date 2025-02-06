@@ -2,7 +2,7 @@ import { Form } from '@/components/form.tsx';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  CREATE_CATEGORY_FORM_PLACEHOLDER,
+  CREATE_CATEGORY_FORM_DEFAULT_VALUE,
   createCategoryFormSchema,
   CreateCategoryFormValue,
 } from '@/data-management/categories/data-mutation/forms/form-schemas/create-category-form-schema.ts';
@@ -17,7 +17,7 @@ export type CreateCategoryFormProps =
 export const CreateCategoryForm = (props: CreateCategoryFormProps) => {
   const form = useForm<CreateCategoryFormValue>({
     resolver: zodResolver(createCategoryFormSchema),
-    defaultValues: CREATE_CATEGORY_FORM_PLACEHOLDER,
+    defaultValues: CREATE_CATEGORY_FORM_DEFAULT_VALUE,
   });
 
   return (
