@@ -1,8 +1,8 @@
 import {
   SingleEnumFilter,
   SingleEnumFilterProps,
-} from '@/data-management/filtering/enum-filter.tsx';
-import { EnumFilterOption } from '@/data-management/filtering/enum-filter-option.tsx';
+} from '@/data-management/common/filtering/enum-filter.tsx';
+import { EnumFilterOption } from '@/data-management/common/filtering/enum-filter-option.tsx';
 
 import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
 

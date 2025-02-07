@@ -1,7 +1,7 @@
 import {
   TextFilter,
   TextFilterProps,
-} from '@/data-management/filtering/text-filter.tsx';
+} from '@/data-management/common/filtering/text-filter.tsx';
 import { ComponentRef, ForwardedRef, forwardRef } from 'react';
 
 type CategoryNameFilterProps = TextFilterProps;

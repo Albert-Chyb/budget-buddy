@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from '@/components/card.tsx';
 import { ReactNode } from 'react';
-import { EditorContextProvider } from '@/data-management/data-mutation/editor-open-state.tsx';
+import { EditorContextProvider } from '@/data-management/common/data-mutation/editor-open-state.tsx';
 import { useIsMobile } from '@/data-management/is-mobile.ts';
 import { QueryStatus } from '@tanstack/react-query';
 import { DataManagementPageSkeleton } from '@/data-management/data-management-page-skeleton.tsx';

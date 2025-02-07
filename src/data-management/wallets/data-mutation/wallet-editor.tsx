@@ -1,12 +1,12 @@
 import {
   Editor,
   EditorProps,
-} from '@/data-management/data-mutation/editor.tsx';
+} from '@/data-management/common/data-mutation/editor.tsx';
 import {
   UpdateWalletForm,
   UpdateWalletFormProps,
 } from '@/data-management/wallets/data-mutation/forms/update-wallet-form.tsx';
-import { RowAction } from '@/data-management/data-mutation/row-actions.tsx';
+import { RowAction } from '@/data-management/common/data-mutation/row-actions.tsx';
 
 export type WalletEditorProps = UpdateWalletFormProps & Pick<EditorProps, 'id'>;
 

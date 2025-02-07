@@ -1,4 +1,4 @@
-import { Editor } from '@/data-management/data-mutation/editor.tsx';
+import { Editor } from '@/data-management/common/data-mutation/editor.tsx';
 import {
   CreateCategoryForm,
   CreateCategoryFormProps,

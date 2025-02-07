@@ -1,7 +1,7 @@
 import { Table, TableBody } from '@/components/table.tsx';
-import { MobileDataTableRow } from '@/data-management/data-view/mobile/mobile-data-table-row.tsx';
+import { MobileDataTableRow } from '@/data-management/common/data-view/mobile/mobile-data-table-row.tsx';
 import { Row } from '@tanstack/react-table';
-import { HeadersMap } from '@/data-management/data-view/mobile/mobile-data-tables.tsx';
+import { HeadersMap } from '@/data-management/common/data-view/mobile/mobile-data-tables.tsx';
 
 interface MobileDataTableProps {
   row: Row<unknown>;

@@ -1,13 +1,13 @@
 import { useCreateTransactionMutation } from '@/database/transactions/create-transaction-mutation.ts';
 import { WalletsListQueryData } from '@/database/wallets/wallets-list-query.ts';
 import { CategoriesListQueryData } from '@/database/categories/categories-list-query.ts';
-import { MutationErrorDialog } from '@/data-management/data-mutation/mutation-error-dialog.tsx';
-import { useEditorContext } from '@/data-management/data-mutation/editor-open-state.tsx';
+import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
+import { useEditorContext } from '@/data-management/common/data-mutation/editor-open-state.tsx';
 import { TransactionFormValue } from '@/data-management/transactions/data-mutation/forms/form-schemas/transaction-form-schema.ts';
 import { ResponsiveButton } from '@/data-management/responsive-button.tsx';
 import { Plus } from 'lucide-react';
 import { TransactionForm } from '@/data-management/transactions/data-mutation/forms/transaction-form.tsx';
-import { Editor } from '@/data-management/data-mutation/editor.tsx';
+import { Editor } from '@/data-management/common/data-mutation/editor.tsx';
 
 export interface CreateTransactionActionProps {
   wallets: WalletsListQueryData;

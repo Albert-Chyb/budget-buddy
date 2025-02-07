@@ -1,6 +1,6 @@
-import { usePaginationState } from '@/data-management/pagination/pagination-state.ts';
-import { useSortingState } from '@/data-management/sorting/sorting-state.ts';
-import { useColumnFiltersState } from '@/data-management/filtering/column-filters-state.ts';
+import { usePaginationState } from '@/data-management/common/pagination/pagination-state.ts';
+import { useSortingState } from '@/data-management/common/sorting/sorting-state.ts';
+import { useColumnFiltersState } from '@/data-management/common/filtering/column-filters-state.ts';
 import {
   ColumnDef,
   ColumnFiltersState,

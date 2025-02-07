@@ -6,7 +6,7 @@ import {
   SelectValue,
 } from '@/components/select.tsx';
 import { Table } from '@tanstack/react-table';
-import { paginationPageSizeSchema } from '@/data-management/pagination/pagination-state-schema.ts';
+import { paginationPageSizeSchema } from '@/data-management/common/pagination/pagination-state-schema.ts';
 
 const PAGE_SIZE_OPTIONS = paginationPageSizeSchema.options
   .map(({ value }) => value)

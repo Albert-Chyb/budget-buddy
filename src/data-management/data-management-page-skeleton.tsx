@@ -11,7 +11,7 @@ import {
 } from '@/components/table-skeleton.tsx';
 import { Skeleton } from '@/components/skeleton.tsx';
 import { useIsMobile } from '@/data-management/is-mobile.ts';
-import { MobileTablesSkeletons } from '@/data-management/sorting/mobile-data-management-card-skeleton.tsx';
+import { MobileTablesSkeletons } from '@/data-management/common/sorting/mobile-data-management-card-skeleton.tsx';
 
 type DataManagementPageSkeletonProps = TableSkeletonProps;
 

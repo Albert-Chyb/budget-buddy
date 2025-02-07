@@ -6,9 +6,9 @@ import {
   PaginationPrevious,
 } from '@/components/pagination.tsx';
 import { Table } from '@tanstack/react-table';
-import { PageSizeSelect } from '@/data-management/pagination/page-size-select.tsx';
-import { usePrevAndNextPageSearchParams } from '@/data-management/pagination/pagination-state.ts';
-import { PageIndicator } from '@/data-management/pagination/page-indicator.tsx';
+import { PageSizeSelect } from '@/data-management/common/pagination/page-size-select.tsx';
+import { usePrevAndNextPageSearchParams } from '@/data-management/common/pagination/pagination-state.ts';
+import { PageIndicator } from '@/data-management/common/pagination/page-indicator.tsx';
 import { useIsMobile } from '@/data-management/is-mobile.ts';
 
 export interface TablePaginationProps {

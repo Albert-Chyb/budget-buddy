@@ -6,7 +6,7 @@ import {
   setSortingDirection,
   SortingDirection,
 } from '@/helpers/tanstack-table-sort-bridge.ts';
-import { SORTING_OPTIONS } from '@/data-management/sorting/sorting-options.tsx';
+import { SORTING_OPTIONS } from '@/data-management/common/sorting/sorting-options.tsx';
 
 interface MobileSortingColumnProps {
   label: ReactNode;

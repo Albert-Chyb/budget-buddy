@@ -1,4 +1,4 @@
-import { Editor } from '@/data-management/data-mutation/editor.tsx';
+import { Editor } from '@/data-management/common/data-mutation/editor.tsx';
 import { ResponsiveButton } from '@/data-management/responsive-button.tsx';
 import { Plus } from 'lucide-react';
 import {

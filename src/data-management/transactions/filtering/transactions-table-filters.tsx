@@ -1,4 +1,4 @@
-import { Filters } from '@/data-management/filtering/filters.tsx';
+import { Filters } from '@/data-management/common/filtering/filters.tsx';
 import { TransactionWalletFilter } from '@/data-management/transactions/filtering/transaction-wallet-filter.tsx';
 import { Table } from '@tanstack/react-table';
 import { WalletsListQueryData } from '@/database/wallets/wallets-list-query.ts';
@@ -8,7 +8,7 @@ import { TransactionCategoryFilter } from '@/data-management/transactions/filter
 import { CategoriesListQueryData } from '@/database/categories/categories-list-query.ts';
 import { TransactionAmountFilter } from '@/data-management/transactions/filtering/transaction-amount-filter.tsx';
 import { TransactionDescriptionFilter } from '@/data-management/transactions/filtering/transaction-description-filter.tsx';
-import { DateRangeFilter } from '@/data-management/filtering/date-range-filter.tsx';
+import { DateRangeFilter } from '@/data-management/common/filtering/date-range-filter.tsx';
 
 export interface TransactionsTableFiltersProps {
   table: Table<TransactionsQueryRow>;

@@ -3,7 +3,7 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
 } from '@/components/dropdown-menu.tsx';
-import { SORTING_OPTIONS } from '@/data-management/sorting/sorting-options.tsx';
+import { SORTING_OPTIONS } from '@/data-management/common/sorting/sorting-options.tsx';
 import { useState } from 'react';
 
 interface SortDropdownMenuGroupProps {

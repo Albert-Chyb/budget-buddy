@@ -1,4 +1,4 @@
-import { RangeFilter } from '@/data-management/filtering/range-filter.tsx';
+import { RangeFilter } from '@/data-management/common/filtering/range-filter.tsx';
 import { Column } from '@tanstack/react-table';
 import { TransactionsQueryRow } from '@/database/transactions/transactions-query.ts';
 

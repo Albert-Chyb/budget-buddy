@@ -1,9 +1,9 @@
 import { useDeleteWalletMutation } from '@/database/wallets/delete-mutation.ts';
-import { MutationErrorDialog } from '@/data-management/data-mutation/mutation-error-dialog.tsx';
+import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
 import { Wallet } from '@/database/wallets/wallet.ts';
 import { ConfirmationDialog } from '@/components/confirmation-dialog.tsx';
 import { useState } from 'react';
-import { RowAction } from '@/data-management/data-mutation/row-actions.tsx';
+import { RowAction } from '@/data-management/common/data-mutation/row-actions.tsx';
 
 interface DeleteWalletButtonProps {
   id: Wallet['id'];

@@ -6,7 +6,7 @@ import {
 import { WalletsQueryRecord } from '@/database/wallets/wallets-query.ts';
 import { DeleteWalletButton } from '@/data-management/wallets/data-mutation/actions/delete-wallet.tsx';
 import { UpdateWalletButton } from '@/data-management/wallets/data-mutation/actions/update-wallet.tsx';
-import { RowActions } from '@/data-management/data-mutation/row-actions.tsx';
+import { RowActions } from '@/data-management/common/data-mutation/row-actions.tsx';
 
 const AccessorColumnsIds = {
   Name: 'name',

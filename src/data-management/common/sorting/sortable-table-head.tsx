@@ -5,7 +5,7 @@ import {
   PropsWithChildren,
 } from 'react';
 import { TableHead } from '@/components/table.tsx';
-import { ColumnSortMenu } from '@/data-management/sorting/column-sort-menu.tsx';
+import { ColumnSortMenu } from '@/data-management/common/sorting/column-sort-menu.tsx';
 import { Column } from '@tanstack/react-table';
 
 export interface SortableTableHeadProps extends PropsWithChildren {

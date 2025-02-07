@@ -1,9 +1,9 @@
-import { Editor } from '@/data-management/data-mutation/editor.tsx';
+import { Editor } from '@/data-management/common/data-mutation/editor.tsx';
 import {
   UpdateCategoryForm,
   UpdateCategoryFormProps,
 } from '@/data-management/categories/data-mutation/forms/update-category-form.tsx';
-import { RowAction } from '@/data-management/data-mutation/row-actions.tsx';
+import { RowAction } from '@/data-management/common/data-mutation/row-actions.tsx';
 
 type CategoryEditorProps = UpdateCategoryFormProps & { id: string };
 

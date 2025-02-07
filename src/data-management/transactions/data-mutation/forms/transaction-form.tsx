@@ -5,7 +5,7 @@ import {
   TransactionFormValue,
 } from '@/data-management/transactions/data-mutation/forms/form-schemas/transaction-form-schema.ts';
 import { Form } from '@/components/form.tsx';
-import { CurrencyFormField } from '@/data-management/data-mutation/currency-form-field.tsx';
+import { CurrencyFormField } from '@/data-management/common/data-mutation/currency-form-field.tsx';
 import { CategoryFormField } from '@/data-management/transactions/data-mutation/forms/form-fields/category-form-field.tsx';
 import { WalletFormField } from '@/data-management/transactions/data-mutation/forms/form-fields/wallet-form-field.tsx';
 import { CategoriesListQueryData } from '@/database/categories/categories-list-query.ts';

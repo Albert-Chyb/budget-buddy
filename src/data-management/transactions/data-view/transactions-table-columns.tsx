@@ -6,13 +6,13 @@ import {
 import { TransactionsQueryRow } from '@/database/transactions/transactions-query.ts';
 import { APP_LOCALE } from '@/localization.ts';
 import { Transaction } from '@/database/transactions/transaction.ts';
-import { RowActions } from '@/data-management/data-mutation/row-actions.tsx';
+import { RowActions } from '@/data-management/common/data-mutation/row-actions.tsx';
 import { EditTransactionAction } from '@/data-management/transactions/data-mutation/actions/edit-transaction-action.tsx';
 import { WalletsListQueryData } from '@/database/wallets/wallets-list-query.ts';
 import { CategoriesListQueryData } from '@/database/categories/categories-list-query.ts';
 import { DeleteTransactionAction } from '@/data-management/transactions/data-mutation/actions/delete-transaction-action.tsx';
 import { arrayIncludesFilterFn } from '@/helpers/array-includes-filter-fn.ts';
-import { dateRangeFilterFn } from '@/data-management/filtering/date-range-filter.tsx';
+import { dateRangeFilterFn } from '@/data-management/common/filtering/date-range-filter.tsx';
 
 const ACCESSOR_COLUMNS_IDS = {
   Wallet: 'wallet_id',

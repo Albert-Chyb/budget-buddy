@@ -1,9 +1,9 @@
 import { useCategoryDeleteMutation } from '@/database/categories/delete-mutation.ts';
 import { Category } from '@/database/categories/category.ts';
-import { MutationErrorDialog } from '@/data-management/data-mutation/mutation-error-dialog.tsx';
+import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
 import { useState } from 'react';
 import { ConfirmationDialog } from '@/components/confirmation-dialog.tsx';
-import { RowAction } from '@/data-management/data-mutation/row-actions.tsx';
+import { RowAction } from '@/data-management/common/data-mutation/row-actions.tsx';
 
 interface CategoryDeleteButton {
   id: Category['id'];

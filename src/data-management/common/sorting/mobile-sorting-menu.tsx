@@ -1,7 +1,7 @@
-import { MobileSorting } from '@/data-management/sorting/mobile-sorting.tsx';
-import { MobileSortingColumn } from '@/data-management/sorting/mobile-sorting-column.tsx';
+import { MobileSorting } from '@/data-management/common/sorting/mobile-sorting.tsx';
+import { MobileSortingColumn } from '@/data-management/common/sorting/mobile-sorting-column.tsx';
 import { flexRender } from '@tanstack/react-table';
-import { DataTableProp } from '@/data-management/data-view/table-type.ts';
+import { DataTableProp } from '@/data-management/common/data-view/table-type.ts';
 
 interface MobileSortingMenuProps {
   table: DataTableProp;

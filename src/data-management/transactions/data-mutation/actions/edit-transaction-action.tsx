@@ -2,15 +2,15 @@ import { WalletsListQueryData } from '@/database/wallets/wallets-list-query.ts';
 import { CategoriesListQueryData } from '@/database/categories/categories-list-query.ts';
 import { TransactionsQueryRow } from '@/database/transactions/transactions-query.ts';
 import { useUpdateTransactionMutation } from '@/database/transactions/update-transaction-mutation.ts';
-import { useEditorContext } from '@/data-management/data-mutation/editor-open-state.tsx';
+import { useEditorContext } from '@/data-management/common/data-mutation/editor-open-state.tsx';
 import { TransactionFormValue } from '@/data-management/transactions/data-mutation/forms/form-schemas/transaction-form-schema.ts';
-import { Editor } from '@/data-management/data-mutation/editor.tsx';
+import { Editor } from '@/data-management/common/data-mutation/editor.tsx';
 import {
   TransactionForm,
   TransactionFormProps,
 } from '@/data-management/transactions/data-mutation/forms/transaction-form.tsx';
-import { MutationErrorDialog } from '@/data-management/data-mutation/mutation-error-dialog.tsx';
-import { RowAction } from '@/data-management/data-mutation/row-actions.tsx';
+import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
+import { RowAction } from '@/data-management/common/data-mutation/row-actions.tsx';
 
 export interface EditTransactionActionProps {
   wallets: WalletsListQueryData;

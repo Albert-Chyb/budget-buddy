@@ -2,7 +2,7 @@ import {
   TableInfo,
   TableInfoDescription,
   TableInfoTitle,
-} from '@/data-management/data-view/table-info.tsx';
+} from '@/data-management/common/data-view/table-info.tsx';
 
 export const EmptyWalletsTableInfo = () => (
   <TableInfo>

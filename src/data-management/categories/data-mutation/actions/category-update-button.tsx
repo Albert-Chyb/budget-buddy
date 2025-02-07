@@ -5,8 +5,8 @@ import { categoryRowDataToFormValue } from '@/data-management/categories/categor
 import { CategoryColor } from '@/database/category-colors/query.ts';
 import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
 import { CategoriesQueryRow } from '@/database/categories/categories-query.ts';
-import { useEditorContext } from '@/data-management/data-mutation/editor-open-state.tsx';
-import { MutationErrorDialog } from '@/data-management/data-mutation/mutation-error-dialog.tsx';
+import { useEditorContext } from '@/data-management/common/data-mutation/editor-open-state.tsx';
+import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
 
 interface CategoryUpdateButtonProps {
   categoryColors: CategoryColor[];

@@ -1,6 +1,6 @@
 import { Column } from '@tanstack/react-table';
 import { TransactionsQueryRow } from '@/database/transactions/transactions-query.ts';
-import { TextFilter } from '@/data-management/filtering/text-filter.tsx';
+import { TextFilter } from '@/data-management/common/filtering/text-filter.tsx';
 
 export interface TransactionDescriptionFilterProps {
   column: Column<TransactionsQueryRow>;

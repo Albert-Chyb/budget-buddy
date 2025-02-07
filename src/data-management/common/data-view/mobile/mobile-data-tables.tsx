@@ -1,5 +1,5 @@
 import { Column, Header, Table as TanStackTable } from '@tanstack/react-table';
-import { MobileDataTable } from '@/data-management/data-view/mobile/mobile-data-table.tsx';
+import { MobileDataTable } from '@/data-management/common/data-view/mobile/mobile-data-table.tsx';
 
 export type HeadersMap = Map<Column<unknown>['id'], Header<unknown, unknown>>;
 

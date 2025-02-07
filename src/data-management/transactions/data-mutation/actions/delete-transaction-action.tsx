@@ -1,9 +1,9 @@
 import { useDeleteTransactionMutation } from '@/database/transactions/delete-transaction-mutation.ts';
-import { MutationErrorDialog } from '@/data-management/data-mutation/mutation-error-dialog.tsx';
+import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
 import { ConfirmationDialog } from '@/components/confirmation-dialog.tsx';
 import { useState } from 'react';
 import { Transaction } from '@/database/transactions/transaction.ts';
-import { RowAction } from '@/data-management/data-mutation/row-actions.tsx';
+import { RowAction } from '@/data-management/common/data-mutation/row-actions.tsx';
 
 export interface DeleteTransactionActionProps {
   id: Transaction['id'];

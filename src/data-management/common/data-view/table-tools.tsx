@@ -11,8 +11,8 @@ import {
   DrawerTrigger,
 } from '@/components/drawer.tsx';
 import { Button } from '@/components/button.tsx';
-import { MobileSortingMenu } from '@/data-management/sorting/mobile-sorting-menu.tsx';
-import { DataTableProp } from '@/data-management/data-view/table-type.ts';
+import { MobileSortingMenu } from '@/data-management/common/sorting/mobile-sorting-menu.tsx';
+import { DataTableProp } from '@/data-management/common/data-view/table-type.ts';
 
 interface TableToolsProps {
   filters: ReactNode;

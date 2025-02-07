@@ -1,7 +1,7 @@
-import { CheckboxFilter } from '@/data-management/filtering/checkbox-filter.tsx';
+import { CheckboxFilter } from '@/data-management/common/filtering/checkbox-filter.tsx';
 import { Column } from '@tanstack/react-table';
 import { WalletsListQueryData } from '@/database/wallets/wallets-list-query.ts';
-import { CheckboxFilterOption } from '@/data-management/filtering/checkbox-filter-option.tsx';
+import { CheckboxFilterOption } from '@/data-management/common/filtering/checkbox-filter-option.tsx';
 import { TransactionsQueryRow } from '@/database/transactions/transactions-query.ts';
 
 interface TransactionWalletFilterProps {

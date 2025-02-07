@@ -1,5 +1,5 @@
-import { DataTableProp } from '@/data-management/data-view/table-type.ts';
-import { Filters } from '@/data-management/filtering/filters.tsx';
+import { DataTableProp } from '@/data-management/common/data-view/table-type.ts';
+import { Filters } from '@/data-management/common/filtering/filters.tsx';
 import { WalletsColumnsIds } from '@/data-management/wallets/data-view/wallets-table-columns.tsx';
 import { WalletNameFilter } from '@/data-management/wallets/filtering/wallet-name-filter.tsx';
 import { WalletBalanceFilter } from '@/data-management/wallets/filtering/wallet-balance-filter.tsx';

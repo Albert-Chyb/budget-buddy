@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { CategoriesQueryRow } from '@/database/categories/categories-query.ts';
 import { CategoryColor } from '@/database/category-colors/query.ts';
 import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
-import { useDataTable } from '@/data-management/data-view/data-table-state.ts';
+import { useDataTable } from '@/data-management/common/data-view/data-table-state.ts';
 
 export const useCategoriesTable = (
   categories: CategoriesQueryRow[],

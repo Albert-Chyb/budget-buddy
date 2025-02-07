@@ -1,6 +1,6 @@
 import { Button } from '@/components/button.tsx';
 import { Eraser, FilterX } from 'lucide-react';
-import { DataTableProp } from '@/data-management/data-view/table-type.ts';
+import { DataTableProp } from '@/data-management/common/data-view/table-type.ts';
 
 interface TableResetsProps {
   table: DataTableProp;

@@ -3,10 +3,10 @@ import { zodValidator } from '@tanstack/zod-adapter';
 import {
   pageIndexSchema,
   pageSizeSchema,
-} from '@/data-management/pagination/pagination-state-schema.ts';
+} from '@/data-management/common/pagination/pagination-state-schema.ts';
 import { z } from 'zod';
-import { sortingSchema } from '@/data-management/sorting/sorting-state.ts';
-import { columnFiltersSchema } from '@/data-management/filtering/column-filters-state.ts';
+import { sortingSchema } from '@/data-management/common/sorting/sorting-state.ts';
+import { columnFiltersSchema } from '@/data-management/common/filtering/column-filters-state.ts';
 
 const tableStateSchema = z.object({
   pageSize: pageSizeSchema,

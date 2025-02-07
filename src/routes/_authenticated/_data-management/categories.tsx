@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { DataTable } from '@/data-management/data-view/data-table.tsx';
+import { DataTable } from '@/data-management/common/data-view/data-table.tsx';
 import { DataManagementPage } from '@/data-management/data-management-page.tsx';
 import { CategoriesFilters } from '@/data-management/categories/filters/categories-filters.tsx';
 import { useCategoriesTable } from '@/data-management/categories/data-view/categories-table-model.ts';

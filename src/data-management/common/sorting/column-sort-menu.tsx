@@ -13,7 +13,7 @@ import {
   getSortingDirection,
   setSortingDirection,
 } from '@/helpers/tanstack-table-sort-bridge.ts';
-import { SortDirectionDropdownMenuGroup } from '@/data-management/sorting/sort-direction-dropdown-menu-group.tsx';
+import { SortDirectionDropdownMenuGroup } from '@/data-management/common/sorting/sort-direction-dropdown-menu-group.tsx';
 import { twMerge } from 'tailwind-merge';
 
 interface ColumnSortMenuProps extends Omit<ButtonProps, 'children'> {

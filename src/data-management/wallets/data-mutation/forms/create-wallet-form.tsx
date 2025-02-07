@@ -5,7 +5,7 @@ import {
   CreateWalletFormValue,
 } from '@/data-management/wallets/data-mutation/forms/form-schemas/create-wallet-form-schema.ts';
 import { Form } from '@/components/form.tsx';
-import { CurrencyFormField } from '@/data-management/data-mutation/currency-form-field.tsx';
+import { CurrencyFormField } from '@/data-management/common/data-mutation/currency-form-field.tsx';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Currency } from '@/helpers/currency.ts';

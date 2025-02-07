@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { useEditorOpenState } from '@/data-management/data-mutation/editor-open-state.tsx';
+import { useEditorOpenState } from '@/data-management/common/data-mutation/editor-open-state.tsx';
 import { useIsMobile } from '@/data-management/is-mobile.ts';
 import {
   Drawer,

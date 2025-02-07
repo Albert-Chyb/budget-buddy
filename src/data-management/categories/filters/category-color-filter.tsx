@@ -1,8 +1,8 @@
 import {
   CheckboxFilter,
   CheckboxFilterProps,
-} from '@/data-management/filtering/checkbox-filter.tsx';
-import { CheckboxFilterOption } from '@/data-management/filtering/checkbox-filter-option.tsx';
+} from '@/data-management/common/filtering/checkbox-filter.tsx';
+import { CheckboxFilterOption } from '@/data-management/common/filtering/checkbox-filter-option.tsx';
 
 import { CategoryColor } from '@/database/category-colors/query.ts';
 
