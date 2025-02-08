@@ -5,11 +5,11 @@ import { useState } from 'react';
 import { ConfirmationDialog } from '@/components/confirmation-dialog.tsx';
 import { RowAction } from '@/data-management/common/data-mutation/row-actions.tsx';
 
-interface CategoryDeleteButton {
+interface CategoryDeleteAction {
   id: Category['id'];
 }
 
-export const CategoryDeleteButton = ({ id }: CategoryDeleteButton) => {
+export const CategoryDeleteButton = ({ id }: CategoryDeleteAction) => {
   const [isOpened, setIsOpened] = useState(false);
   const { mutate, isPending, error, status, reset } =
     useCategoryDeleteMutation();

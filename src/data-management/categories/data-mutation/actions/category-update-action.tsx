@@ -14,7 +14,7 @@ interface CategoryUpdateButtonProps {
   category: CategoriesQueryRow;
 }
 
-export const CategoryUpdateButton = (props: CategoryUpdateButtonProps) => {
+export const CategoryUpdateAction = (props: CategoryUpdateButtonProps) => {
   const { categoryColors, categoryTypes, category } = props;
   const { closeEditor } = useEditorContext();
   const { mutate, isPending, status, error, reset } =

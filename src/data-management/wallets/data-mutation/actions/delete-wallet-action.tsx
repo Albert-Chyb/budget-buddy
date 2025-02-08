@@ -9,7 +9,7 @@ interface DeleteWalletButtonProps {
   id: Wallet['id'];
 }
 
-export const DeleteWalletButton = ({ id }: DeleteWalletButtonProps) => {
+export const DeleteWalletAction = ({ id }: DeleteWalletButtonProps) => {
   const [isOpened, setIsOpened] = useState(false);
   const { mutate, isPending, status, error, reset } = useDeleteWalletMutation();
 

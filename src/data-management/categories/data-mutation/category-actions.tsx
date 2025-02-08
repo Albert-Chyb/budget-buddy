@@ -1,8 +1,8 @@
 import { CategoryColor } from '@/database/category-colors/query.ts';
 import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
 import { CategoriesQueryRow } from '@/database/categories/categories-query.ts';
-import { CategoryUpdateButton } from '@/data-management/categories/data-mutation/actions/category-update-button.tsx';
-import { CategoryDeleteButton } from '@/data-management/categories/data-mutation/actions/category-delete-button.tsx';
+import { CategoryUpdateAction } from '@/data-management/categories/data-mutation/actions/category-update-action.tsx';
+import { CategoryDeleteButton } from '@/data-management/categories/data-mutation/actions/category-delete-action.tsx';
 import { RowActions } from '@/data-management/common/data-mutation/row-actions.tsx';
 
 export interface CategoryActionsProps {
@@ -16,7 +16,7 @@ export function CategoryActions(props: CategoryActionsProps) {
 
   return (
     <RowActions>
-      <CategoryUpdateButton
+      <CategoryUpdateAction
         categoryColors={categoryColors}
         categoryTypes={categoryTypes}
         category={category}

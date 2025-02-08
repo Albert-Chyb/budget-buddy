@@ -9,7 +9,7 @@ export interface UpdateWalletButtonProps {
   wallet: WalletsQueryRecord;
 }
 
-export const UpdateWalletButton = ({ wallet }: UpdateWalletButtonProps) => {
+export const UpdateWalletAction = ({ wallet }: UpdateWalletButtonProps) => {
   const { mutate, isPending, error, status, reset } = useUpdateWalletMutation();
   const { closeEditor } = useEditorContext();
 

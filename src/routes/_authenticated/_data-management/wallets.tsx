@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { DataManagementPage } from '@/data-management/data-management-page.tsx';
-import { WalletCreateButton } from '@/data-management/wallets/data-mutation/actions/create-button.tsx';
+import { WalletCreateAction } from '@/data-management/wallets/data-mutation/actions/create-button-action.tsx';
 import { useWalletsQuery } from '@/database/wallets/wallets-query.ts';
 import { useDataTable } from '@/data-management/common/data-view/data-table-state.ts';
 import { walletsTableColumns } from '@/data-management/wallets/data-view/wallets-table-columns.tsx';
@@ -27,7 +27,7 @@ function RouteComponent() {
       {{
         title: <h1>Portfele</h1>,
         description: <p>Zarządzaj swoimi portfelami</p>,
-        creator: <WalletCreateButton />,
+        creator: <WalletCreateAction />,
         content: (
           <DataTable
             table={table}

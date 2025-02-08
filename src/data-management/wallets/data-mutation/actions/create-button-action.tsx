@@ -4,7 +4,7 @@ import { MutationErrorDialog } from '@/data-management/common/data-mutation/muta
 import { CreateWalletFormValue } from '@/data-management/wallets/data-mutation/forms/form-schemas/create-wallet-form-schema.ts';
 import { useEditorContext } from '@/data-management/common/data-mutation/editor-open-state.tsx';
 
-export const WalletCreateButton = () => {
+export const WalletCreateAction = () => {
   const { mutate, isPending, error, status, reset } = useCreateWalletMutation();
   const { closeEditor } = useEditorContext();
 

@@ -11,7 +11,7 @@ interface CategoryCreateButtonProps {
   categoryColors: CategoryColor[];
 }
 
-export function CategoryCreateButton(props: CategoryCreateButtonProps) {
+export function CategoryCreateAction(props: CategoryCreateButtonProps) {
   const { categoryColors, categoryTypes } = props;
   const { mutate, isPending, status, reset, error } =
     useCreateCategoryMutation();

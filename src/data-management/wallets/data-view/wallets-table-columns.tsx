@@ -4,8 +4,8 @@ import {
   createColumnHelper,
 } from '@tanstack/react-table';
 import { WalletsQueryRecord } from '@/database/wallets/wallets-query.ts';
-import { DeleteWalletButton } from '@/data-management/wallets/data-mutation/actions/delete-wallet.tsx';
-import { UpdateWalletButton } from '@/data-management/wallets/data-mutation/actions/update-wallet.tsx';
+import { DeleteWalletAction } from '@/data-management/wallets/data-mutation/actions/delete-wallet-action.tsx';
+import { UpdateWalletAction } from '@/data-management/wallets/data-mutation/actions/update-wallet-action.tsx';
 import { RowActions } from '@/data-management/common/data-mutation/row-actions.tsx';
 
 const AccessorColumnsIds = {
@@ -38,8 +38,8 @@ const actionsColumn = column.display({
   header: 'Akcje',
   cell: ({ row }) => (
     <RowActions>
-      <DeleteWalletButton id={row.original.id} />
-      <UpdateWalletButton wallet={row.original} />
+      <DeleteWalletAction id={row.original.id} />
+      <UpdateWalletAction wallet={row.original} />
     </RowActions>
   ),
 });
