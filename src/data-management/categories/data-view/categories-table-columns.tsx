@@ -10,7 +10,7 @@ import { CategoryColor } from '@/database/category-colors/query.ts';
 import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
 import { CategoryColorCell } from '@/data-management/categories/data-view/category-color-cell.tsx';
 import { CategoryUpdateAction } from '@/data-management/categories/data-mutation/actions/category-update-action.tsx';
-import { CategoryDeleteButton } from '@/data-management/categories/data-mutation/actions/category-delete-action.tsx';
+import { CategoryDeleteAction } from '@/data-management/categories/data-mutation/actions/category-delete-action.tsx';
 import { RowActions } from '@/data-management/common/data-mutation/row-actions.tsx';
 
 const AccessorColumnsIds = Object.freeze({
@@ -66,7 +66,7 @@ const categoryActionsColumnBuilder = (
           category={context.row.original}
         />
 
-        <CategoryDeleteButton id={context.row.original.id} />
+        <CategoryDeleteAction id={context.row.original.id} />
       </RowActions>
     ),
   });

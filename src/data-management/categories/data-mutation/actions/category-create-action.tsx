@@ -9,12 +9,12 @@ import { ResponsiveButton } from '@/data-management/responsive-button.tsx';
 import { CirclePlus } from 'lucide-react';
 import { CreateCategoryForm } from '@/data-management/categories/data-mutation/forms/create-category-form.tsx';
 
-interface CategoryCreateButtonProps {
+interface CategoryCreateActionProps {
   categoryTypes: CategoryTypesQueryRow[];
   categoryColors: CategoryColor[];
 }
 
-export function CategoryCreateAction(props: CategoryCreateButtonProps) {
+export function CategoryCreateAction(props: CategoryCreateActionProps) {
   const { categoryColors, categoryTypes } = props;
   const { mutate, isPending, status, reset, error } =
     useCreateCategoryMutation();

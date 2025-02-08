@@ -7,11 +7,11 @@ import { RowAction } from '@/data-management/common/data-mutation/row-actions.ts
 import { UpdateWalletForm } from '@/data-management/wallets/data-mutation/forms/update-wallet-form.tsx';
 import { Editor } from '@/data-management/common/data-mutation/editor.tsx';
 
-export interface UpdateWalletButtonProps {
+export interface UpdateWalletActionProps {
   wallet: WalletsQueryRecord;
 }
 
-export const UpdateWalletAction = ({ wallet }: UpdateWalletButtonProps) => {
+export const UpdateWalletAction = ({ wallet }: UpdateWalletActionProps) => {
   const { mutate, isPending, error, status, reset } = useUpdateWalletMutation();
   const { closeEditor } = useEditorContext();
 

@@ -10,13 +10,13 @@ import { RowAction } from '@/data-management/common/data-mutation/row-actions.ts
 import { UpdateCategoryForm } from '@/data-management/categories/data-mutation/forms/update-category-form.tsx';
 import { Editor } from '@/data-management/common/data-mutation/editor.tsx';
 
-interface CategoryUpdateButtonProps {
+interface CategoryUpdateActionProps {
   categoryColors: CategoryColor[];
   categoryTypes: CategoryTypesQueryRow[];
   category: CategoriesQueryRow;
 }
 
-export const CategoryUpdateAction = (props: CategoryUpdateButtonProps) => {
+export const CategoryUpdateAction = (props: CategoryUpdateActionProps) => {
   const { categoryColors, categoryTypes, category } = props;
   const { closeEditor } = useEditorContext();
   const { mutate, isPending, status, error, reset } =

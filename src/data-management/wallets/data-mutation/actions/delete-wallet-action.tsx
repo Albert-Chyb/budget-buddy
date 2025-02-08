@@ -5,11 +5,11 @@ import { ConfirmationDialog } from '@/components/confirmation-dialog.tsx';
 import { useState } from 'react';
 import { RowAction } from '@/data-management/common/data-mutation/row-actions.tsx';
 
-interface DeleteWalletButtonProps {
+interface DeleteWalletActionProps {
   id: Wallet['id'];
 }
 
-export const DeleteWalletAction = ({ id }: DeleteWalletButtonProps) => {
+export const DeleteWalletAction = ({ id }: DeleteWalletActionProps) => {
   const [isOpened, setIsOpened] = useState(false);
   const { mutate, isPending, status, error, reset } = useDeleteWalletMutation();
 
