@@ -1,14 +1,14 @@
 import { useCategoryUpdateMutation } from '@/database/categories/update-mutation.ts';
-import { UpdateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/update-category-form-schema.ts';
 import { CategoryColor } from '@/database/category-colors/query.ts';
 import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
 import { CategoriesQueryRow } from '@/database/categories/categories-query.ts';
 import { useEditorContext } from '@/data-management/common/data-mutation/editor-open-state.tsx';
 import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
 import { RowAction } from '@/data-management/common/data-mutation/row-actions.tsx';
-import { UpdateCategoryForm } from '@/data-management/categories/data-mutation/forms/update-category-form.tsx';
 import { Editor } from '@/data-management/common/data-mutation/editor.tsx';
 import { toFormValue } from '@/data-management/categories/category-row-data.ts';
+import { CategoryForm } from '@/data-management/categories/data-mutation/forms/category-form.tsx';
+import { CategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/category-form-schema.ts';
 
 interface CategoryUpdateActionProps {
   categoryColors: CategoryColor[];
@@ -22,7 +22,7 @@ export const CategoryUpdateAction = (props: CategoryUpdateActionProps) => {
   const { mutate, isPending, status, error, reset } =
     useCategoryUpdateMutation();
 
-  function handleSubmit(formValue: UpdateCategoryFormValue) {
+  function handleSubmit(formValue: CategoryFormValue) {
     mutate(
       { id: category.id, category: formValue },
       {
@@ -51,7 +51,7 @@ export const CategoryUpdateAction = (props: CategoryUpdateActionProps) => {
             'Po wprowadzeniu żądanych zmian wyślij formularz, aby zachować zmiany',
           trigger: <RowAction>Edytuj</RowAction>,
           form: (
-            <UpdateCategoryForm
+            <CategoryForm
               category={toFormValue(category)}
               onSubmit={handleSubmit}
               categoryTypes={categoryTypes}

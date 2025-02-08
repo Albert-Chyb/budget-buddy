@@ -4,11 +4,11 @@ import { CATEGORIES_QUERY_KEY } from '@/database/categories/categories-query.ts'
 import { useUserQuery } from '@/auth/user-query.ts';
 import { TablesUpdate } from '@/database/types.ts';
 import { CategorySchema } from '@/database/categories/category-schema.ts';
-import { UpdateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/update-category-form-schema.ts';
+import { CategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/category-form-schema.ts';
 
 interface CategoryUpdateMutationVariables {
   id: CategorySchema['id'];
-  category: UpdateCategoryFormValue;
+  category: CategoryFormValue;
 }
 
 export const useCategoryUpdateMutation = () => {

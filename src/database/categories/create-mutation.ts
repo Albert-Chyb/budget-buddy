@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSupabase } from '@/init/supabase.tsx';
 import { CATEGORIES_QUERY_KEY } from '@/database/categories/categories-query.ts';
 import { useUserQuery } from '@/auth/user-query.ts';
-import { CreateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/create-category-form-schema.ts';
+import { CategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/category-form-schema.ts';
 
 export const useCreateCategoryMutation = () => {
   const { data: user } = useUserQuery();
@@ -10,7 +10,7 @@ export const useCreateCategoryMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (category: CreateCategoryFormValue) => {
+    mutationFn: async (category: CategoryFormValue) => {
       if (!user)
         throw new Error(
           'CreateCategoryMutation requires the user to be logged in',

@@ -2,12 +2,12 @@ import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
 import { CategoryColor } from '@/database/category-colors/query.ts';
 import { useCreateCategoryMutation } from '@/database/categories/create-mutation.ts';
 import { useEditorContext } from '@/data-management/common/data-mutation/editor-open-state.tsx';
-import { CreateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/create-category-form-schema.ts';
+import { CategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/category-form-schema.ts';
 import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
 import { Editor } from '@/data-management/common/data-mutation/editor.tsx';
 import { ResponsiveButton } from '@/data-management/responsive-button.tsx';
 import { CirclePlus } from 'lucide-react';
-import { CreateCategoryForm } from '@/data-management/categories/data-mutation/forms/create-category-form.tsx';
+import { CategoryForm } from '@/data-management/categories/data-mutation/forms/category-form.tsx';
 
 interface CategoryCreateActionProps {
   categoryTypes: CategoryTypesQueryRow[];
@@ -20,7 +20,7 @@ export function CategoryCreateAction(props: CategoryCreateActionProps) {
     useCreateCategoryMutation();
   const { closeEditor } = useEditorContext();
 
-  function handleSubmit(formValue: CreateCategoryFormValue) {
+  function handleSubmit(formValue: CategoryFormValue) {
     mutate(formValue, {
       onSuccess: () => {
         closeEditor();
@@ -54,7 +54,7 @@ export function CategoryCreateAction(props: CategoryCreateActionProps) {
             />
           ),
           form: (
-            <CreateCategoryForm
+            <CategoryForm
               onSubmit={handleSubmit}
               categoryTypes={categoryTypes}
               categoryColors={categoryColors}
