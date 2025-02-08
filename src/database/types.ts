@@ -40,7 +40,6 @@ export type Database = {
           id: number
           name: string
           owner_id: string
-          parent_category_id: number | null
           type_id: number
         }
         Insert: {
@@ -48,7 +47,6 @@ export type Database = {
           id?: number
           name: string
           owner_id: string
-          parent_category_id?: number | null
           type_id: number
         }
         Update: {
@@ -56,7 +54,6 @@ export type Database = {
           id?: number
           name?: string
           owner_id?: string
-          parent_category_id?: number | null
           type_id?: number
         }
         Relationships: [
@@ -65,13 +62,6 @@ export type Database = {
             columns: ["color_id"]
             isOneToOne: false
             referencedRelation: "category_colors"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "categories_parent_category_id_fkey"
-            columns: ["parent_category_id"]
-            isOneToOne: false
-            referencedRelation: "categories"
             referencedColumns: ["id"]
           },
           {
@@ -196,7 +186,28 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      insert_transaction_to_wallet: {
+        Args: {
+          transaction_id: number
+          wallet_id: number
+          amount: number
+        }
+        Returns: undefined
+      }
+      is_transaction_expense: {
+        Args: {
+          transaction_id: number
+        }
+        Returns: boolean
+      }
+      remove_transaction_from_wallet: {
+        Args: {
+          transaction_id: number
+          wallet_id: number
+          amount: number
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

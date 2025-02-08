@@ -18,7 +18,6 @@ export const createCategoryFormSchema = z.object({
     .max(NAME_MAX_LENGTH, NAME_TOO_BIG_MSG),
   type_id: z.number({ message: TYPE_ID_REQUIRED_MSG }),
   color_id: z.number().nullable(),
-  parent_category_id: z.number().nullable(),
 }) satisfies z.ZodType<CategoryInsertInput>;
 export type CreateCategoryFormValue = z.infer<typeof createCategoryFormSchema>;
 
@@ -27,5 +26,4 @@ export const CREATE_CATEGORY_FORM_DEFAULT_VALUE: DefaultValues<CreateCategoryFor
     name: '',
     type_id: null as unknown as number,
     color_id: null,
-    parent_category_id: null,
-  } as const;
+  };
