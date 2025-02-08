@@ -4,7 +4,6 @@ import {
   FilterFn,
 } from '@tanstack/react-table';
 import { TransactionsQueryRow } from '@/database/transactions/transactions-query.ts';
-import { APP_LOCALE } from '@/localization.ts';
 import { RowActions } from '@/data-management/common/data-mutation/row-actions.tsx';
 import { EditTransactionAction } from '@/data-management/transactions/data-mutation/actions/edit-transaction-action.tsx';
 import { WalletsListQueryData } from '@/database/wallets/wallets-list-query.ts';
@@ -13,6 +12,7 @@ import { DeleteTransactionAction } from '@/data-management/transactions/data-mut
 import { dateRangeFilterFn } from '@/data-management/common/filtering/date-range-filter.tsx';
 import { TransactionSchema } from '@/database/transactions/transaction-schema.ts';
 import { checkboxFilterFn } from '@/data-management/common/filtering/checkbox-filter.tsx';
+import { formatCreatedAtDate } from '@/data-management/transactions/transaction-row-data.ts';
 
 const ACCESSOR_COLUMNS_IDS = {
   Wallet: 'wallet_id',
@@ -44,11 +44,7 @@ const categoryColumn = column.accessor('category.name', {
 const createdAtColumn = column.accessor('created_at', {
   id: TRANSACTIONS_TABLE_COLUMNS_IDS.CreatedAt,
   header: 'Data',
-  cell: ({ getValue }) =>
-    new Date(getValue()).toLocaleString(APP_LOCALE, {
-      timeStyle: 'short',
-      dateStyle: 'short',
-    }),
+  cell: ({ getValue }) => formatCreatedAtDate(getValue()),
   sortingFn: 'datetime',
   filterFn: dateRangeFilterFn as FilterFn<TransactionsQueryRow>,
 });
