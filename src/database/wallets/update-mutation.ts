@@ -1,12 +1,13 @@
 import { useSupabase } from '@/init/supabase.tsx';
 import { useUserQuery } from '@/auth/user-query.ts';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Wallet, WalletUpdateInput } from '@/database/wallets/wallet.ts';
 import { WALLETS_QUERY_KEY } from '@/database/wallets/wallets-query.ts';
+import { UpdateWalletFormValue } from '@/data-management/wallets/data-mutation/forms/form-schemas/update-wallet-form-schema.ts';
+import { WalletSchema } from '@/database/wallets/wallet-schema.ts';
 
 interface UpdateWalletMutationVariables {
-  formValue: WalletUpdateInput;
-  id: Wallet['id'];
+  id: WalletSchema['id'];
+  formValue: UpdateWalletFormValue;
 }
 
 export const useUpdateWalletMutation = () => {

@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { CategoryInsertInput } from '@/database/categories/category.ts';
 import {
   NAME_MAX_LENGTH,
   NAME_MIN_LENGTH,
@@ -18,7 +17,7 @@ export const createCategoryFormSchema = z.object({
     .max(NAME_MAX_LENGTH, NAME_TOO_BIG_MSG),
   type_id: z.number({ message: TYPE_ID_REQUIRED_MSG }),
   color_id: z.number().nullable(),
-}) satisfies z.ZodType<CategoryInsertInput>;
+});
 export type CreateCategoryFormValue = z.infer<typeof createCategoryFormSchema>;
 
 export const CREATE_CATEGORY_FORM_DEFAULT_VALUE: DefaultValues<CreateCategoryFormValue> =

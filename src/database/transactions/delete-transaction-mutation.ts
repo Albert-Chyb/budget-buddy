@@ -1,9 +1,9 @@
 import { useSupabase } from '@/init/supabase.tsx';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useUserQuery } from '@/auth/user-query.ts';
-import { Transaction } from '@/database/transactions/transaction.ts';
 import { TRANSACTIONS_QUERY_KEY } from '@/database/transactions/transactions-query.ts';
 import { WALLETS_QUERY_KEY } from '@/database/wallets/wallets-query.ts';
+import { TransactionSchema } from '@/database/transactions/transaction-schema.ts';
 
 export const useDeleteTransactionMutation = () => {
   const supabase = useSupabase();
@@ -11,7 +11,7 @@ export const useDeleteTransactionMutation = () => {
   const { data: user } = useUserQuery();
 
   return useMutation({
-    mutationFn: async (id: Transaction['id']) => {
+    mutationFn: async (id: TransactionSchema['id']) => {
       if (!user)
         throw new Error(
           'DeleteTransactionMutation requires the user to be logged in',

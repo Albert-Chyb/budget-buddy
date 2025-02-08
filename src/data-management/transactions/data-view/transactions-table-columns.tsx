@@ -5,7 +5,6 @@ import {
 } from '@tanstack/react-table';
 import { TransactionsQueryRow } from '@/database/transactions/transactions-query.ts';
 import { APP_LOCALE } from '@/localization.ts';
-import { Transaction } from '@/database/transactions/transaction.ts';
 import { RowActions } from '@/data-management/common/data-mutation/row-actions.tsx';
 import { EditTransactionAction } from '@/data-management/transactions/data-mutation/actions/edit-transaction-action.tsx';
 import { WalletsListQueryData } from '@/database/wallets/wallets-list-query.ts';
@@ -13,6 +12,7 @@ import { CategoriesListQueryData } from '@/database/categories/categories-list-q
 import { DeleteTransactionAction } from '@/data-management/transactions/data-mutation/actions/delete-transaction-action.tsx';
 import { arrayIncludesFilterFn } from '@/helpers/array-includes-filter-fn.ts';
 import { dateRangeFilterFn } from '@/data-management/common/filtering/date-range-filter.tsx';
+import { TransactionSchema } from '@/database/transactions/transaction-schema.ts';
 
 const ACCESSOR_COLUMNS_IDS = {
   Wallet: 'wallet_id',
@@ -20,7 +20,7 @@ const ACCESSOR_COLUMNS_IDS = {
   Amount: 'amount',
   Description: 'description',
   CreatedAt: 'created_at',
-} satisfies Record<string, keyof Transaction>;
+} satisfies Record<string, keyof TransactionSchema>;
 
 export const TRANSACTIONS_TABLE_COLUMNS_IDS = Object.freeze({
   ...ACCESSOR_COLUMNS_IDS,

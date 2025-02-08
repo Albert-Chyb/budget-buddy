@@ -1,10 +1,10 @@
 import { useSupabase } from '@/init/supabase.tsx';
 import { useUserQuery } from '@/auth/user-query.ts';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Wallet } from '@/database/wallets/wallet.ts';
 import { WALLETS_QUERY_KEY } from '@/database/wallets/wallets-query.ts';
+import { WalletSchema } from '@/database/wallets/wallet-schema.ts';
 
-export type DeleteWalletMutationVariables = Wallet['id'];
+export type DeleteWalletMutationVariables = WalletSchema['id'];
 
 export const useDeleteWalletMutation = () => {
   const supabase = useSupabase();

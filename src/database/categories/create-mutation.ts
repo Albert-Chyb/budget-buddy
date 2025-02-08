@@ -1,9 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { TablesInsert } from '@/database/types.ts';
 import { useSupabase } from '@/init/supabase.tsx';
 import { CATEGORIES_QUERY_KEY } from '@/database/categories/categories-query.ts';
 import { useUserQuery } from '@/auth/user-query.ts';
-import { CategoryInsertInput } from '@/database/categories/category.ts';
+import { CreateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/create-category-form-schema.ts';
 
 export const useCreateCategoryMutation = () => {
   const { data: user } = useUserQuery();
@@ -11,19 +10,16 @@ export const useCreateCategoryMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (category: CategoryInsertInput) => {
+    mutationFn: async (category: CreateCategoryFormValue) => {
       if (!user)
         throw new Error(
           'CreateCategoryMutation requires the user to be logged in',
         );
 
-      const categoryRecord: TablesInsert<'categories'> = {
+      const { error } = await supabase.from('categories').insert({
         owner_id: user.id,
         ...category,
-      };
-      const { error } = await supabase
-        .from('categories')
-        .insert(categoryRecord);
+      });
 
       if (error) throw error;
     },
