@@ -36,7 +36,6 @@ const categoryTypeColumn = column.accessor('type.name', {
   id: CategoriesTableColumnsId.Type,
   header: 'Typ',
   filterFn: 'equalsString',
-  cell: (context) => context.row.original.type?.name,
 });
 
 const categoryColorColumn = column.accessor(
@@ -45,9 +44,7 @@ const categoryColorColumn = column.accessor(
     id: CategoriesTableColumnsId.Color,
     header: 'Kolor',
     filterFn: arrayIncludesFilterFn as FilterFn<CategoriesQueryRow>,
-    cell: (context) => (
-      <CategoryColorCell categoryColor={context.row.original.color} />
-    ),
+    cell: ({ row }) => <CategoryColorCell categoryColor={row.original.color} />,
   },
 );
 
@@ -58,15 +55,15 @@ const categoryActionsColumnBuilder = (
   column.display({
     id: CategoriesTableColumnsId.Actions,
     header: 'Akcje',
-    cell: (context) => (
+    cell: ({ row }) => (
       <RowActions>
         <CategoryUpdateAction
           categoryColors={categoryColors}
           categoryTypes={categoryTypes}
-          category={context.row.original}
+          category={row.original}
         />
 
-        <CategoryDeleteAction id={context.row.original.id} />
+        <CategoryDeleteAction category={row.original} />
       </RowActions>
     ),
   });

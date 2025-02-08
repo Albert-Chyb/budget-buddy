@@ -58,7 +58,7 @@ const amountColumn = column.accessor(
   {
     id: TRANSACTIONS_TABLE_COLUMNS_IDS.Amount,
     header: 'Kwota',
-    cell: (context) => context.row.original.amount.toString(),
+    cell: ({ row }) => row.original.amount.toString(),
     filterFn: 'inNumberRange',
   },
 );
@@ -83,7 +83,7 @@ const actionsColumn = (
           categories={categories}
           transaction={row.original}
         />
-        <DeleteTransactionAction id={row.original.id} />
+        <DeleteTransactionAction transaction={row.original} />
       </RowActions>
     ),
   });

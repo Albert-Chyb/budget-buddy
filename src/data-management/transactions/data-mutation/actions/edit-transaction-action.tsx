@@ -5,12 +5,10 @@ import { useUpdateTransactionMutation } from '@/database/transactions/update-tra
 import { useEditorContext } from '@/data-management/common/data-mutation/editor-open-state.tsx';
 import { TransactionFormValue } from '@/data-management/transactions/data-mutation/forms/form-schemas/transaction-form-schema.ts';
 import { Editor } from '@/data-management/common/data-mutation/editor.tsx';
-import {
-  TransactionForm,
-  TransactionFormProps,
-} from '@/data-management/transactions/data-mutation/forms/transaction-form.tsx';
+import { TransactionForm } from '@/data-management/transactions/data-mutation/forms/transaction-form.tsx';
 import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
 import { RowAction } from '@/data-management/common/data-mutation/row-actions.tsx';
+import { toFormValue } from '@/data-management/transactions/transaction-row-data.ts';
 
 export interface EditTransactionActionProps {
   wallets: WalletsListQueryData;
@@ -36,13 +34,6 @@ export const EditTransactionAction = ({
     );
   }
 
-  const defaultFormValue: TransactionFormProps['transaction'] = {
-    wallet_id: transaction.wallet.id,
-    category_id: transaction.category.id,
-    description: transaction.description ?? '',
-    amount: transaction.amount,
-  };
-
   return (
     <>
       {status === 'error' && (
@@ -63,7 +54,7 @@ export const EditTransactionAction = ({
           trigger: <RowAction>Edytuj</RowAction>,
           form: (
             <TransactionForm
-              transaction={defaultFormValue}
+              transaction={toFormValue(transaction)}
               wallets={wallets}
               categories={categories}
               onSubmit={handleSubmit}

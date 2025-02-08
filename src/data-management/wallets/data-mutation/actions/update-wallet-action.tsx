@@ -6,6 +6,7 @@ import { WalletsQueryRecord } from '@/database/wallets/wallets-query.ts';
 import { RowAction } from '@/data-management/common/data-mutation/row-actions.tsx';
 import { UpdateWalletForm } from '@/data-management/wallets/data-mutation/forms/update-wallet-form.tsx';
 import { Editor } from '@/data-management/common/data-mutation/editor.tsx';
+import { toFormValue } from '@/data-management/wallets/wallet-row-data.ts';
 
 export interface UpdateWalletActionProps {
   wallet: WalletsQueryRecord;
@@ -47,7 +48,7 @@ export const UpdateWalletAction = ({ wallet }: UpdateWalletActionProps) => {
             <UpdateWalletForm
               onSubmit={handleSubmit}
               isPending={isPending}
-              wallet={wallet}
+              wallet={toFormValue(wallet)}
             />
           ),
         }}

@@ -29,7 +29,7 @@ const nameColumn = column.accessor('name', {
 const balanceColumn = column.accessor((wallet) => wallet.balance.toDecimal(), {
   id: WalletsColumnsIds.Balance,
   header: 'Aktualny balans',
-  cell: (context) => context.cell.row.original.balance.toString(),
+  cell: ({ row }) => row.original.balance.toString(),
   filterFn: 'inNumberRange',
 });
 
@@ -38,7 +38,7 @@ const actionsColumn = column.display({
   header: 'Akcje',
   cell: ({ row }) => (
     <RowActions>
-      <DeleteWalletAction id={row.original.id} />
+      <DeleteWalletAction wallet={row.original} />
       <UpdateWalletAction wallet={row.original} />
     </RowActions>
   ),

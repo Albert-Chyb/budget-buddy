@@ -2,6 +2,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSupabase } from '@/init/supabase.tsx';
 import { CATEGORIES_QUERY_KEY } from '@/database/categories/categories-query.ts';
 import { useUserQuery } from '@/auth/user-query.ts';
+import { CategorySchema } from '@/database/categories/category-schema.ts';
+
+export type CategoryDeleteMutationVariables = CategorySchema['id'];
 
 export const useCategoryDeleteMutation = () => {
   const supabase = useSupabase();
@@ -9,7 +12,7 @@ export const useCategoryDeleteMutation = () => {
   const { data: user } = useUserQuery();
 
   return useMutation({
-    mutationFn: async (id: number) => {
+    mutationFn: async (id: CategoryDeleteMutationVariables) => {
       if (!user)
         throw new Error(
           'CategoryDeleteMutation requires the user to be logged in',

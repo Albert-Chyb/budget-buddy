@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { DefaultValues, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   updateWalletFormSchema,
@@ -7,12 +7,11 @@ import {
 import { Form } from '@/components/form.tsx';
 import { WalletNameFormField } from '@/data-management/wallets/data-mutation/forms/form-fields/wallet-name.tsx';
 import { PendingButton } from '@/components/pending-button.tsx';
-import { WalletsQueryRecord } from '@/database/wallets/wallets-query.ts';
 
 export interface UpdateWalletFormProps {
   onSubmit: (formValue: UpdateWalletFormValue) => void;
   isPending: boolean;
-  wallet: WalletsQueryRecord;
+  wallet: DefaultValues<UpdateWalletFormValue>;
 }
 
 export const UpdateWalletForm = ({

@@ -1,6 +1,5 @@
 import { useCategoryUpdateMutation } from '@/database/categories/update-mutation.ts';
 import { UpdateCategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/update-category-form-schema.ts';
-import { categoryRowDataToFormValue } from '@/data-management/categories/category-row-data-to-form-value.ts';
 import { CategoryColor } from '@/database/category-colors/query.ts';
 import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
 import { CategoriesQueryRow } from '@/database/categories/categories-query.ts';
@@ -9,6 +8,7 @@ import { MutationErrorDialog } from '@/data-management/common/data-mutation/muta
 import { RowAction } from '@/data-management/common/data-mutation/row-actions.tsx';
 import { UpdateCategoryForm } from '@/data-management/categories/data-mutation/forms/update-category-form.tsx';
 import { Editor } from '@/data-management/common/data-mutation/editor.tsx';
+import { toFormValue } from '@/data-management/categories/category-row-data.ts';
 
 interface CategoryUpdateActionProps {
   categoryColors: CategoryColor[];
@@ -52,7 +52,7 @@ export const CategoryUpdateAction = (props: CategoryUpdateActionProps) => {
           trigger: <RowAction>Edytuj</RowAction>,
           form: (
             <UpdateCategoryForm
-              category={categoryRowDataToFormValue(category)}
+              category={toFormValue(category)}
               onSubmit={handleSubmit}
               categoryTypes={categoryTypes}
               categoryColors={categoryColors}

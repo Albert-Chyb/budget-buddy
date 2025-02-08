@@ -2,22 +2,23 @@ import { useDeleteTransactionMutation } from '@/database/transactions/delete-tra
 import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
 import { ConfirmationDialog } from '@/components/confirmation-dialog.tsx';
 import { useState } from 'react';
-import { Transaction } from '@/database/transactions/transaction.ts';
 import { RowAction } from '@/data-management/common/data-mutation/row-actions.tsx';
+import { TransactionsQueryRow } from '@/database/transactions/transactions-query.ts';
+import { toDeleteMutationVariables } from '@/data-management/transactions/transaction-row-data.ts';
 
 export interface DeleteTransactionActionProps {
-  id: Transaction['id'];
+  transaction: TransactionsQueryRow;
 }
 
 export const DeleteTransactionAction = ({
-  id,
+  transaction,
 }: DeleteTransactionActionProps) => {
   const { status, error, reset, mutate, isPending } =
     useDeleteTransactionMutation();
   const [isOpened, setIsOpened] = useState(false);
 
   function handleConfirmation() {
-    mutate(id, {
+    mutate(toDeleteMutationVariables(transaction), {
       onSettled: () => setIsOpened(false),
     });
   }

@@ -1,20 +1,21 @@
 import { useDeleteWalletMutation } from '@/database/wallets/delete-mutation.ts';
 import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
-import { Wallet } from '@/database/wallets/wallet.ts';
 import { ConfirmationDialog } from '@/components/confirmation-dialog.tsx';
 import { useState } from 'react';
 import { RowAction } from '@/data-management/common/data-mutation/row-actions.tsx';
+import { WalletsQueryRecord } from '@/database/wallets/wallets-query.ts';
+import { toDeleteMutationVariables } from '@/data-management/wallets/wallet-row-data.ts';
 
 interface DeleteWalletActionProps {
-  id: Wallet['id'];
+  wallet: WalletsQueryRecord;
 }
 
-export const DeleteWalletAction = ({ id }: DeleteWalletActionProps) => {
+export const DeleteWalletAction = ({ wallet }: DeleteWalletActionProps) => {
   const [isOpened, setIsOpened] = useState(false);
   const { mutate, isPending, status, error, reset } = useDeleteWalletMutation();
 
   function handleConfirmation() {
-    mutate(id, {
+    mutate(toDeleteMutationVariables(wallet), {
       onSettled: () => setIsOpened(false),
     });
   }

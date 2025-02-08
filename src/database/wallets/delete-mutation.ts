@@ -4,13 +4,15 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Wallet } from '@/database/wallets/wallet.ts';
 import { WALLETS_QUERY_KEY } from '@/database/wallets/wallets-query.ts';
 
+export type DeleteWalletMutationVariables = Wallet['id'];
+
 export const useDeleteWalletMutation = () => {
   const supabase = useSupabase();
   const { data: user } = useUserQuery();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: Wallet['id']) => {
+    mutationFn: async (id: DeleteWalletMutationVariables) => {
       if (!user)
         throw new Error(
           'DeleteWalletMutation requires the user to be logged in',

@@ -1,21 +1,24 @@
 import { useCategoryDeleteMutation } from '@/database/categories/delete-mutation.ts';
-import { Category } from '@/database/categories/category.ts';
 import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
 import { useState } from 'react';
 import { ConfirmationDialog } from '@/components/confirmation-dialog.tsx';
 import { RowAction } from '@/data-management/common/data-mutation/row-actions.tsx';
+import { CategoriesQueryRow } from '@/database/categories/categories-query.ts';
+import { toDeleteMutationVariables } from '@/data-management/categories/category-row-data.ts';
 
 interface CategoryDeleteActionProps {
-  id: Category['id'];
+  category: CategoriesQueryRow;
 }
 
-export const CategoryDeleteAction = ({ id }: CategoryDeleteActionProps) => {
+export const CategoryDeleteAction = ({
+  category,
+}: CategoryDeleteActionProps) => {
   const [isOpened, setIsOpened] = useState(false);
   const { mutate, isPending, error, status, reset } =
     useCategoryDeleteMutation();
 
   function handleDeleteConfirmation() {
-    mutate(id, {
+    mutate(toDeleteMutationVariables(category), {
       onSettled: () => setIsOpened(false),
     });
   }
@@ -24,7 +27,7 @@ export const CategoryDeleteAction = ({ id }: CategoryDeleteActionProps) => {
     <>
       {status === 'error' && (
         <MutationErrorDialog
-          message='Nie udało się usunąć transakcji'
+          message={`Nie udało się usunąć transakcji: ${category.name}`}
           onReset={reset}
           error={error}
         />
@@ -36,7 +39,7 @@ export const CategoryDeleteAction = ({ id }: CategoryDeleteActionProps) => {
         onConfirm={handleDeleteConfirmation}
         isPending={isPending}
         trigger={<RowAction variant='destructive'>Usuń</RowAction>}
-        title='Potwierdzenie usunięcia kategorii'
+        title={`Potwierdzenie usunięcia kategorii: ${category.name}`}
         description='Czy na pewno chcesz usunąć tę kategorię? Tej operacji nie można cofnąć.'
       />
     </>
