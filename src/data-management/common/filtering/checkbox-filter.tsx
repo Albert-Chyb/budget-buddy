@@ -5,7 +5,7 @@ import {
   PopoverTrigger,
 } from '@/components/popover.tsx';
 import { Button } from '@/components/button.tsx';
-import { Column } from '@tanstack/react-table';
+import { Column, FilterFn } from '@tanstack/react-table';
 import { CheckboxesGroup } from '@/helpers/checkboxes-group.tsx';
 import { z } from 'zod';
 import { ScrollArea } from '@/components/scroll-area.tsx';
@@ -46,3 +46,13 @@ export function CheckboxFilter({
     </li>
   );
 }
+
+export const checkboxFilterFn: FilterFn<unknown> = (
+  row,
+  columnId,
+  filterValue,
+) => {
+  if (!Array.isArray(filterValue) || !filterValue.length) return true;
+
+  return filterValue.includes(row.getValue(columnId));
+};

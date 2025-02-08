@@ -3,7 +3,6 @@ import {
   createColumnHelper,
   FilterFn,
 } from '@tanstack/react-table';
-import { arrayIncludesFilterFn } from '@/helpers/array-includes-filter-fn.ts';
 import { CategoriesQueryRow } from '@/database/categories/categories-query.ts';
 import { Tables } from '@/database/types.ts';
 import { CategoryColor } from '@/database/category-colors/query.ts';
@@ -12,6 +11,7 @@ import { CategoryColorCell } from '@/data-management/categories/data-view/catego
 import { CategoryUpdateAction } from '@/data-management/categories/data-mutation/actions/category-update-action.tsx';
 import { CategoryDeleteAction } from '@/data-management/categories/data-mutation/actions/category-delete-action.tsx';
 import { RowActions } from '@/data-management/common/data-mutation/row-actions.tsx';
+import { checkboxFilterFn } from '@/data-management/common/filtering/checkbox-filter.tsx';
 
 const AccessorColumnsIds = Object.freeze({
   Name: 'name',
@@ -43,7 +43,7 @@ const categoryColorColumn = column.accessor(
   {
     id: CategoriesTableColumnsId.Color,
     header: 'Kolor',
-    filterFn: arrayIncludesFilterFn as FilterFn<CategoriesQueryRow>,
+    filterFn: checkboxFilterFn as FilterFn<CategoriesQueryRow>,
     cell: ({ row }) => <CategoryColorCell categoryColor={row.original.color} />,
   },
 );
