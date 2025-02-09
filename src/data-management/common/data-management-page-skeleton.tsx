@@ -10,7 +10,7 @@ import {
   TableSkeletonProps,
 } from '@/components/table-skeleton.tsx';
 import { Skeleton } from '@/components/skeleton.tsx';
-import { useIsMobile } from '@/data-management/is-mobile.ts';
+import { useIsMobile } from '@/data-management/common/is-mobile.ts';
 import { MobileTablesSkeletons } from '@/data-management/common/sorting/mobile-data-management-card-skeleton.tsx';
 
 type DataManagementPageSkeletonProps = TableSkeletonProps;

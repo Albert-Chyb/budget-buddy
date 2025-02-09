@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { DataManagementPage } from '@/data-management/data-management-page.tsx';
+import { DataManagementPage } from '@/data-management/common/data-management-page.tsx';
 import { UpdateWalletAction } from '@/data-management/wallets/data-mutation/actions/create-wallet-action.tsx';
 import { useWalletsQuery } from '@/database/wallets/wallets-query.ts';
 import { useDataTable } from '@/data-management/common/data-view/data-table-state.ts';

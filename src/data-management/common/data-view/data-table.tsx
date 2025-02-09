@@ -1,9 +1,9 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import { TablePagination } from '@/data-management/common/pagination/table-pagination.tsx';
 import { DataTableProp } from '@/data-management/common/data-view/table-type.ts';
-import { TableResets } from '@/data-management/table-resets.tsx';
+import { TableResets } from '@/data-management/common/table-resets.tsx';
 import { TableTools } from '@/data-management/common/data-view/table-tools.tsx';
-import { useIsMobile } from '@/data-management/is-mobile.ts';
+import { useIsMobile } from '@/data-management/common/is-mobile.ts';
 import { MobileDataTables } from '@/data-management/common/data-view/mobile/mobile-data-tables.tsx';
 import { DesktopDataTable } from '@/data-management/common/data-view/desktop/desktop-data-table.tsx';
 

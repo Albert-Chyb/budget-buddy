@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { useIsMobile } from '@/data-management/is-mobile.ts';
+import { useIsMobile } from '@/data-management/common/is-mobile.ts';
 import {
   Drawer,
   DrawerClose,

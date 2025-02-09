@@ -5,7 +5,7 @@ import {
   forwardRef,
   ReactNode,
 } from 'react';
-import { useIsMobile } from '@/data-management/is-mobile.ts';
+import { useIsMobile } from '@/data-management/common/is-mobile.ts';
 import { Button } from '@/components/button.tsx';
 
 export interface ResponsiveButtonProps

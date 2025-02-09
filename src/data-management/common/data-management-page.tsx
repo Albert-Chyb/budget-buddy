@@ -7,9 +7,9 @@ import {
 } from '@/components/card.tsx';
 import { ReactNode } from 'react';
 import { EditorContextProvider } from '@/data-management/common/data-mutation/editor-open-state.tsx';
-import { useIsMobile } from '@/data-management/is-mobile.ts';
+import { useIsMobile } from '@/data-management/common/is-mobile.ts';
 import { QueryStatus } from '@tanstack/react-query';
-import { DataManagementPageSkeleton } from '@/data-management/data-management-page-skeleton.tsx';
+import { DataManagementPageSkeleton } from '@/data-management/common/data-management-page-skeleton.tsx';
 
 interface DataManagementCardProps {
   status: QueryStatus;

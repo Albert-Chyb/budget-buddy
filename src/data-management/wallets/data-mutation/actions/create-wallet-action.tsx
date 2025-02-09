@@ -2,7 +2,7 @@ import { useCreateWalletMutation } from '@/database/wallets/create-mutation.ts';
 import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
 import { CreateWalletFormValue } from '@/data-management/wallets/data-mutation/forms/form-schemas/create-wallet-form-schema.ts';
 import { useEditorContext } from '@/data-management/common/data-mutation/editor-open-state.tsx';
-import { ResponsiveButton } from '@/data-management/responsive-button.tsx';
+import { ResponsiveButton } from '@/data-management/common/responsive-button.tsx';
 import { Plus } from 'lucide-react';
 import { CreateWalletForm } from '@/data-management/wallets/data-mutation/forms/create-wallet-form.tsx';
 import { Editor } from '@/data-management/common/data-mutation/editor.tsx';

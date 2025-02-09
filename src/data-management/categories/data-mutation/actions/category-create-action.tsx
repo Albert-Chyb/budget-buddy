@@ -5,7 +5,7 @@ import { useEditorContext } from '@/data-management/common/data-mutation/editor-
 import { CategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/category-form-schema.ts';
 import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
 import { Editor } from '@/data-management/common/data-mutation/editor.tsx';
-import { ResponsiveButton } from '@/data-management/responsive-button.tsx';
+import { ResponsiveButton } from '@/data-management/common/responsive-button.tsx';
 import { CirclePlus } from 'lucide-react';
 import { CategoryForm } from '@/data-management/categories/data-mutation/forms/category-form.tsx';
 

@@ -4,7 +4,7 @@ import { CategoriesListQueryData } from '@/database/categories/categories-list-q
 import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
 import { useEditorContext } from '@/data-management/common/data-mutation/editor-open-state.tsx';
 import { TransactionFormValue } from '@/data-management/transactions/data-mutation/forms/form-schemas/transaction-form-schema.ts';
-import { ResponsiveButton } from '@/data-management/responsive-button.tsx';
+import { ResponsiveButton } from '@/data-management/common/responsive-button.tsx';
 import { Plus } from 'lucide-react';
 import { TransactionForm } from '@/data-management/transactions/data-mutation/forms/transaction-form.tsx';
 import { Editor } from '@/data-management/common/data-mutation/editor.tsx';

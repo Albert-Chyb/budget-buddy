@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { DataManagementPage } from '@/data-management/data-management-page.tsx';
+import { DataManagementPage } from '@/data-management/common/data-management-page.tsx';
 import { useTransactionsPageData } from '@/data-management/transactions/data-view/transactions-page-data.ts';
 import { CreateTransactionAction } from '@/data-management/transactions/data-mutation/actions/create-transaction-action.tsx';
 import { DataTable } from '@/data-management/common/data-view/data-table.tsx';
