@@ -7,9 +7,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/form.tsx';
-import { Input } from '@/components/input.tsx';
 import { ReactNode } from 'react';
-import { Currency } from '@/helpers/currency.ts';
+import { CurrencyInput } from '@/components/currency-input.tsx';
 
 export interface CurrencyFormFieldProps<T> {
   label: ReactNode;
@@ -29,31 +28,19 @@ export const CurrencyFormField = <T,>({
       control={form.control}
       name={name}
       render={({ field: { value, onChange, ...fieldProps } }) => {
-        const currency = value ?? new Currency(0);
-
-        if (!Currency.isCurrency(currency)) {
-          throw new Error(
-            'The currency form field expects a value that is an instance of the Currency class',
-          );
-        }
-
         return (
           <FormItem>
             <FormLabel>{label}</FormLabel>
             <FormControl>
-              <Input
-                type='number'
-                step='any'
-                placeholder='np: 1000,00'
-                value={currency.toDecimal()}
-                onChange={($event) =>
-                  onChange(Currency.fromDecimal(+$event.target.value))
-                }
+              <CurrencyInput
+                value={value}
+                onValueChange={onChange}
                 {...fieldProps}
               />
             </FormControl>
             <FormMessage />
             {description && <FormDescription>{description}</FormDescription>}
+            {String(value)}
           </FormItem>
         );
       }}

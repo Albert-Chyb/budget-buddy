@@ -5,6 +5,11 @@ const formatter = new Intl.NumberFormat(APP_LOCALE, {
   style: 'currency',
 });
 
+const decimalFormatter = new Intl.NumberFormat(APP_LOCALE, {
+  ...formatter.resolvedOptions(),
+  style: 'decimal',
+});
+
 export class Currency {
   private readonly currencyAsInt;
 
@@ -33,6 +38,10 @@ export class Currency {
 
   toString() {
     return formatter.format(this.toDecimal());
+  }
+
+  toDecimalString() {
+    return decimalFormatter.format(this.toDecimal());
   }
 
   static fromDecimal(value: number) {
