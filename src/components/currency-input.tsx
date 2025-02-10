@@ -8,60 +8,36 @@ import {
   forwardRef,
   useState,
 } from 'react';
-import { DECIMAL_SEPARATOR } from '@/localization.ts';
+import {
+  ConvertedToNaNError,
+  EmptySanitizedStringError,
+  EmptyUserInput,
+  parseUserInput,
+} from '@/helpers/user-input-to-decimal-parser.ts';
 
-const VALID_CHARS = new Set([
-  '+',
-  '-',
-  '0',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '.',
-  'e',
-  'E',
-  'Infinity',
-]);
-const stripInvalidChars = (text: string): string =>
-  Array.from(text)
-    .map((letter) => (letter === DECIMAL_SEPARATOR ? '.' : letter))
-    .filter((letter) => VALID_CHARS.has(letter))
-    .join('');
+export const INVALID_SYNTAX_INDICATOR = Symbol(
+  'Indicates that the value in the input field cannot be converted to a number',
+);
 
-const convertStringIntoFloat = (text: string): number => {
-  return Number(text);
+export type CurrencyInputValue = Currency | null | undefined | symbol;
+
+const applyFormattingTo = (
+  value: CurrencyInputValue,
+  userInput: string,
+): string => {
+  if (Currency.isCurrency(value)) return value.toString();
+
+  return userInput;
 };
 
-const parseUserInput = (userInput: string) => {
-  const normalizedInput = stripInvalidChars(userInput);
-  if (!normalizedInput)
-    return {
-      success: false,
-      value: null,
-    } as const;
+const removeFormattingFrom = (
+  value: CurrencyInputValue,
+  userInput: string,
+): string => {
+  if (Currency.isCurrency(value)) return value.toDecimalString();
 
-  const convertedInput = convertStringIntoFloat(normalizedInput);
-  const success = !isNaN(convertedInput) && isFinite(convertedInput);
-
-  if (success)
-    return {
-      success: true,
-      value: convertedInput,
-    } as const;
-  else
-    return {
-      success: false,
-      value: null,
-    } as const;
+  return userInput;
 };
-
-export type CurrencyInputValue = Currency | null | undefined;
 
 export interface CurrencyInputProps
   extends Omit<ControllerRenderProps, 'value' | 'onChange' | 'ref'> {
@@ -74,25 +50,39 @@ export const CurrencyInput = forwardRef(
     { value, onValueChange, onBlur, ...inputProps }: CurrencyInputProps,
     forwardedRef: ForwardedRef<ComponentRef<typeof Input>>,
   ) => {
-    const [userInput, setUserInput] = useState(value?.toDecimalString() ?? '');
+    const [userInput, setUserInput] = useState(applyFormattingTo(value, ''));
 
     const handleFocus = () => {
-      if (value) setUserInput(value.toDecimalString());
+      setUserInput((prevUserInput) =>
+        removeFormattingFrom(value, prevUserInput),
+      );
     };
 
     const handleBlur = () => {
       onBlur();
 
-      if (value) setUserInput(value.toString());
+      setUserInput((prevUserInput) => applyFormattingTo(value, prevUserInput));
+    };
+
+    const handleParsingError = (e: unknown) => {
+      if (
+        e instanceof EmptySanitizedStringError ||
+        e instanceof ConvertedToNaNError
+      )
+        onValueChange(INVALID_SYNTAX_INDICATOR);
+      else if (e instanceof EmptyUserInput) onValueChange(null);
+      else throw e;
     };
 
     const handleChange = ($event: ChangeEvent<HTMLInputElement>) => {
       const userInput = $event.target.value;
       setUserInput(userInput);
 
-      const { value, success } = parseUserInput(userInput);
-      if (success) onValueChange(Currency.fromDecimal(value));
-      else onValueChange(null);
+      try {
+        onValueChange(Currency.fromDecimal(parseUserInput(userInput)));
+      } catch (e) {
+        handleParsingError(e);
+      }
     };
 
     return (
