@@ -40,7 +40,6 @@ export const CurrencyFormField = <T,>({
             </FormControl>
             <FormMessage />
             {description && <FormDescription>{description}</FormDescription>}
-            {String(value)}
           </FormItem>
         );
       }}

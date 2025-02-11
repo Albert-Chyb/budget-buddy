@@ -10,3 +10,6 @@ export const CATEGORY_REQUIRED_MSG = 'Transakcja musi posiadać kategorię';
 export const WALLET_REQUIRED_MSG = 'Transakcja musi posiadać portfel';
 export const DESCRIPTION_TOO_SMALL_MSG = `Opis musi mieć przynajmniej ${DESCRIPTION_MIN_LENGTH} ${formatCharacterCountUnit(DESCRIPTION_MIN_LENGTH)}`;
 export const DESCRIPTION_TOO_BIG_MSG = `Opis nie może być dłuższy niż ${DESCRIPTION_MAX_LENGTH} ${formatCharacterCountUnit(DESCRIPTION_MAX_LENGTH)}`;
+export const AMOUNT_REQUIRED_MSG = 'Kwota jest wymagana';
+export const AMOUNT_INVALID_SYNTAX_MSG =
+  'Kwota nie jest poprawnie sformatowana';
