@@ -2,6 +2,7 @@ import { ToggleGroup } from '@/components/toggle-group.tsx';
 import { ComponentPropsWithoutRef } from 'react';
 import { Column } from '@tanstack/react-table';
 import { z } from 'zod';
+import { Filter } from '@/data-management/common/filtering/filter.tsx';
 
 const filterValueSchema = z.string().optional().default('');
 
@@ -19,7 +20,7 @@ export interface SingleEnumFilterProps
 export function SingleEnumFilter(props: SingleEnumFilterProps) {
   const { column, ...otherProps } = props;
   return (
-    <li>
+    <Filter>
       <ToggleGroup
         type='single'
         variant='outline'
@@ -27,6 +28,6 @@ export function SingleEnumFilter(props: SingleEnumFilterProps) {
         onValueChange={column.setFilterValue}
         {...otherProps}
       />
-    </li>
+    </Filter>
   );
 }

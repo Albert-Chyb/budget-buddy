@@ -9,6 +9,7 @@ import { Column, FilterFn } from '@tanstack/react-table';
 import { CheckboxesGroup } from '@/helpers/checkboxes-group.tsx';
 import { z } from 'zod';
 import { ScrollArea } from '@/components/scroll-area.tsx';
+import { Filter } from '@/data-management/common/filtering/filter.tsx';
 
 const filterValueSchema = z.array(z.any()).optional().default([]);
 
@@ -22,7 +23,7 @@ export function CheckboxFilter({
   label,
 }: CheckboxFilterProps) {
   return (
-    <li>
+    <Filter>
       <Popover>
         <PopoverTrigger asChild>
           <Button
@@ -43,7 +44,7 @@ export function CheckboxFilter({
           </ScrollArea>
         </PopoverContent>
       </Popover>
-    </li>
+    </Filter>
   );
 }
 
