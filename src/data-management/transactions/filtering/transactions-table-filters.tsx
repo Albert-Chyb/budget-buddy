@@ -8,7 +8,7 @@ import { TransactionCategoryFilter } from '@/data-management/transactions/filter
 import { CategoriesListQueryData } from '@/database/categories/categories-list-query.ts';
 import { TransactionAmountFilter } from '@/data-management/transactions/filtering/transaction-amount-filter.tsx';
 import { TransactionDescriptionFilter } from '@/data-management/transactions/filtering/transaction-description-filter.tsx';
-import { DateRangeFilter } from '@/data-management/common/filtering/date-range-filter.tsx';
+import { TransactionCreatedAtFilter } from '@/data-management/transactions/filtering/transaction-created-at-filter.tsx';
 
 export interface TransactionsTableFiltersProps {
   table: Table<TransactionsQueryRow>;
@@ -41,7 +41,7 @@ export const TransactionsTableFilters = ({
         column={table.getColumn(TRANSACTIONS_TABLE_COLUMNS_IDS.Description)!}
       />
 
-      <DateRangeFilter
+      <TransactionCreatedAtFilter
         column={table.getColumn(TRANSACTIONS_TABLE_COLUMNS_IDS.CreatedAt)!}
       />
     </Filters>

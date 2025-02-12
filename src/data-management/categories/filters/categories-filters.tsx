@@ -34,7 +34,6 @@ export const CategoriesFilters = (props: CategoriesFiltersProps) => {
       <CategoryColorFilter
         column={safelyGetTableColumn(table, CategoriesTableColumnsId.Color)}
         colors={categoryColors}
-        label='Kolor'
       />
     </Filters>
   );

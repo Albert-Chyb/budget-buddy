@@ -2,19 +2,24 @@ import { Column, ColumnFilter, FilterFn, RowData } from '@tanstack/react-table';
 import { DateRangePicker } from '@/components/date-range-picker.tsx';
 import { DateRange } from 'react-day-picker';
 import { isDateInRange } from '@/helpers/date.ts';
-import { Filter } from '@/data-management/common/filtering/filter.tsx';
+import {
+  Filter,
+  FilterProps,
+} from '@/data-management/common/filtering/filter.tsx';
 
 export type DateRangeFilterValue = DateRange | undefined;
 
-export interface DateRangeFilterProps<TData extends RowData> {
+export interface DateRangeFilterProps<TData extends RowData>
+  extends FilterProps {
   column: Column<TData>;
 }
 
 export const DateRangeFilter = <TData extends RowData>({
   column,
+  ...filterProps
 }: DateRangeFilterProps<TData>) => {
   return (
-    <Filter>
+    <Filter {...filterProps}>
       <DateRangePicker
         value={column.getFilterValue() as DateRangeFilterValue}
         onValueChange={column.setFilterValue}

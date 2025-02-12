@@ -1,6 +1,9 @@
 import { Column } from '@tanstack/react-table';
 import { Input } from '@/components/input.tsx';
-import { Filter } from '@/data-management/common/filtering/filter.tsx';
+import {
+  Filter,
+  FilterProps,
+} from '@/data-management/common/filtering/filter.tsx';
 
 export type RangeFilterValue = [number | null, number | null] | undefined;
 
@@ -13,11 +16,11 @@ const standardizeFilterValue = (
   return [null, null];
 };
 
-export interface RangeFilterProps {
+export interface RangeFilterProps extends FilterProps {
   column: Column<unknown>;
 }
 
-export const RangeFilter = ({ column }: RangeFilterProps) => {
+export const RangeFilter = ({ column, ...filterProps }: RangeFilterProps) => {
   const [min, max] = standardizeFilterValue(column.getFilterValue());
 
   const handleMinValueChange = (value: number) =>
@@ -35,20 +38,26 @@ export const RangeFilter = ({ column }: RangeFilterProps) => {
     });
 
   return (
-    <Filter className='flex gap-2'>
-      <Input
-        type='number'
-        value={min ?? ''}
-        onChange={($event) => handleMinValueChange($event.target.valueAsNumber)}
-        placeholder='Minimum'
-      />
+    <Filter {...filterProps}>
+      <div className='flex gap-2'>
+        <Input
+          type='number'
+          value={min ?? ''}
+          onChange={($event) =>
+            handleMinValueChange($event.target.valueAsNumber)
+          }
+          placeholder='Minimum'
+        />
 
-      <Input
-        type='number'
-        value={max ?? ''}
-        onChange={($event) => handleMaxValueChange($event.target.valueAsNumber)}
-        placeholder='Maximum'
-      />
+        <Input
+          type='number'
+          value={max ?? ''}
+          onChange={($event) =>
+            handleMaxValueChange($event.target.valueAsNumber)
+          }
+          placeholder='Maximum'
+        />
+      </div>
     </Filter>
   );
 };

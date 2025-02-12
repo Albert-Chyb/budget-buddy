@@ -11,6 +11,9 @@ export const TransactionDescriptionFilter = ({
 }: TransactionDescriptionFilterProps) => (
   <TextFilter
     column={column as Column<unknown>}
-    placeholder='Wpisz szukaną nazwę'
+    inputProps={{
+      placeholder: 'Wpisz szukaną nazwę',
+    }}
+    labelContent='Opis'
   />
 );

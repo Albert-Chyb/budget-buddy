@@ -5,7 +5,10 @@ export function WalletNameFilter({ column }: { column: Column<unknown> }) {
   return (
     <TextFilter
       column={column}
-      placeholder='Wpisz szukaną nazwę'
+      inputProps={{
+        placeholder: 'Wpisz szukaną nazwę',
+      }}
+      labelContent='Nazwa'
     />
   );
 }

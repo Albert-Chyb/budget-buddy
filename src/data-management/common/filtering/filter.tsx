@@ -4,13 +4,18 @@ import {
   ForwardedRef,
   forwardRef,
   PropsWithChildren,
+  ReactNode,
 } from 'react';
+import { Label } from '@/components/label.tsx';
 
-export type FilterProps = PropsWithChildren<ComponentPropsWithoutRef<'li'>>;
+export interface FilterProps
+  extends PropsWithChildren<ComponentPropsWithoutRef<'li'>> {
+  labelContent: ReactNode;
+}
 
 export const Filter = forwardRef(
   (
-    { children, ...liProps }: FilterProps,
+    { children, labelContent, ...liProps }: FilterProps,
     forwardedRef: ForwardedRef<ComponentRef<'li'>>,
   ) => {
     return (
@@ -18,7 +23,11 @@ export const Filter = forwardRef(
         ref={forwardedRef}
         {...liProps}
       >
-        {children}
+        <Label>
+          <span>{labelContent}</span>
+
+          <div className='mt-2'>{children}</div>
+        </Label>
       </li>
     );
   },

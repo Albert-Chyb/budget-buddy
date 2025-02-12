@@ -16,7 +16,8 @@ export const TransactionWalletFilter = ({
   return (
     <CheckboxFilter
       column={column as Column<unknown>}
-      label='Portfel'
+      triggerContent='Portfel'
+      labelContent='Portfel'
     >
       {wallets.map(({ name, id }) => (
         <CheckboxFilterOption

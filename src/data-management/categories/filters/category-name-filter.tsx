@@ -1,21 +1,24 @@
-import {
-  TextFilter,
-  TextFilterProps,
-} from '@/data-management/common/filtering/text-filter.tsx';
+import { TextFilter } from '@/data-management/common/filtering/text-filter.tsx';
 import { ComponentRef, ForwardedRef, forwardRef } from 'react';
+import { Column } from '@tanstack/react-table';
 
-type CategoryNameFilterProps = TextFilterProps;
+interface CategoryNameFilterProps {
+  column: Column<unknown>;
+}
 
 export const CategoryNameFilter = forwardRef(
   (
-    props: CategoryNameFilterProps,
+    { column }: CategoryNameFilterProps,
     forwardedRef: ForwardedRef<ComponentRef<typeof TextFilter>>,
   ) => {
     return (
       <TextFilter
-        placeholder='Wpisz szukaną nazwę'
         ref={forwardedRef}
-        {...props}
+        labelContent='Nazwa kategorii'
+        column={column}
+        inputProps={{
+          placeholder: 'Wpisz szukaną nazwę',
+        }}
       />
     );
   },

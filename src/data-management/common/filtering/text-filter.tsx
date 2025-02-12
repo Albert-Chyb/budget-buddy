@@ -2,12 +2,16 @@ import { Input } from '@/components/input.tsx';
 import { ComponentProps, ComponentRef, ForwardedRef, forwardRef } from 'react';
 import { Column } from '@tanstack/react-table';
 import { z } from 'zod';
-import { Filter } from '@/data-management/common/filtering/filter.tsx';
+import {
+  Filter,
+  FilterProps,
+} from '@/data-management/common/filtering/filter.tsx';
 
 const filterValueSchema = z.string().optional().default('');
 
-export interface TextFilterProps extends ComponentProps<typeof Input> {
+export interface TextFilterProps extends FilterProps {
   column: Column<unknown>;
+  inputProps?: ComponentProps<typeof Input>;
 }
 
 export const TextFilter = forwardRef(
@@ -15,9 +19,9 @@ export const TextFilter = forwardRef(
     props: TextFilterProps,
     forwardedRef: ForwardedRef<ComponentRef<typeof Input>>,
   ) => {
-    const { column, ...inputProps } = props;
+    const { column, inputProps, ...filterProps } = props;
     return (
-      <Filter>
+      <Filter {...filterProps}>
         <Input
           type='text'
           value={filterValueSchema.parse(column.getFilterValue())}

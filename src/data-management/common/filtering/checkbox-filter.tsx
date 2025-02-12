@@ -9,28 +9,32 @@ import { Column, FilterFn } from '@tanstack/react-table';
 import { CheckboxesGroup } from '@/helpers/checkboxes-group.tsx';
 import { z } from 'zod';
 import { ScrollArea } from '@/components/scroll-area.tsx';
-import { Filter } from '@/data-management/common/filtering/filter.tsx';
+import {
+  Filter,
+  FilterProps,
+} from '@/data-management/common/filtering/filter.tsx';
 
 const filterValueSchema = z.array(z.any()).optional().default([]);
 
-export interface CheckboxFilterProps extends PropsWithChildren {
+export interface CheckboxFilterProps extends PropsWithChildren, FilterProps {
   column: Column<unknown>;
-  label: ReactNode;
+  triggerContent: ReactNode;
 }
 export function CheckboxFilter({
   children,
   column,
-  label,
+  triggerContent,
+  ...filterProps
 }: CheckboxFilterProps) {
   return (
-    <Filter>
+    <Filter {...filterProps}>
       <Popover>
         <PopoverTrigger asChild>
           <Button
             variant='outline'
             className='w-full'
           >
-            {label}
+            {triggerContent}
           </Button>
         </PopoverTrigger>
         <PopoverContent>

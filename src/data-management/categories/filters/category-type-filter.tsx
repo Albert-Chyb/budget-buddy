@@ -1,20 +1,20 @@
-import {
-  SingleEnumFilter,
-  SingleEnumFilterProps,
-} from '@/data-management/common/filtering/enum-filter.tsx';
+import { SingleEnumFilter } from '@/data-management/common/filtering/enum-filter.tsx';
 import { EnumFilterOption } from '@/data-management/common/filtering/enum-filter-option.tsx';
-
 import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
+import { Column } from '@tanstack/react-table';
 
-export interface CategoryTypeFilterProps
-  extends Omit<SingleEnumFilterProps, 'children'> {
+export interface CategoryTypeFilterProps {
   categoryTypes: CategoryTypesQueryRow[];
+  column: Column<unknown>;
 }
 
 export function CategoryTypeFilter(props: CategoryTypeFilterProps) {
-  const { categoryTypes, ...otherProps } = props;
+  const { categoryTypes, column } = props;
   return (
-    <SingleEnumFilter {...otherProps}>
+    <SingleEnumFilter
+      labelContent='Typ kategorii'
+      column={column}
+    >
       {categoryTypes.map((type) => (
         <EnumFilterOption
           key={type.id}

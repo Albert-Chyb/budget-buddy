@@ -9,5 +9,10 @@ export interface TransactionAmountFilterProps {
 export const TransactionAmountFilter = ({
   column,
 }: TransactionAmountFilterProps) => {
-  return <RangeFilter column={column as Column<unknown>} />;
+  return (
+    <RangeFilter
+      column={column as Column<unknown>}
+      labelContent='Kwota'
+    />
+  );
 };

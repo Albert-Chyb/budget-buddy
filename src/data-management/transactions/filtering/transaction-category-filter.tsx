@@ -16,7 +16,8 @@ export const TransactionCategoryFilter = ({
   return (
     <CheckboxFilter
       column={column as Column<unknown>}
-      label='Kategoria'
+      triggerContent='Kategoria'
+      labelContent='Kategoria'
     >
       {categories.map(({ id, name }) => (
         <CheckboxFilterOption
