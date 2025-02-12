@@ -20,8 +20,13 @@ const balanceValidSyntaxSchema = z
 
 const valanceInvalidSchema = z
   .literal(INVALID_SYNTAX_INDICATOR)
-  .refine(() => false, {
-    message: BALANCE_INVALID_SYNTAX_MSG,
+  .transform((_value, context) => {
+    context.addIssue({
+      code: 'custom',
+      message: BALANCE_INVALID_SYNTAX_MSG,
+    });
+
+    return z.NEVER;
   });
 
 export const createWalletFormSchema = z.object({

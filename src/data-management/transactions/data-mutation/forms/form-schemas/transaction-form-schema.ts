@@ -32,7 +32,14 @@ const amountValidSyntaxSchema = z
 
 const amountInvalidSyntaxSchema = z
   .literal(INVALID_SYNTAX_INDICATOR)
-  .refine(() => false, AMOUNT_INVALID_SYNTAX_MSG);
+  .transform((_value, context) => {
+    context.addIssue({
+      code: 'custom',
+      message: AMOUNT_INVALID_SYNTAX_MSG,
+    });
+
+    return z.NEVER;
+  });
 
 export const transactionFormSchema = z.object({
   amount: amountValidSyntaxSchema.or(amountInvalidSyntaxSchema),
