@@ -1,5 +1,11 @@
 import { Input } from '@/components/input.tsx';
-import { ComponentProps, ComponentRef, ForwardedRef, forwardRef } from 'react';
+import {
+  ComponentProps,
+  ComponentRef,
+  ForwardedRef,
+  forwardRef,
+  useId,
+} from 'react';
 import { Column } from '@tanstack/react-table';
 import { z } from 'zod';
 import {
@@ -20,9 +26,14 @@ export const TextFilter = forwardRef(
     forwardedRef: ForwardedRef<ComponentRef<typeof Input>>,
   ) => {
     const { column, inputProps, ...filterProps } = props;
+    const id = useId();
     return (
-      <Filter {...filterProps}>
+      <Filter
+        id={id}
+        {...filterProps}
+      >
         <Input
+          id={id}
           type='text'
           value={filterValueSchema.parse(column.getFilterValue())}
           onChange={($event) => column.setFilterValue($event.target.value)}

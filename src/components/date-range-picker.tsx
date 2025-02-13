@@ -13,52 +13,52 @@ const { format } = new Intl.DateTimeFormat(APP_LOCALE, {
 
 export interface DateRangePickerProps
   extends React.HTMLAttributes<HTMLDivElement> {
+  triggerId?: string;
   value: DateRange | undefined;
   onValueChange: (value: DateRange | undefined) => void;
 }
 
-export function DateRangePicker({
+export const DateRangePicker = ({
   className,
   value,
   onValueChange,
+  triggerId,
   ...props
-}: DateRangePickerProps) {
-  return (
-    <div
-      className={cn('grid gap-2', className)}
-      {...props}
-    >
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            id='date'
-            variant={'outline'}
-            className={cn(
-              'w-[300px] justify-start text-left font-normal',
-              !value && 'text-muted-foreground',
-            )}
-          >
-            <CalendarIcon className='mr-2 h-4 w-4' />
-            {getPlaceholder(value)}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent
-          className='w-auto p-0'
-          align='start'
+}: DateRangePickerProps) => (
+  <div
+    className={cn('grid gap-2', className)}
+    {...props}
+  >
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          id={triggerId}
+          variant={'outline'}
+          className={cn(
+            'w-[300px] justify-start text-left font-normal',
+            !value && 'text-muted-foreground',
+          )}
         >
-          <Calendar
-            autoFocus
-            mode='range'
-            defaultMonth={value?.from}
-            selected={value}
-            onSelect={onValueChange}
-            numberOfMonths={2}
-          />
-        </PopoverContent>
-      </Popover>
-    </div>
-  );
-}
+          <CalendarIcon className='mr-2 h-4 w-4' />
+          {getPlaceholder(value)}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent
+        className='w-auto p-0'
+        align='start'
+      >
+        <Calendar
+          autoFocus
+          mode='range'
+          defaultMonth={value?.from}
+          selected={value}
+          onSelect={onValueChange}
+          numberOfMonths={2}
+        />
+      </PopoverContent>
+    </Popover>
+  </div>
+);
 
 function getPlaceholder(range: DateRange | undefined) {
   if (!range) return 'Wybierz datę';

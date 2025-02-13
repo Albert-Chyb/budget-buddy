@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode } from 'react';
+import { PropsWithChildren, ReactNode, useId } from 'react';
 import {
   Popover,
   PopoverContent,
@@ -26,11 +26,16 @@ export function CheckboxFilter({
   triggerContent,
   ...filterProps
 }: CheckboxFilterProps) {
+  const id = useId();
   return (
-    <Filter {...filterProps}>
+    <Filter
+      id={id}
+      {...filterProps}
+    >
       <Popover>
         <PopoverTrigger asChild>
           <Button
+            id={id}
             variant='outline'
             className='w-full'
           >

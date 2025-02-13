@@ -4,6 +4,7 @@ import {
   Filter,
   FilterProps,
 } from '@/data-management/common/filtering/filter.tsx';
+import { useId } from 'react';
 
 export type RangeFilterValue = [number | null, number | null] | undefined;
 
@@ -21,6 +22,7 @@ export interface RangeFilterProps extends FilterProps {
 }
 
 export const RangeFilter = ({ column, ...filterProps }: RangeFilterProps) => {
+  const id = useId();
   const [min, max] = standardizeFilterValue(column.getFilterValue());
 
   const handleMinValueChange = (value: number) =>
@@ -38,9 +40,13 @@ export const RangeFilter = ({ column, ...filterProps }: RangeFilterProps) => {
     });
 
   return (
-    <Filter {...filterProps}>
+    <Filter
+      id={id}
+      {...filterProps}
+    >
       <div className='flex gap-2'>
         <Input
+          id={id}
           type='number'
           value={min ?? ''}
           onChange={($event) =>

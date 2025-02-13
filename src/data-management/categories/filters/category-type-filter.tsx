@@ -15,10 +15,11 @@ export function CategoryTypeFilter(props: CategoryTypeFilterProps) {
       labelContent='Typ kategorii'
       column={column}
     >
-      {categoryTypes.map((type) => (
+      {categoryTypes.map((type, index) => (
         <EnumFilterOption
           key={type.id}
           value={String(type.name)}
+          isFirst={index === 0}
         >
           {type.name}
         </EnumFilterOption>

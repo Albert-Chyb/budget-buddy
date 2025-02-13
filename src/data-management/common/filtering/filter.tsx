@@ -13,9 +13,13 @@ export interface FilterProps
   labelContent: ReactNode;
 }
 
+interface BaseFilterProps extends FilterProps {
+  id: string;
+}
+
 export const Filter = forwardRef(
   (
-    { children, labelContent, ...liProps }: FilterProps,
+    { children, labelContent, id, ...liProps }: BaseFilterProps,
     forwardedRef: ForwardedRef<ComponentRef<'li'>>,
   ) => {
     return (
@@ -23,11 +27,9 @@ export const Filter = forwardRef(
         ref={forwardedRef}
         {...liProps}
       >
-        <Label>
-          <span>{labelContent}</span>
+        <Label htmlFor={id}>{labelContent}</Label>
 
-          <div className='mt-2'>{children}</div>
-        </Label>
+        <div className='mt-2'>{children}</div>
       </li>
     );
   },

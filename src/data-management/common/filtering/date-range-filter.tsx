@@ -6,6 +6,7 @@ import {
   Filter,
   FilterProps,
 } from '@/data-management/common/filtering/filter.tsx';
+import { useId } from 'react';
 
 export type DateRangeFilterValue = DateRange | undefined;
 
@@ -18,9 +19,14 @@ export const DateRangeFilter = <TData extends RowData>({
   column,
   ...filterProps
 }: DateRangeFilterProps<TData>) => {
+  const id = useId();
   return (
-    <Filter {...filterProps}>
+    <Filter
+      id={id}
+      {...filterProps}
+    >
       <DateRangePicker
+        triggerId={id}
         value={column.getFilterValue() as DateRangeFilterValue}
         onValueChange={column.setFilterValue}
       />
