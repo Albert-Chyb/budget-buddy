@@ -95,6 +95,7 @@ export const CurrencyInput = forwardRef(
         onFocus={handleFocus}
         onBlur={handleBlur}
         ref={forwardedRef}
+        data-testid='currency-input'
         {...inputProps}
       />
     );
