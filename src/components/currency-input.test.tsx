@@ -3,79 +3,96 @@ import { getByTestId, render } from '@testing-library/react';
 import {
   CurrencyInput,
   CurrencyInputProps,
-  CurrencyInputValue,
   INVALID_SYNTAX_INDICATOR,
 } from '@/components/currency-input.tsx';
 import { Currency } from '@/helpers/currency.ts';
-import userEvent, { UserEvent } from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
+
+type RenderFnArgs = Partial<Omit<CurrencyInputProps, 'value'>> &
+  Pick<CurrencyInputProps, 'value'>;
+
+const renderFnFactory = () => {
+  return ({
+    value,
+    onValueChange = () => {},
+    onBlur = () => {},
+    name = '',
+  }: RenderFnArgs) => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <CurrencyInput
+        value={value}
+        onValueChange={onValueChange}
+        onBlur={onBlur}
+        name={name}
+      />,
+    );
+    const input = getByTestId(container, 'currency-input');
+    const focusInput = async () => await user.click(input);
+    const blurInput = async () => await user.click(container);
+    const enterValueIntoInput = async (text: string) =>
+      await user.keyboard(text);
+
+    return {
+      user,
+      input,
+      container,
+      focusInput,
+      blurInput,
+      enterValueIntoInput,
+    };
+  };
+};
 
 describe('CurrencyInputComponent', () => {
   let currency: Currency;
-  let renderCurrencyInput: (
-    value: CurrencyInputValue,
-    onChange?: CurrencyInputProps['onValueChange'],
-  ) => {
-    user: UserEvent;
-    input: HTMLElement;
-    container: HTMLElement;
-  };
+  let renderCurrencyInput: ReturnType<typeof renderFnFactory>;
 
   beforeEach(() => {
     currency = Currency.fromDecimal(26.99);
 
-    renderCurrencyInput = (value, onChange) => {
-      const user = userEvent.setup();
-      const { container } = render(
-        <CurrencyInput
-          value={value}
-          onValueChange={onChange ?? (() => {})}
-          onBlur={() => {}}
-          name=''
-        />,
-      );
-      const input = getByTestId(container, 'currency-input');
-
-      return { user, input, container };
-    };
+    renderCurrencyInput = renderFnFactory();
   });
 
   it('should display an empty string if the value is undefined', () => {
-    const { input } = renderCurrencyInput(undefined);
+    const { input } = renderCurrencyInput({ value: undefined });
 
     expect(input).toHaveValue('');
   });
 
   it('should display an empty string if the value is null', () => {
-    const { input } = renderCurrencyInput(null);
+    const { input } = renderCurrencyInput({ value: null });
 
     expect(input).toHaveValue('');
   });
 
   it('should display an empty string if the value is a symbol', () => {
-    const { input } = renderCurrencyInput(INVALID_SYNTAX_INDICATOR);
+    const { input } = renderCurrencyInput({ value: INVALID_SYNTAX_INDICATOR });
 
     expect(input).toHaveValue('');
   });
 
   it('should display formatted currency initially', () => {
-    const { input } = renderCurrencyInput(currency);
+    const { input } = renderCurrencyInput({ value: currency });
 
     expect(input).toHaveValue(currency.toString());
   });
 
   it('should display formatted currency on blur', async () => {
-    const { user, input, container } = renderCurrencyInput(currency);
+    const { input, focusInput, blurInput } = renderCurrencyInput({
+      value: currency,
+    });
 
-    await user.click(input);
-    await user.click(container);
+    await focusInput();
+    await blurInput();
 
     expect(input).toHaveValue(currency.toString());
   });
 
   it('should display unformatted currency on focus', async () => {
-    const { user, input } = renderCurrencyInput(currency);
+    const { input, focusInput } = renderCurrencyInput({ value: currency });
 
-    await user.click(input);
+    await focusInput();
 
     expect(input).toHaveValue(currency.toDecimalString());
   });
@@ -83,21 +100,27 @@ describe('CurrencyInputComponent', () => {
   it('should call onValueChange callback on change', async () => {
     const spy = vi.fn();
     const newValue = '23,45';
-    const { user, input } = renderCurrencyInput(null, spy);
+    const { focusInput, enterValueIntoInput } = renderCurrencyInput({
+      value: null,
+      onValueChange: spy,
+    });
 
-    await user.click(input);
-    await user.keyboard(newValue);
+    await focusInput();
+    await enterValueIntoInput(newValue);
 
     expect(spy).toHaveBeenCalledTimes(newValue.length);
   });
 
   it('should call onValueChange callback with a symbol from INVALID_SYNTAX_INDICATOR constant if the value cannot be parsed into a number', async () => {
     const spy = vi.fn();
-    const { user, input, container } = renderCurrencyInput(null, spy);
+    const { focusInput, blurInput, enterValueIntoInput } = renderCurrencyInput({
+      value: null,
+      onValueChange: spy,
+    });
 
-    await user.click(input);
-    await user.keyboard('34-,99');
-    await user.click(container);
+    await focusInput();
+    await enterValueIntoInput('34-,99');
+    await blurInput();
 
     expect(spy).toHaveBeenLastCalledWith(INVALID_SYNTAX_INDICATOR);
   });
