@@ -34,6 +34,7 @@ export const CategoryTypeFormField = <T extends FieldValues>(
           <FormControl>
             <ToggleGroup
               {...field}
+              data-testid='category-type-toggle'
               value={toInputValue(field.value)}
               onValueChange={(value) => field.onChange(fromInputValue(value))}
               type='single'
@@ -42,6 +43,7 @@ export const CategoryTypeFormField = <T extends FieldValues>(
               {categoryTypes.map((type) => {
                 return (
                   <ToggleGroupItem
+                    data-testid={`category-type-toggle-option-${type.id}`}
                     key={type.id}
                     className='basis-full'
                     value={toInputValue(type.id)}

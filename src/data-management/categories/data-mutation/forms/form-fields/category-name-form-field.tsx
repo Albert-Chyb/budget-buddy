@@ -27,6 +27,7 @@ export const CategoryNameFormField = <T extends FieldValues>(
           <FormLabel>Nazwa kategorii</FormLabel>
           <FormControl>
             <Input
+              data-testid='category-name-input'
               placeholder='np.: Zakupy'
               {...field}
             />

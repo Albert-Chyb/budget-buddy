@@ -1,17 +1,17 @@
-import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
-import { CategoryColor } from '@/database/category-colors/query.ts';
-import { DefaultValues, useForm } from 'react-hook-form';
+import { Form } from '@/components/form.tsx';
+import { PendingButton } from '@/components/pending-button.tsx';
+import { CategoryColorFormField } from '@/data-management/categories/data-mutation/forms/form-fields/category-color-form-field.tsx';
 import { CategoryNameFormField } from '@/data-management/categories/data-mutation/forms/form-fields/category-name-form-field.tsx';
 import { CategoryTypeFormField } from '@/data-management/categories/data-mutation/forms/form-fields/category-type-form-field.tsx';
-import { CategoryColorFormField } from '@/data-management/categories/data-mutation/forms/form-fields/category-color-form-field.tsx';
 import {
   CATEGORY_FORM_DEFAULT_VALUE,
   categoryFormSchema,
   CategoryFormValue,
 } from '@/data-management/categories/data-mutation/forms/form-schemas/category-form-schema.ts';
-import { PendingButton } from '@/components/pending-button.tsx';
+import { CategoryColor } from '@/database/category-colors/query.ts';
+import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Form } from '@/components/form.tsx';
+import { DefaultValues, useForm } from 'react-hook-form';
 
 export interface CategoryFormProps {
   onSubmit: (formValue: CategoryFormValue) => void;
@@ -36,7 +36,7 @@ export const CategoryForm = ({
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit((formValue) => onSubmit(formValue))}
         className='space-y-2'
       >
         <CategoryNameFormField<CategoryFormValue> name='name' />
@@ -54,6 +54,7 @@ export const CategoryForm = ({
         <PendingButton
           isPending={isPending}
           className='w-full'
+          data-testid='category-form-submit-btn'
         >
           Zapisz
         </PendingButton>
