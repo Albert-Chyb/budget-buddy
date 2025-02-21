@@ -1,9 +1,9 @@
-import { Column } from '@tanstack/react-table';
 import { Input } from '@/components/input.tsx';
 import {
   Filter,
   FilterProps,
 } from '@/data-management/common/filtering/filter.tsx';
+import { Column } from '@tanstack/react-table';
 import { useId } from 'react';
 
 export type RangeFilterValue = [number | null, number | null] | undefined;
@@ -46,6 +46,7 @@ export const RangeFilter = ({ column, ...filterProps }: RangeFilterProps) => {
     >
       <div className='flex gap-2'>
         <Input
+          data-testid='range-filter-min-input'
           id={id}
           type='number'
           value={min ?? ''}
@@ -56,6 +57,7 @@ export const RangeFilter = ({ column, ...filterProps }: RangeFilterProps) => {
         />
 
         <Input
+          data-testid='range-filter-max-input'
           type='number'
           value={max ?? ''}
           onChange={($event) =>
