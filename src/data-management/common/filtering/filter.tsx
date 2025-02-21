@@ -1,3 +1,4 @@
+import { Label } from '@/components/label.tsx';
 import {
   ComponentPropsWithoutRef,
   ComponentRef,
@@ -6,14 +7,13 @@ import {
   PropsWithChildren,
   ReactNode,
 } from 'react';
-import { Label } from '@/components/label.tsx';
 
 export interface FilterProps
   extends PropsWithChildren<ComponentPropsWithoutRef<'li'>> {
   labelContent: ReactNode;
 }
 
-interface BaseFilterProps extends FilterProps {
+export interface BaseFilterProps extends FilterProps {
   id: string;
 }
 
@@ -27,7 +27,12 @@ export const Filter = forwardRef(
         ref={forwardedRef}
         {...liProps}
       >
-        <Label htmlFor={id}>{labelContent}</Label>
+        <Label
+          htmlFor={id}
+          data-testid='filter-label'
+        >
+          {labelContent}
+        </Label>
 
         <div className='mt-2'>{children}</div>
       </li>
