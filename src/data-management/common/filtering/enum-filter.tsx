@@ -1,14 +1,14 @@
 import { ToggleGroup } from '@/components/toggle-group.tsx';
-import { ComponentPropsWithoutRef, PropsWithChildren, useId } from 'react';
-import { Column } from '@tanstack/react-table';
-import { z } from 'zod';
+import { EnumFilterContextProvider } from '@/data-management/common/filtering/enum-filter-context.tsx';
 import {
   Filter,
   FilterProps,
 } from '@/data-management/common/filtering/filter.tsx';
-import { EnumFilterContextProvider } from '@/data-management/common/filtering/enum-filter-context.tsx';
+import { Column } from '@tanstack/react-table';
+import { ComponentPropsWithoutRef, PropsWithChildren, useId } from 'react';
+import { z } from 'zod';
 
-const filterValueSchema = z.string().optional().default('');
+const filterValueSchema = z.string().catch('');
 
 type ToggleGroupType = ComponentPropsWithoutRef<typeof ToggleGroup>['type'];
 
