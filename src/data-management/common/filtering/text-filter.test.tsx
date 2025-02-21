@@ -1,7 +1,6 @@
 import {
   Column,
   createColumnHelper,
-  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   useReactTable,
@@ -12,16 +11,17 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { TextFilter } from './text-filter';
 
-type RowData = { name: string };
+type RowData = { value: string };
 const columns = [
-  createColumnHelper<RowData>().accessor('name', {
+  createColumnHelper<RowData>().accessor('value', {
     id: 'name',
     filterFn: 'equalsString',
   }),
 ];
-const rowAData = { name: 'a' };
-const rowBData = { name: 'b' };
+const rowAData: RowData = { value: 'a' };
+const rowBData: RowData = { value: 'b' };
 const data: [RowData, RowData] = [rowAData, rowBData] as const;
+const buildFakeRowTestId = (data: RowData) => `fake-row-${data.value}`;
 
 const Wrapper = () => {
   const table = useReactTable({
@@ -40,17 +40,11 @@ const Wrapper = () => {
 
       <table>
         <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td
-                  data-testid={`fake-cell-${cell.row.original.name}`}
-                  key={cell.id}
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
+          {table.getRowModel().rows.map(({ id, original }) => (
+            <tr
+              key={id}
+              data-testid={buildFakeRowTestId(original)}
+            />
           ))}
         </tbody>
       </table>
@@ -59,18 +53,18 @@ const Wrapper = () => {
 };
 
 describe('TextFilterComponent', () => {
-  it('should change the column filter', async () => {
+  it('should filter out rows that do not match the filter value', async () => {
     const user = userEvent.setup();
     const { container } = render(<Wrapper />);
     const input = getByTestId(container, 'text-filter-input');
 
-    await user.type(input, rowAData.name);
+    await user.type(input, rowAData.value);
 
     expect(
-      queryByTestId(container, `fake-cell-${rowAData.name}`),
+      queryByTestId(container, buildFakeRowTestId(rowAData)),
     ).toBeInTheDocument();
     expect(
-      queryByTestId(container, `fake-cell-${rowBData.name}`),
+      queryByTestId(container, buildFakeRowTestId(rowBData)),
     ).not.toBeInTheDocument();
   });
 });
