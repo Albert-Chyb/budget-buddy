@@ -1,3 +1,5 @@
+import { Button } from '@/components/button.tsx';
+import { useIsMobile } from '@/data-management/common/is-mobile.ts';
 import {
   ComponentPropsWithoutRef,
   ComponentRef,
@@ -5,8 +7,6 @@ import {
   forwardRef,
   ReactNode,
 } from 'react';
-import { useIsMobile } from '@/data-management/common/is-mobile.ts';
-import { Button } from '@/components/button.tsx';
 
 export interface ResponsiveButtonProps
   extends ComponentPropsWithoutRef<typeof Button> {
@@ -25,6 +25,7 @@ export const ResponsiveButton = forwardRef(
     if (isMobile)
       return (
         <Button
+          data-testid='responsive-button'
           aria-label={label}
           ref={forwardedRef}
           size='icon'
@@ -36,6 +37,7 @@ export const ResponsiveButton = forwardRef(
 
     return (
       <Button
+        data-testid='responsive-button'
         ref={forwardedRef}
         {...btnProps}
       >
