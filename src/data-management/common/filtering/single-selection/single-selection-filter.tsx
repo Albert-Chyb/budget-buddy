@@ -3,7 +3,7 @@ import {
   Filter,
   FilterProps,
 } from '@/data-management/common/filtering/filter.tsx';
-import { SingleSelectionFilterContextProvider } from '@/data-management/common/filtering/single-selection-filter-context';
+import { SingleSelectionFilterContextProvider } from '@/data-management/common/filtering/single-selection/single-selection-filter-context';
 import { Column } from '@tanstack/react-table';
 import { ComponentPropsWithoutRef, PropsWithChildren, useId } from 'react';
 import { z } from 'zod';

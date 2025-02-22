@@ -1,5 +1,5 @@
-import { SingleSelectionFilter } from '@/data-management/common/filtering/single-selection-filter';
-import { SingleSelectionFilterOption } from '@/data-management/common/filtering/single-selection-filter-option';
+import { SingleSelectionFilter } from '@/data-management/common/filtering/single-selection/single-selection-filter';
+import { SingleSelectionFilterOption } from '@/data-management/common/filtering/single-selection/single-selection-filter-option';
 import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
 import { Column } from '@tanstack/react-table';
 

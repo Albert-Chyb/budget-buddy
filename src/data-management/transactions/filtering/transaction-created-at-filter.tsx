@@ -1,6 +1,6 @@
-import { Column } from '@tanstack/react-table';
-import { DateRangeFilter } from '@/data-management/common/filtering/date-range-filter.tsx';
+import { DateRangeFilter } from '@/data-management/common/filtering/date-range/date-range-filter';
 import { TransactionsQueryRow } from '@/database/transactions/transactions-query.ts';
+import { Column } from '@tanstack/react-table';
 
 export interface TransactionCreatedAtFilterProps {
   column: Column<TransactionsQueryRow>;

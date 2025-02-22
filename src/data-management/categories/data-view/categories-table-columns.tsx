@@ -1,17 +1,17 @@
+import { CategoryDeleteAction } from '@/data-management/categories/data-mutation/actions/category-delete-action.tsx';
+import { CategoryUpdateAction } from '@/data-management/categories/data-mutation/actions/category-update-action.tsx';
+import { CategoryColorCell } from '@/data-management/categories/data-view/category-color-cell.tsx';
+import { RowActions } from '@/data-management/common/data-mutation/row-actions.tsx';
+import { checkboxFilterFn } from '@/data-management/common/filtering/multi-selection/checkbox-filter';
+import { CategoriesQueryRow } from '@/database/categories/categories-query.ts';
+import { CategoryColor } from '@/database/category-colors/query.ts';
+import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
+import { Tables } from '@/database/types.ts';
 import {
   AccessorColumnDef,
   createColumnHelper,
   FilterFn,
 } from '@tanstack/react-table';
-import { CategoriesQueryRow } from '@/database/categories/categories-query.ts';
-import { Tables } from '@/database/types.ts';
-import { CategoryColor } from '@/database/category-colors/query.ts';
-import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
-import { CategoryColorCell } from '@/data-management/categories/data-view/category-color-cell.tsx';
-import { CategoryUpdateAction } from '@/data-management/categories/data-mutation/actions/category-update-action.tsx';
-import { CategoryDeleteAction } from '@/data-management/categories/data-mutation/actions/category-delete-action.tsx';
-import { RowActions } from '@/data-management/common/data-mutation/row-actions.tsx';
-import { checkboxFilterFn } from '@/data-management/common/filtering/checkbox-filter.tsx';
 
 const AccessorColumnsIds = Object.freeze({
   Name: 'name',

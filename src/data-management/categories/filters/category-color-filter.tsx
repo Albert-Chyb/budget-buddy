@@ -1,5 +1,5 @@
-import { CheckboxFilter } from '@/data-management/common/filtering/checkbox-filter.tsx';
-import { CheckboxFilterOption } from '@/data-management/common/filtering/checkbox-filter-option.tsx';
+import { CheckboxFilter } from '@/data-management/common/filtering/multi-selection/checkbox-filter';
+import { CheckboxFilterOption } from '@/data-management/common/filtering/multi-selection/checkbox-filter-option';
 
 import { CategoryColor } from '@/database/category-colors/query.ts';
 import { Column } from '@tanstack/react-table';

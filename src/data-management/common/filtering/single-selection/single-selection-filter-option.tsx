@@ -1,5 +1,5 @@
 import { ToggleGroupItem } from '@/components/toggle-group.tsx';
-import { useSingleSelectionFilterContext } from '@/data-management/common/filtering/single-selection-filter-context';
+import { useSingleSelectionFilterContext } from '@/data-management/common/filtering/single-selection/single-selection-filter-context';
 import { ToggleGroupItemProps } from '@radix-ui/react-toggle-group';
 import { PropsWithChildren } from 'react';
 

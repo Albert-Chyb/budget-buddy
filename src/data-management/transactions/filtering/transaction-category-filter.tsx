@@ -1,8 +1,8 @@
-import { Column } from '@tanstack/react-table';
-import { TransactionsQueryRow } from '@/database/transactions/transactions-query.ts';
+import { CheckboxFilter } from '@/data-management/common/filtering/multi-selection/checkbox-filter';
+import { CheckboxFilterOption } from '@/data-management/common/filtering/multi-selection/checkbox-filter-option';
 import { CategoriesListQueryData } from '@/database/categories/categories-list-query.ts';
-import { CheckboxFilter } from '@/data-management/common/filtering/checkbox-filter.tsx';
-import { CheckboxFilterOption } from '@/data-management/common/filtering/checkbox-filter-option.tsx';
+import { TransactionsQueryRow } from '@/database/transactions/transactions-query.ts';
+import { Column } from '@tanstack/react-table';
 
 export interface TransactionCategoryFilterProps {
   column: Column<TransactionsQueryRow>;

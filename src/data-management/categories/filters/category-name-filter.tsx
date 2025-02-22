@@ -1,6 +1,6 @@
-import { TextFilter } from '@/data-management/common/filtering/text-filter.tsx';
-import { ComponentRef, ForwardedRef, forwardRef } from 'react';
+import { TextFilter } from '@/data-management/common/filtering/text/text-filter';
 import { Column } from '@tanstack/react-table';
+import { ComponentRef, ForwardedRef, forwardRef } from 'react';
 
 interface CategoryNameFilterProps {
   column: Column<unknown>;
