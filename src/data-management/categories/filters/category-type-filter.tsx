@@ -1,5 +1,5 @@
-import { SingleEnumFilter } from '@/data-management/common/filtering/enum-filter.tsx';
-import { EnumFilterOption } from '@/data-management/common/filtering/enum-filter-option.tsx';
+import { SingleSelectionFilter } from '@/data-management/common/filtering/single-selection-filter';
+import { SingleSelectionFilterOption } from '@/data-management/common/filtering/single-selection-filter-option';
 import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
 import { Column } from '@tanstack/react-table';
 
@@ -11,19 +11,19 @@ export interface CategoryTypeFilterProps {
 export function CategoryTypeFilter(props: CategoryTypeFilterProps) {
   const { categoryTypes, column } = props;
   return (
-    <SingleEnumFilter
+    <SingleSelectionFilter
       labelContent='Typ kategorii'
       column={column}
     >
       {categoryTypes.map((type, index) => (
-        <EnumFilterOption
+        <SingleSelectionFilterOption
           key={type.id}
           value={String(type.name)}
           isFirst={index === 0}
         >
           {type.name}
-        </EnumFilterOption>
+        </SingleSelectionFilterOption>
       ))}
-    </SingleEnumFilter>
+    </SingleSelectionFilter>
   );
 }

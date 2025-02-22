@@ -8,8 +8,8 @@ import {
 import { getByTestId, queryByTestId, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { SingleEnumFilter } from './enum-filter';
-import { EnumFilterOption } from './enum-filter-option';
+import { SingleSelectionFilter } from './single-selection-filter';
+import { SingleSelectionFilterOption } from './single-selection-filter-option';
 
 type RowData = { value: string };
 const colId = 'id';
@@ -36,19 +36,19 @@ const Wrapper = () => {
 
   return (
     <>
-      <SingleEnumFilter
+      <SingleSelectionFilter
         column={table.getColumn(colId)! as Column<unknown>}
         labelContent=''
       >
         {data.map((item, index) => (
-          <EnumFilterOption
+          <SingleSelectionFilterOption
             key={item.value}
             isFirst={index === 0}
             value={item.value}
             data-testid={buildFilterOptionTestId(item)}
-          ></EnumFilterOption>
+          ></SingleSelectionFilterOption>
         ))}
-      </SingleEnumFilter>
+      </SingleSelectionFilter>
 
       <table>
         <tbody>

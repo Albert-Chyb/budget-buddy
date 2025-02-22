@@ -1,9 +1,9 @@
 import { ToggleGroup } from '@/components/toggle-group.tsx';
-import { EnumFilterContextProvider } from '@/data-management/common/filtering/enum-filter-context.tsx';
 import {
   Filter,
   FilterProps,
 } from '@/data-management/common/filtering/filter.tsx';
+import { SingleSelectionFilterContextProvider } from '@/data-management/common/filtering/single-selection-filter-context';
 import { Column } from '@tanstack/react-table';
 import { ComponentPropsWithoutRef, PropsWithChildren, useId } from 'react';
 import { z } from 'zod';
@@ -16,12 +16,14 @@ type ToggleGroupProps<T extends ToggleGroupType> = ComponentPropsWithoutRef<
   typeof ToggleGroup
 > & { type: T };
 
-export interface SingleEnumFilterProps extends PropsWithChildren, FilterProps {
+export interface SingleSelectionFilterProps
+  extends PropsWithChildren,
+    FilterProps {
   column: Column<unknown>;
   toggleGroupProps?: Omit<ToggleGroupProps<'single'>, 'type'>;
 }
 
-export function SingleEnumFilter(props: SingleEnumFilterProps) {
+export function SingleSelectionFilter(props: SingleSelectionFilterProps) {
   const { column, toggleGroupProps, children, ...filterProps } = props;
   const id = useId();
   return (
@@ -29,7 +31,7 @@ export function SingleEnumFilter(props: SingleEnumFilterProps) {
       id={id}
       {...filterProps}
     >
-      <EnumFilterContextProvider id={id}>
+      <SingleSelectionFilterContextProvider id={id}>
         <ToggleGroup
           type='single'
           variant='outline'
@@ -39,7 +41,7 @@ export function SingleEnumFilter(props: SingleEnumFilterProps) {
         >
           {children}
         </ToggleGroup>
-      </EnumFilterContextProvider>
+      </SingleSelectionFilterContextProvider>
     </Filter>
   );
 }

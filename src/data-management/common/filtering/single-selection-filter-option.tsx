@@ -1,17 +1,19 @@
 import { ToggleGroupItem } from '@/components/toggle-group.tsx';
-import { useEnumFilterContext } from '@/data-management/common/filtering/enum-filter-context.tsx';
+import { useSingleSelectionFilterContext } from '@/data-management/common/filtering/single-selection-filter-context';
 import { ToggleGroupItemProps } from '@radix-ui/react-toggle-group';
 import { PropsWithChildren } from 'react';
 
-export interface EnumFilterOptionProps extends PropsWithChildren {
+export interface SingleSelectionFilterOptionProps extends PropsWithChildren {
   value: ToggleGroupItemProps['value'];
   isFirst: boolean;
   'data-testid'?: string;
 }
 
-export function EnumFilterOption(props: EnumFilterOptionProps) {
+export function SingleSelectionFilterOption(
+  props: SingleSelectionFilterOptionProps,
+) {
   const { children, value, isFirst } = props;
-  const { id } = useEnumFilterContext();
+  const { id } = useSingleSelectionFilterContext();
   return (
     <ToggleGroupItem
       id={isFirst ? id : undefined}
