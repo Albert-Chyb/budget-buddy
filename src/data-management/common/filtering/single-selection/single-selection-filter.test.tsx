@@ -1,12 +1,21 @@
 import {
   Column,
+  ColumnFiltersState,
   createColumnHelper,
   getCoreRowModel,
   getFilteredRowModel,
+  Table,
   useReactTable,
 } from '@tanstack/react-table';
 import { getByTestId, queryByTestId, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import {
+  ComponentRef,
+  createRef,
+  ForwardedRef,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { SingleSelectionFilter } from './single-selection-filter';
 import { SingleSelectionFilterOption } from './single-selection-filter-option';
@@ -19,72 +28,76 @@ const columns = [
     filterFn: 'equalsString',
   }),
 ];
-const rowAData: RowData = { value: 'a' };
-const rowBData: RowData = { value: 'b' };
-const data: [RowData, RowData] = [rowAData, rowBData];
-const buildFakeRowTestId = (data: RowData) => `fake-row-${data.value}`;
-const buildFilterOptionTestId = (data: RowData) =>
+
+type FilterOption = { value: string };
+const optionA: FilterOption = { value: 'a' };
+const optionB: FilterOption = { value: 'b' };
+const filterOptions: FilterOption[] = [optionA, optionB];
+const buildFilterOptionTestId = (data: FilterOption) =>
   `filter-option-${data.value}`;
 
-const Wrapper = () => {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-  });
+interface WrapperProps {
+  columnFilters?: ColumnFiltersState;
+}
+const Wrapper = forwardRef(
+  (
+    { columnFilters }: WrapperProps,
+    forwardedRef: ForwardedRef<{ table: Table<RowData> }>,
+  ) => {
+    const table = useReactTable({
+      data: [],
+      columns,
+      getCoreRowModel: getCoreRowModel(),
+      getFilteredRowModel: getFilteredRowModel(),
+      initialState: {
+        columnFilters,
+      },
+    });
 
-  return (
-    <>
-      <SingleSelectionFilter
-        column={table.getColumn(colId)! as Column<unknown>}
-        labelContent=''
-      >
-        {data.map((item, index) => (
-          <SingleSelectionFilterOption
-            key={item.value}
-            isFirst={index === 0}
-            value={item.value}
-            data-testid={buildFilterOptionTestId(item)}
-          ></SingleSelectionFilterOption>
-        ))}
-      </SingleSelectionFilter>
+    useImperativeHandle(forwardedRef, () => ({ table }), [table]);
 
-      <table>
-        <tbody>
-          {table.getRowModel().rows.map((row) => {
-            const { id, original } = row;
-
-            return (
-              <tr
-                key={id}
-                data-testid={buildFakeRowTestId(original)}
-              />
-            );
-          })}
-        </tbody>
-      </table>
-    </>
-  );
-};
+    return (
+      <>
+        <SingleSelectionFilter
+          column={table.getColumn(colId)! as Column<unknown>}
+          labelContent=''
+        >
+          {filterOptions.map((item, index) => (
+            <SingleSelectionFilterOption
+              key={item.value}
+              isFirst={index === 0}
+              value={item.value}
+              data-testid={buildFilterOptionTestId(item)}
+            />
+          ))}
+        </SingleSelectionFilter>
+      </>
+    );
+  },
+);
 
 const setupFnFactory = () => {
-  return () => {
+  return (wrapperProps: WrapperProps = {}) => {
     const user = userEvent.setup();
-    const { container } = render(<Wrapper />);
-    const getRowA = () =>
-      queryByTestId(container, buildFakeRowTestId(rowAData));
-    const getRowB = () =>
-      queryByTestId(container, buildFakeRowTestId(rowBData));
-    const selectOption = async (option: RowData) => {
+    const wrapperRef = createRef<ComponentRef<typeof Wrapper>>();
+    const { container } = render(
+      <Wrapper
+        ref={wrapperRef}
+        {...wrapperProps}
+      />,
+    );
+
+    const selectOption = async (option: FilterOption) => {
       await user.click(getByTestId(container, buildFilterOptionTestId(option)));
     };
+    const getOption = (option: FilterOption) =>
+      queryByTestId(container, buildFilterOptionTestId(option));
 
     return {
       container,
       selectOption,
-      getRowA,
-      getRowB,
+      getOption,
+      table: wrapperRef.current?.table,
     };
   };
 };
@@ -96,12 +109,22 @@ describe('SingleSelectionFilterComponent', () => {
     setup = setupFnFactory();
   });
 
-  it('should filter out the rows that do not match filter value', async () => {
-    const { selectOption, getRowA, getRowB } = setup();
+  it('should update column filter state after option select', async () => {
+    const { table, selectOption } = setup();
 
-    await selectOption(rowAData);
+    await selectOption(optionB);
 
-    expect(getRowA()).toBeInTheDocument();
-    expect(getRowB()).not.toBeInTheDocument();
+    expect(table?.getState().columnFilters).toContainEqual({
+      id: colId,
+      value: optionB.value,
+    });
+  });
+
+  it('should select correct option based on filter value', () => {
+    const { getOption } = setup({
+      columnFilters: [{ id: colId, value: optionA.value }],
+    });
+
+    expect(getOption(optionA)).toHaveAttribute('aria-checked', 'true');
   });
 });

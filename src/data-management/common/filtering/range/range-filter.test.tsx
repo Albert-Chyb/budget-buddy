@@ -1,12 +1,21 @@
 import {
   Column,
+  ColumnFiltersState,
   createColumnHelper,
   getCoreRowModel,
   getFilteredRowModel,
+  Table,
   useReactTable,
 } from '@tanstack/react-table';
-import { getByTestId, queryByTestId, render } from '@testing-library/react';
+import { getByTestId, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import {
+  ComponentRef,
+  createRef,
+  ForwardedRef,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { RangeFilter } from './range-filter';
 
@@ -18,62 +27,62 @@ const columns = [
     filterFn: 'inNumberRange',
   }),
 ];
-const smallerNumber: RowData = { value: 10 };
-const biggerNumber: RowData = { value: 20 };
-const data: [RowData, RowData] = [smallerNumber, biggerNumber];
 
-const Wrapper = () => {
-  const table = useReactTable<RowData>({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-  });
+interface WrapperProps {
+  columnFilters?: ColumnFiltersState;
+}
+const Wrapper = forwardRef(
+  (
+    { columnFilters }: WrapperProps,
+    forwardedRef: ForwardedRef<{ table: Table<RowData> }>,
+  ) => {
+    const table = useReactTable<RowData>({
+      data: [],
+      columns,
+      getCoreRowModel: getCoreRowModel(),
+      getFilteredRowModel: getFilteredRowModel(),
+      initialState: {
+        columnFilters,
+      },
+    });
 
-  return (
-    <>
+    useImperativeHandle(forwardedRef, () => ({ table }), [table]);
+
+    return (
       <RangeFilter
         column={table.getColumn(colId)! as Column<unknown>}
         labelContent=''
       />
-
-      <table>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr
-              key={row.id}
-              data-testid={`fake-row-${row.original.value}`}
-            />
-          ))}
-        </tbody>
-      </table>
-    </>
-  );
-};
+    );
+  },
+);
 
 const setupFnFactory = () => {
-  return () => {
+  return (wrapperProps: WrapperProps = {}) => {
     const user = userEvent.setup();
-    const { container } = render(<Wrapper />);
+    const wrapperRef = createRef<ComponentRef<typeof Wrapper>>();
+    const { container } = render(
+      <Wrapper
+        ref={wrapperRef}
+        {...wrapperProps}
+      />,
+    );
     const minInput = getByTestId(container, 'range-filter-min-input');
     const maxInput = getByTestId(container, 'range-filter-max-input');
-
-    const getRowWithSmallerNumber = () =>
-      queryByTestId(container, `fake-row-${smallerNumber.value}`);
-
-    const getRowWithBiggerNumber = () =>
-      queryByTestId(container, `fake-row-${biggerNumber.value}`);
 
     return {
       user,
       container,
       minInput,
       maxInput,
-      getRowWithSmallerNumber,
-      getRowWithBiggerNumber,
+      table: wrapperRef.current?.table,
     };
   };
 };
+
+const expectAnyFilterValue = expect.toSatisfy(
+  (v) => v === null || typeof v === 'number',
+);
 
 describe('RangeFilter', () => {
   let setup: ReturnType<typeof setupFnFactory>;
@@ -82,23 +91,45 @@ describe('RangeFilter', () => {
     setup = setupFnFactory();
   });
 
-  it('should filter out the rows with values smaller than min filter value', async () => {
-    const { minInput, user, getRowWithSmallerNumber, getRowWithBiggerNumber } =
-      setup();
+  it('should render an input pre-filled with a min value from the filter value', () => {
+    const initialMinValue = 10;
+    const { minInput } = setup({
+      columnFilters: [{ id: colId, value: [initialMinValue, null] }],
+    });
 
-    await user.type(minInput, String(smallerNumber.value + 1));
-
-    expect(getRowWithSmallerNumber()).not.toBeInTheDocument();
-    expect(getRowWithBiggerNumber()).toBeInTheDocument();
+    expect(minInput).toHaveValue(initialMinValue);
   });
 
-  it('should filter out the rows with values bigger that max filter value', async () => {
-    const { maxInput, user, getRowWithBiggerNumber, getRowWithSmallerNumber } =
-      setup();
+  it('should update the filter value after min value change', async () => {
+    const { minInput, table, user } = setup();
+    const newMinValue = 1;
 
-    await user.type(maxInput, String(biggerNumber.value - 1));
+    await user.type(minInput, String(newMinValue));
 
-    expect(getRowWithSmallerNumber()).toBeInTheDocument();
-    expect(getRowWithBiggerNumber()).not.toBeInTheDocument();
+    expect(table?.getState().columnFilters).toContainEqual({
+      id: colId,
+      value: [newMinValue, expectAnyFilterValue],
+    });
+  });
+
+  it('should render an input pre-filled with a max value from the filter value', () => {
+    const initialMaxValue = 20;
+    const { maxInput } = setup({
+      columnFilters: [{ id: colId, value: [null, initialMaxValue] }],
+    });
+
+    expect(maxInput).toHaveValue(initialMaxValue);
+  });
+
+  it('should update the filter value after max value change', async () => {
+    const { maxInput, table, user } = setup();
+    const newMaxValue = 5;
+
+    await user.type(maxInput, String(newMaxValue));
+
+    expect(table?.getState().columnFilters).toContainEqual({
+      id: colId,
+      value: [expectAnyFilterValue, newMaxValue],
+    });
   });
 });

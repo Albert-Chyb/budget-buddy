@@ -1,70 +1,106 @@
 import {
   Column,
+  ColumnFiltersState,
   createColumnHelper,
   getCoreRowModel,
   getFilteredRowModel,
+  Table,
   useReactTable,
 } from '@tanstack/react-table';
-import { getByTestId, queryByTestId } from '@testing-library/dom';
+import { getByTestId } from '@testing-library/dom';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it } from 'vitest';
+import {
+  ComponentRef,
+  createRef,
+  ForwardedRef,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { TextFilter } from './text-filter';
 
 type RowData = { value: string };
+const colId = 'name';
 const columns = [
   createColumnHelper<RowData>().accessor('value', {
-    id: 'name',
+    id: colId,
     filterFn: 'equalsString',
   }),
 ];
-const rowAData: RowData = { value: 'a' };
-const rowBData: RowData = { value: 'b' };
-const data: [RowData, RowData] = [rowAData, rowBData] as const;
-const buildFakeRowTestId = (data: RowData) => `fake-row-${data.value}`;
 
-const Wrapper = () => {
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-  });
+interface WrapperProps {
+  columnFilters?: ColumnFiltersState;
+}
 
-  return (
-    <>
+type WrapperForwardedRef = ForwardedRef<{
+  table: Table<RowData>;
+}>;
+
+const Wrapper = forwardRef(
+  ({ columnFilters }: WrapperProps, forwardRef: WrapperForwardedRef) => {
+    const table = useReactTable({
+      data: [],
+      columns,
+      getCoreRowModel: getCoreRowModel(),
+      getFilteredRowModel: getFilteredRowModel(),
+      initialState: {
+        columnFilters,
+      },
+    });
+
+    useImperativeHandle(forwardRef, () => ({ table }), [table]);
+
+    return (
       <TextFilter
-        column={table.getColumn('name')! as Column<unknown>}
+        column={table.getColumn(colId)! as Column<unknown>}
         labelContent=''
       />
+    );
+  },
+);
 
-      <table>
-        <tbody>
-          {table.getRowModel().rows.map(({ id, original }) => (
-            <tr
-              key={id}
-              data-testid={buildFakeRowTestId(original)}
-            />
-          ))}
-        </tbody>
-      </table>
-    </>
-  );
+const setupFnFactory = () => {
+  return (wrapperProps: Partial<WrapperProps> = {}) => {
+    const user = userEvent.setup();
+    const wrapperRef = createRef<ComponentRef<typeof Wrapper>>();
+    const { container } = render(
+      <Wrapper
+        ref={wrapperRef}
+        {...wrapperProps}
+      />,
+    );
+    const input = getByTestId(container, 'text-filter-input');
+
+    return { user, container, input, table: wrapperRef.current?.table };
+  };
 };
 
 describe('TextFilterComponent', () => {
-  it('should filter out rows that do not match the filter value', async () => {
-    const user = userEvent.setup();
-    const { container } = render(<Wrapper />);
-    const input = getByTestId(container, 'text-filter-input');
+  let setup: ReturnType<typeof setupFnFactory>;
 
-    await user.type(input, rowAData.value);
+  beforeEach(() => {
+    setup = setupFnFactory();
+  });
 
-    expect(
-      queryByTestId(container, buildFakeRowTestId(rowAData)),
-    ).toBeInTheDocument();
-    expect(
-      queryByTestId(container, buildFakeRowTestId(rowBData)),
-    ).not.toBeInTheDocument();
+  it('should render an input pre-filled with filter value', () => {
+    const initialFilterValue = 'aaa';
+    const { input } = setup({
+      columnFilters: [{ id: colId, value: initialFilterValue }],
+    });
+
+    expect(input).toHaveValue(initialFilterValue);
+  });
+
+  it("should update the column filter value when input's value change", async () => {
+    const { user, input, table } = setup();
+
+    const newFilterValue = 'aaa';
+    await user.type(input, newFilterValue);
+
+    expect(table?.getState().columnFilters).toContainEqual({
+      id: colId,
+      value: newFilterValue,
+    });
   });
 });
