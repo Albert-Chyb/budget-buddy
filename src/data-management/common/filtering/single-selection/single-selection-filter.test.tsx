@@ -89,7 +89,7 @@ const setupFnFactory = () => {
   };
 };
 
-describe('EnumFilterComponent', () => {
+describe('SingleSelectionFilterComponent', () => {
   let setup: ReturnType<typeof setupFnFactory>;
 
   beforeEach(() => {
