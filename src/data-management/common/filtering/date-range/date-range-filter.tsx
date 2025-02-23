@@ -1,12 +1,12 @@
-import { Column, ColumnFilter, FilterFn, RowData } from '@tanstack/react-table';
-import { DateRangePicker } from '@/components/date-range-picker.tsx';
-import { DateRange } from 'react-day-picker';
-import { isDateInRange } from '@/helpers/date.ts';
+import { DateRangePicker } from '@/components/date-range-picker/date-range-picker';
 import {
   Filter,
   FilterProps,
 } from '@/data-management/common/filtering/filter.tsx';
+import { isDateInRange } from '@/helpers/date.ts';
+import { Column, ColumnFilter, FilterFn, RowData } from '@tanstack/react-table';
 import { useId } from 'react';
+import { DateRange } from 'react-day-picker';
 
 export type DateRangeFilterValue = DateRange | undefined;
 
