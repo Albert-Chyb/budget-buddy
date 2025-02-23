@@ -1,93 +1,40 @@
-import {
-  Column,
-  ColumnFiltersState,
-  createColumnHelper,
-  getCoreRowModel,
-  getFilteredRowModel,
-  Table,
-  useReactTable,
-} from '@tanstack/react-table';
+import { Column } from '@tanstack/react-table';
 import { getByTestId } from '@testing-library/dom';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { describe, expect, it } from 'vitest';
 import {
-  ComponentRef,
-  createRef,
-  ForwardedRef,
-  forwardRef,
-  useImperativeHandle,
-} from 'react';
-import { beforeEach, describe, expect, it } from 'vitest';
+  colId,
+  createWrapperRef,
+  WrapperForFilterTest,
+} from '../wrapper-for-filter-tests';
 import { TextFilter } from './text-filter';
 
-type RowData = { value: string };
-const colId = 'name';
-const columns = [
-  createColumnHelper<RowData>().accessor('value', {
-    id: colId,
-    filterFn: 'equalsString',
-  }),
-];
+const setup = (filterValue?: unknown) => {
+  const user = userEvent.setup();
+  const wrapperRef = createWrapperRef();
+  const { container } = render(
+    <WrapperForFilterTest
+      ref={wrapperRef}
+      initialFilterValue={filterValue}
+    >
+      {(column) => (
+        <TextFilter
+          column={column as Column<unknown>}
+          labelContent=''
+        />
+      )}
+    </WrapperForFilterTest>,
+  );
+  const input = getByTestId(container, 'text-filter-input');
 
-interface WrapperProps {
-  columnFilters?: ColumnFiltersState;
-}
-
-type WrapperForwardedRef = ForwardedRef<{
-  table: Table<RowData>;
-}>;
-
-const Wrapper = forwardRef(
-  ({ columnFilters }: WrapperProps, forwardRef: WrapperForwardedRef) => {
-    const table = useReactTable({
-      data: [],
-      columns,
-      getCoreRowModel: getCoreRowModel(),
-      getFilteredRowModel: getFilteredRowModel(),
-      initialState: {
-        columnFilters,
-      },
-    });
-
-    useImperativeHandle(forwardRef, () => ({ table }), [table]);
-
-    return (
-      <TextFilter
-        column={table.getColumn(colId)! as Column<unknown>}
-        labelContent=''
-      />
-    );
-  },
-);
-
-const setupFnFactory = () => {
-  return (wrapperProps: Partial<WrapperProps> = {}) => {
-    const user = userEvent.setup();
-    const wrapperRef = createRef<ComponentRef<typeof Wrapper>>();
-    const { container } = render(
-      <Wrapper
-        ref={wrapperRef}
-        {...wrapperProps}
-      />,
-    );
-    const input = getByTestId(container, 'text-filter-input');
-
-    return { user, container, input, table: wrapperRef.current?.table };
-  };
+  return { user, container, input, table: wrapperRef.current?.table };
 };
 
 describe('TextFilterComponent', () => {
-  let setup: ReturnType<typeof setupFnFactory>;
-
-  beforeEach(() => {
-    setup = setupFnFactory();
-  });
-
   it('should render an input pre-filled with filter value', () => {
     const initialFilterValue = 'aaa';
-    const { input } = setup({
-      columnFilters: [{ id: colId, value: initialFilterValue }],
-    });
+    const { input } = setup(initialFilterValue);
 
     expect(input).toHaveValue(initialFilterValue);
   });
