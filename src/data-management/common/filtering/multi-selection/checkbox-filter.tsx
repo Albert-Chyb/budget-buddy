@@ -35,6 +35,7 @@ export function CheckboxFilter({
       <Popover>
         <PopoverTrigger asChild>
           <Button
+            data-testid='popover-trigger'
             id={id}
             variant='outline'
             className='w-full'
