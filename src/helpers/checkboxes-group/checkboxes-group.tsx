@@ -2,9 +2,9 @@ import { createContext, PropsWithChildren, useContext } from 'react';
 
 // Context setup
 export type CheckedOptions = unknown[] | undefined;
-export type CheckedOptionsUpdater = (
-  checkedOptions: CheckedOptions,
-) => unknown[];
+export type CheckedOptionsUpdater =
+  | CheckedOptions
+  | ((checkedOptions: CheckedOptions) => CheckedOptions);
 export type CheckboxesGroupContextValue = {
   checkedOptions: CheckedOptions;
   setCheckedOptions: (updater: CheckedOptionsUpdater) => void;

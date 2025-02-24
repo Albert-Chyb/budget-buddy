@@ -1,8 +1,8 @@
-import { PropsWithChildren } from 'react';
-import { CheckboxProps, CheckedState } from '@radix-ui/react-checkbox';
-import { Label } from '@/components/label.tsx';
 import { Checkbox } from '@/components/checkbox.tsx';
-import { useCheckboxesGroupOption } from '@/helpers/checkboxes-group.tsx';
+import { Label } from '@/components/label.tsx';
+import { useCheckboxesGroupOption } from '@/helpers/checkboxes-group/checkboxes-group';
+import { CheckboxProps, CheckedState } from '@radix-ui/react-checkbox';
+import { PropsWithChildren } from 'react';
 
 export interface CheckboxFilterOptionProps extends PropsWithChildren {
   value: CheckboxProps['value'];

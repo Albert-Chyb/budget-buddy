@@ -1,18 +1,18 @@
-import { PropsWithChildren, ReactNode, useId } from 'react';
+import { Button } from '@/components/button.tsx';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/popover.tsx';
-import { Button } from '@/components/button.tsx';
-import { Column, FilterFn } from '@tanstack/react-table';
-import { CheckboxesGroup } from '@/helpers/checkboxes-group.tsx';
-import { z } from 'zod';
 import { ScrollArea } from '@/components/scroll-area.tsx';
 import {
   Filter,
   FilterProps,
 } from '@/data-management/common/filtering/filter.tsx';
+import { CheckboxesGroup } from '@/helpers/checkboxes-group/checkboxes-group';
+import { Column, FilterFn } from '@tanstack/react-table';
+import { PropsWithChildren, ReactNode, useId } from 'react';
+import { z } from 'zod';
 
 const filterValueSchema = z.array(z.any()).optional().default([]);
 
