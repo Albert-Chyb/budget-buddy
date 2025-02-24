@@ -1,4 +1,8 @@
-import type { CheckboxesGroupProps, CheckedOptions } from '../checkboxes-group';
+import {
+  CheckboxesGroupProps,
+  CheckedOptions,
+  UseCheckboxesGroupOptionResult,
+} from '../checkboxes-group';
 
 const getNextOptions = (element: HTMLElement): CheckedOptions => {
   const nextOptions = element.getAttribute('data-next-options');
@@ -18,4 +22,12 @@ export const CheckboxesGroup = ({
       }}
     />
   );
+};
+
+export const useCheckboxesGroupOption = (): UseCheckboxesGroupOptionResult => {
+  return {
+    check() {},
+    uncheck() {},
+    isChecked: false,
+  };
 };

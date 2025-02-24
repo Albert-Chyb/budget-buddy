@@ -57,3 +57,4 @@ export const useCheckboxesGroupOption = (value: unknown) => {
     isChecked,
   };
 };
+export type UseCheckboxesGroupOptionResult = ReturnType<typeof useCheckboxesGroupOption>;
