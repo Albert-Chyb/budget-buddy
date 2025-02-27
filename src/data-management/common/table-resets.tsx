@@ -1,6 +1,6 @@
 import { Button } from '@/components/button.tsx';
-import { Eraser, FilterX } from 'lucide-react';
 import { DataTableProp } from '@/data-management/common/data-view/table-type.ts';
+import { Eraser, FilterX } from 'lucide-react';
 
 interface TableResetsProps {
   table: DataTableProp;
@@ -12,6 +12,7 @@ export function TableResets({ table }: TableResetsProps) {
       <Button
         onClick={() => table.resetColumnFilters()}
         size='sm'
+        data-testid='reset-filters-btn'
       >
         <FilterX /> Wyczyść filtry
       </Button>
@@ -19,6 +20,7 @@ export function TableResets({ table }: TableResetsProps) {
       <Button
         onClick={() => table.resetSorting()}
         size='sm'
+        data-testid='reset-sorting-btn'
       >
         <Eraser /> Wyczyść sortowanie
       </Button>
