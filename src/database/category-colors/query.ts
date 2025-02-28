@@ -1,8 +1,8 @@
-import { QueryKey, useQuery } from '@tanstack/react-query';
-import { USER_QUERY_KEY, useUserQuery } from '@/auth/user-query.ts';
+import { useUserQuery } from '@/auth/user-query.ts';
+import { Database } from '@/database/types.ts';
 import { useSupabase } from '@/init/supabase.tsx';
 import { SupabaseClient } from '@supabase/supabase-js';
-import { Database } from '@/database/types.ts';
+import { useQuery } from '@tanstack/react-query';
 
 const queryFn = async (supabase: SupabaseClient<Database>) => {
   const { data, error } = await supabase
@@ -15,10 +15,7 @@ const queryFn = async (supabase: SupabaseClient<Database>) => {
 };
 export type CategoryColor = Awaited<ReturnType<typeof queryFn>>[number];
 
-export const CATEGORIES_COLORS_QUERY_KEY = [
-  ...USER_QUERY_KEY,
-  'category-colors',
-] as const satisfies QueryKey;
+export const CATEGORIES_COLORS_QUERY_KEY = ['category-colors'] as const;
 
 export const useCategoryColorsQuery = () => {
   const supabase = useSupabase();

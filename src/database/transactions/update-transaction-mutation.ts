@@ -1,10 +1,9 @@
-import { useSupabase } from '@/init/supabase.tsx';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useUserQuery } from '@/auth/user-query.ts';
-import { TRANSACTIONS_QUERY_KEY } from '@/database/transactions/transactions-query.ts';
-import { WALLETS_QUERY_KEY } from '@/database/wallets/wallets-query.ts';
 import { TransactionFormValue } from '@/data-management/transactions/data-mutation/forms/form-schemas/transaction-form-schema.ts';
 import { TransactionSchema } from '@/database/transactions/transaction-schema.ts';
+import { TRANSACTIONS_QUERY_KEY } from '@/database/transactions/transactions-query.ts';
+import { useSupabase } from '@/init/supabase.tsx';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export interface UpdateTransactionMutationVariables {
   id: TransactionSchema['id'];
@@ -37,9 +36,6 @@ export const useUpdateTransactionMutation = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: TRANSACTIONS_QUERY_KEY,
-      });
-      queryClient.invalidateQueries({
-        queryKey: WALLETS_QUERY_KEY,
       });
     },
   });

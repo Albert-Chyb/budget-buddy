@@ -1,8 +1,8 @@
-import { QueryKey, useQuery } from '@tanstack/react-query';
-import { USER_QUERY_KEY, useUserQuery } from '@/auth/user-query.ts';
-import { useSupabase } from '@/init/supabase.tsx';
-import { z } from 'zod';
+import { useUserQuery } from '@/auth/user-query.ts';
 import { categoryTypeSchema } from '@/database/category-types/category-type-schema.ts';
+import { useSupabase } from '@/init/supabase.tsx';
+import { useQuery } from '@tanstack/react-query';
+import { z } from 'zod';
 
 const recordSchema = z.object({
   id: categoryTypeSchema.shape.id,
@@ -14,10 +14,7 @@ export type CategoryTypesQueryRow = z.infer<typeof recordSchema>;
 const queryResultSchema = z.array(recordSchema);
 export type CategoryTypesQueryData = z.infer<typeof queryResultSchema>;
 
-export const CATEGORY_TYPES_QUERY_KEY = [
-  ...USER_QUERY_KEY,
-  'category-types',
-] as const satisfies QueryKey;
+export const CATEGORY_TYPES_QUERY_KEY = ['category-types'] as const;
 
 export const useCategoryTypesQuery = () => {
   const supabase = useSupabase();
