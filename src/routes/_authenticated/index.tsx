@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { buttonVariants } from '@/components/button.tsx';
 import {
   Card,
   CardDescription,
@@ -6,22 +6,29 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/card.tsx';
-import { buttonVariants } from '@/components/button.tsx';
+import { useTotalBalanceQuery } from '@/database/dashboard/total-balance-query';
+import { createFileRoute, Link } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_authenticated/')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const { data: totalBalance } = useTotalBalanceQuery();
+
   return (
     <>
+      <div className='border border-dashed border-red-500 p-4 rounded-sm'>
+        <span>Twój obecny balans wynosi: {totalBalance?.toString()}</span>
+      </div>
+
       <h1 className='typography-large mb-4'>Zarządzaj danymi</h1>
 
       <ul
         aria-label='Lista funkcji'
         className='grid gap-2'
         style={{
-          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 600px))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
         }}
       >
         <li>
