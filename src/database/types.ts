@@ -186,6 +186,21 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      generate_fake_transaction: {
+        Args: {
+          p_is_expense: boolean
+          p_transaction_amount: number
+          p_wallet_balance: number
+        }
+        Returns: undefined
+      }
+      get_transactions_summary: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          is_expense: boolean
+          sum: number
+        }[]
+      }
       insert_transaction_to_wallet: {
         Args: {
           transaction_id: number
