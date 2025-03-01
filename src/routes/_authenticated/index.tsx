@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from '@/components/card.tsx';
 import { useTotalBalanceQuery } from '@/database/dashboard/total-balance-query';
+import { useTransactionsSummaryQuery } from '@/database/dashboard/transactions-summary-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_authenticated/')({
@@ -15,12 +16,26 @@ export const Route = createFileRoute('/_authenticated/')({
 
 function RouteComponent() {
   const { data: totalBalance } = useTotalBalanceQuery();
+  const { data: summary } = useTransactionsSummaryQuery();
 
   return (
     <>
-      <div className='border border-dashed border-red-500 p-4 rounded-sm'>
-        <span>Twój obecny balans wynosi: {totalBalance?.toString()}</span>
-      </div>
+      <table>
+        <tbody>
+          <tr>
+            <th>Balans</th>
+            <td>{totalBalance?.toString()}</td>
+          </tr>
+          <tr>
+            <th>Wydatki</th>
+            <td>{summary?.expenses.toString()}</td>
+          </tr>
+          <tr>
+            <th>Przychody</th>
+            <td>{summary?.incomes.toString()}</td>
+          </tr>
+        </tbody>
+      </table>
 
       <h1 className='typography-large mb-4'>Zarządzaj danymi</h1>
 
