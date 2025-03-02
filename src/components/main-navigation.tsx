@@ -1,20 +1,19 @@
 import { useUserQuery } from '@/auth/user-query.ts';
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/navigation-menu.tsx';
-import { PropsWithChildren, ReactElement } from 'react';
 import { Link, ToOptions } from '@tanstack/react-router';
-import { buttonVariants } from '@/components/button.tsx';
+import { PropsWithChildren, ReactElement } from 'react';
+import { buttonVariants } from './button';
 
-function getActiveLinkStyles(isActive: boolean): string {
-  if (isActive)
-    return `${buttonVariants({
-      variant: 'outline',
-    })} font-bold`;
+function getLinkStyles(isActive: boolean): string {
+  if (isActive) return buttonVariants({ variant: 'outline' });
 
   return buttonVariants({ variant: 'ghost' });
 }
@@ -22,23 +21,26 @@ function getActiveLinkStyles(isActive: boolean): string {
 function MainNavigationLink(props: PropsWithChildren<ToOptions>) {
   const { children, ...rest } = props;
   return (
-    <NavigationMenuItem>
+    <li>
       <NavigationMenuLink asChild>
         <Link {...rest}>
           {({ isActive }) => (
-            <span className={getActiveLinkStyles(isActive)}>{children}</span>
+            <div className={`${getLinkStyles(isActive)} w-full`}>
+              {children}
+            </div>
           )}
         </Link>
       </NavigationMenuLink>
-    </NavigationMenuItem>
+    </li>
   );
 }
 
-export function MainNavigation() {
-  const { data: user } = useUserQuery();
+interface AuthNavigationMenuProps {
+  isLoggedIn: boolean;
+}
+const AuthNavigationMenu = ({ isLoggedIn }: AuthNavigationMenuProps) => {
   let navItems: ReactElement;
-
-  if (user)
+  if (isLoggedIn)
     navItems = (
       <>
         <MainNavigationLink to='/change-password'>
@@ -59,6 +61,34 @@ export function MainNavigation() {
     );
 
   return (
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Konto</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <ul className='p-2 space-y-2'>{navItems}</ul>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  );
+};
+
+const DataManagementNavigationMenu = () => {
+  return (
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Dane</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <ul className='p-2 space-y-2'>
+          <MainNavigationLink to='/categories'>Kategorie</MainNavigationLink>
+          <MainNavigationLink to='/wallets'>Portfele</MainNavigationLink>
+          <MainNavigationLink to='/transactions'>Transakcje</MainNavigationLink>
+        </ul>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  );
+};
+
+export function MainNavigation() {
+  const { data: user } = useUserQuery();
+
+  return (
     <div className='flex'>
       <Link
         to='/'
@@ -68,7 +98,10 @@ export function MainNavigation() {
       </Link>
 
       <NavigationMenu className='ml-auto'>
-        <NavigationMenuList>{navItems}</NavigationMenuList>
+        <NavigationMenuList>
+          <AuthNavigationMenu isLoggedIn={!!user} />
+          <DataManagementNavigationMenu />
+        </NavigationMenuList>
       </NavigationMenu>
     </div>
   );
