@@ -44,6 +44,14 @@ export class Currency {
     return decimalFormatter.format(this.toDecimal());
   }
 
+  subtract(subtrahend: Currency) {
+    return new Currency(this.currencyAsInt - subtrahend.currencyAsInt);
+  }
+
+  divide(divisor: Currency) {
+    return Currency.fromDecimal(this.currencyAsInt / divisor.currencyAsInt);
+  }
+
   static fromDecimal(value: number) {
     return new Currency(Math.trunc(value * 100));
   }
