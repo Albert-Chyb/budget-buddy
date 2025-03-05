@@ -4,10 +4,9 @@ CREATE TABLE financial_statistics (
     category_id BIGINT,
     "year" SMALLINT,
     "month" SMALLINT,
-    is_expense BOOL,
     sum BIGINT NOT NULL,
 
-    CONSTRAINT p_key PRIMARY KEY (owner_id, wallet_id, category_id, "year", "month", is_expense),
+    CONSTRAINT p_key PRIMARY KEY (owner_id, wallet_id, category_id, "year", "month"),
     CONSTRAINT owner_id_f_key FOREIGN KEY (owner_id) REFERENCES auth.users(id),
     CONSTRAINT wallet_id_f_key FOREIGN KEY (wallet_id) REFERENCES wallets(id),
     CONSTRAINT category_id_f_key FOREIGN KEY (category_id) REFERENCES categories(id),
@@ -49,41 +48,18 @@ TO authenticated
 USING (FALSE);
 
 -- Functions
-CREATE FUNCTION is_category_expense(p_category_id categories.id%TYPE)
-RETURNS BOOL
-LANGUAGE PLPGSQL
-AS $$
-DECLARE
-    var_is_expense category_types.is_expense%TYPE;
-BEGIN
-    SELECT is_expense
-    INTO var_is_expense
-    FROM categories
-    JOIN category_types
-            ON categories.type_id = category_types.id
-    WHERE categories.id = p_category_id;
-
-    IF NOT FOUND THEN
-        RAISE EXCEPTION 'Category with ID of % does not exists', p_category_id;
-    END IF;
-
-    RETURN var_is_expense;
-END;
-$$;
-
 CREATE FUNCTION add_transaction_to_period(p_transaction transactions)
 RETURNS VOID
 LANGUAGE PLPGSQL
 AS $$
 BEGIN
-    INSERT INTO financial_statistics(owner_id, wallet_id, category_id, "year", "month", is_expense, sum)
+    INSERT INTO financial_statistics(owner_id, wallet_id, category_id, "year", "month", sum)
     VALUES (
         (SELECT auth.uid()), 
         p_transaction.wallet_id,
         p_transaction.category_id,
         EXTRACT(YEAR FROM p_transaction.created_at)::SMALLINT,
         EXTRACT(MONTH FROM p_transaction.created_at)::SMALLINT,
-        is_category_expense(p_transaction.category_id),
         p_transaction.amount
     )
     ON CONFLICT ON CONSTRAINT p_key DO UPDATE
@@ -105,8 +81,7 @@ BEGIN
         owner_id = (SELECT auth.uid()) AND
         wallet_id = p_transaction.wallet_id AND
         "year" = EXTRACT(YEAR FROM p_transaction.created_at) AND
-        "month" = EXTRACT(MONTH FROM p_transaction.created_at) AND
-        is_expense = is_category_expense(p_transaction.category_id)
+        "month" = EXTRACT(MONTH FROM p_transaction.created_at)
     RETURNING sum INTO var_sum_after_removal;
 
     IF NOT FOUND THEN
@@ -119,8 +94,7 @@ BEGIN
             owner_id = (SELECT auth.uid()) AND
             wallet_id = p_transaction.wallet_id AND
             "year" = EXTRACT(YEAR FROM p_transaction.created_at) AND
-            "month" = EXTRACT(MONTH FROM p_transaction.created_at) AND
-            is_expense = is_category_expense(p_transaction.category_id);
+            "month" = EXTRACT(MONTH FROM p_transaction.created_at)
     END IF;
 END;
 $$;
