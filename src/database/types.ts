@@ -115,6 +115,51 @@ export type Database = {
         }
         Relationships: []
       }
+      financial_statistics: {
+        Row: {
+          category_id: number
+          is_expense: boolean
+          month: number
+          owner_id: string
+          sum: number
+          wallet_id: number
+          year: number
+        }
+        Insert: {
+          category_id: number
+          is_expense: boolean
+          month: number
+          owner_id: string
+          sum: number
+          wallet_id: number
+          year: number
+        }
+        Update: {
+          category_id?: number
+          is_expense?: boolean
+          month?: number
+          owner_id?: string
+          sum?: number
+          wallet_id?: number
+          year?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "category_id_f_key"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "wallet_id_f_key"
+            columns: ["wallet_id"]
+            isOneToOne: false
+            referencedRelation: "wallets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       transactions: {
         Row: {
           amount: number
@@ -186,11 +231,9 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      generate_fake_transaction: {
+      add_transaction_to_period: {
         Args: {
-          p_is_expense: boolean
-          p_transaction_amount: number
-          p_wallet_balance: number
+          p_transaction: unknown
         }
         Returns: undefined
       }
@@ -209,11 +252,23 @@ export type Database = {
         }
         Returns: undefined
       }
+      is_category_expense: {
+        Args: {
+          p_category_id: number
+        }
+        Returns: boolean
+      }
       is_transaction_expense: {
         Args: {
           transaction_id: number
         }
         Returns: boolean
+      }
+      remove_transaction_from_period: {
+        Args: {
+          p_transaction: unknown
+        }
+        Returns: undefined
       }
       remove_transaction_from_wallet: {
         Args: {
