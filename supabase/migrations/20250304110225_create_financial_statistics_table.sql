@@ -94,7 +94,7 @@ BEGIN
             owner_id = (SELECT auth.uid()) AND
             wallet_id = p_transaction.wallet_id AND
             "year" = EXTRACT(YEAR FROM p_transaction.created_at) AND
-            "month" = EXTRACT(MONTH FROM p_transaction.created_at)
+            "month" = EXTRACT(MONTH FROM p_transaction.created_at);
     END IF;
 END;
 $$;
