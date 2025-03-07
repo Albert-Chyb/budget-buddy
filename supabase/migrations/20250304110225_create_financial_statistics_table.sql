@@ -74,12 +74,12 @@ AS $$
 DECLARE
     var_sum_after_removal BIGINT;
 BEGIN
-    
     UPDATE financial_statistics 
     SET sum = sum - p_transaction.amount 
     WHERE
         owner_id = (SELECT auth.uid()) AND
         wallet_id = p_transaction.wallet_id AND
+        category_id = p_transaction.category_id AND
         "year" = EXTRACT(YEAR FROM p_transaction.created_at) AND
         "month" = EXTRACT(MONTH FROM p_transaction.created_at)
     RETURNING sum INTO var_sum_after_removal;
