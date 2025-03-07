@@ -93,6 +93,7 @@ BEGIN
         WHERE
             owner_id = (SELECT auth.uid()) AND
             wallet_id = p_transaction.wallet_id AND
+            category_id = p_transaction.category_id AND
             "year" = EXTRACT(YEAR FROM p_transaction.created_at) AND
             "month" = EXTRACT(MONTH FROM p_transaction.created_at);
     END IF;
