@@ -14,3 +14,13 @@ CREATE TABLE
     CONSTRAINT category_colors_green_check CHECK (green BETWEEN 0 AND 255),
     CONSTRAINT category_colors_blue_check CHECK (blue BETWEEN 0 AND 255)
 );
+
+ALTER TABLE "category_colors"
+    ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Enable read access for authenticated users only"
+    ON "category_colors"
+    AS PERMISSIVE
+    FOR SELECT
+    TO authenticated
+    USING (TRUE);

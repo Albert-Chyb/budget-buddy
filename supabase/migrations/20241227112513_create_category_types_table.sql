@@ -8,3 +8,13 @@ CREATE TABLE category_types
 
     CONSTRAINT category_types_name_check CHECK (LENGTH(name) BETWEEN 1 AND 32)
 );
+
+ALTER TABLE "category_types"
+    ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Enable read access for authenticated users only"
+    ON "category_types"
+    AS PERMISSIVE
+    FOR SELECT
+    TO authenticated
+    USING (TRUE);
