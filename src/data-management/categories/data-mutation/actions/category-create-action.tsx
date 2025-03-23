@@ -1,13 +1,13 @@
-import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
-import { CategoryColor } from '@/database/category-colors/query.ts';
-import { useCreateCategoryMutation } from '@/database/categories/create-mutation.ts';
-import { useEditorContext } from '@/data-management/common/data-mutation/editor-open-state.tsx';
-import { CategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/category-form-schema.ts';
-import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
-import { Editor } from '@/data-management/common/data-mutation/editor.tsx';
-import { ResponsiveButton } from '@/data-management/common/responsive-button.tsx';
-import { CirclePlus } from 'lucide-react';
 import { CategoryForm } from '@/data-management/categories/data-mutation/forms/category-form.tsx';
+import { CategoryFormValue } from '@/data-management/categories/data-mutation/forms/form-schemas/category-form-schema.ts';
+import { useEditorContext } from '@/data-management/common/data-mutation/editor-open-state.tsx';
+import { Editor } from '@/data-management/common/data-mutation/editor.tsx';
+import { MutationErrorDialog } from '@/data-management/common/data-mutation/mutation-error-dialog.tsx';
+import { ResponsiveButton } from '@/data-management/common/responsive-button.tsx';
+import { useCreateCategoryMutation } from '@/database/categories/create-mutation.ts';
+import { CategoryColor } from '@/database/category-colors/query.ts';
+import { CategoryTypesQueryRow } from '@/database/category-types/query.ts';
+import { CirclePlus } from 'lucide-react';
 
 interface CategoryCreateActionProps {
   categoryTypes: CategoryTypesQueryRow[];
@@ -48,7 +48,6 @@ export function CategoryCreateAction(props: CategoryCreateActionProps) {
             'Po wypełnieniu formularza wyślij go, aby dodać nową kategorię',
           trigger: (
             <ResponsiveButton
-              variant='secondary'
               icon={<CirclePlus />}
               label='Nowa kategoria'
             />
