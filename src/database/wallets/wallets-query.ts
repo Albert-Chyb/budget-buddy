@@ -30,7 +30,8 @@ export const useWalletsQuery = () => {
       const { data, error } = await supabase
         .from('wallets')
         .select('id, name, balance')
-        .eq('owner_id', user!.id);
+        .eq('owner_id', user!.id)
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
 

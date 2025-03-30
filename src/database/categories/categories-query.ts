@@ -1,10 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
 import { USER_QUERY_KEY, useUserQuery } from '@/auth/user-query.ts';
-import { useSupabase } from '@/init/supabase.tsx';
-import { z } from 'zod';
 import { categorySchema } from '@/database/categories/category-schema.ts';
-import { categoryTypeSchema } from '@/database/category-types/category-type-schema.ts';
 import { categoryColorSchema } from '@/database/category-colors/category-color-schema.ts';
+import { categoryTypeSchema } from '@/database/category-types/category-type-schema.ts';
+import { useSupabase } from '@/init/supabase.tsx';
+import { useQuery } from '@tanstack/react-query';
+import { z } from 'zod';
 
 const recordSchema = z.object({
   id: categorySchema.shape.id,
@@ -49,7 +49,8 @@ export const useCategoriesQuery = () => {
             owner_id
           `,
         )
-        .eq('owner_id', user!.id);
+        .eq('owner_id', user!.id)
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
 
