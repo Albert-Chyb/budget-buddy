@@ -37,6 +37,7 @@ export type Database = {
       categories: {
         Row: {
           color_id: number | null
+          created_at: string
           id: number
           name: string
           owner_id: string
@@ -44,6 +45,7 @@ export type Database = {
         }
         Insert: {
           color_id?: number | null
+          created_at?: string
           id?: number
           name: string
           owner_id: string
@@ -51,6 +53,7 @@ export type Database = {
         }
         Update: {
           color_id?: number | null
+          created_at?: string
           id?: number
           name?: string
           owner_id?: string
@@ -118,7 +121,6 @@ export type Database = {
       financial_statistics: {
         Row: {
           category_id: number
-          is_expense: boolean
           month: number
           owner_id: string
           sum: number
@@ -127,7 +129,6 @@ export type Database = {
         }
         Insert: {
           category_id: number
-          is_expense: boolean
           month: number
           owner_id: string
           sum: number
@@ -136,7 +137,6 @@ export type Database = {
         }
         Update: {
           category_id?: number
-          is_expense?: boolean
           month?: number
           owner_id?: string
           sum?: number
@@ -208,18 +208,21 @@ export type Database = {
       wallets: {
         Row: {
           balance: number
+          created_at: string
           id: number
           name: string
           owner_id: string
         }
         Insert: {
           balance: number
+          created_at?: string
           id?: number
           name: string
           owner_id: string
         }
         Update: {
           balance?: number
+          created_at?: string
           id?: number
           name?: string
           owner_id?: string
@@ -251,12 +254,6 @@ export type Database = {
           amount: number
         }
         Returns: undefined
-      }
-      is_category_expense: {
-        Args: {
-          p_category_id: number
-        }
-        Returns: boolean
       }
       is_transaction_expense: {
         Args: {
