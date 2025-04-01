@@ -26,3 +26,29 @@ CREATE POLICY "Allow access for users based on owner_id"
     TO authenticated
     USING (((SELECT auth.uid() AS uid) = owner_id))
     WITH CHECK (((SELECT auth.uid() AS uid) = owner_id));
+
+CREATE FUNCTION prevent_category_type_change()
+    RETURNS TRIGGER
+    LANGUAGE PLPGSQL
+AS
+$$
+BEGIN
+    IF NEW.type_id <> OLD.type_id THEN
+        IF EXISTS (SELECT id FROM transactions WHERE category_id = NEW.id) THEN
+            RAISE EXCEPTION USING
+                ERRCODE = '23505',
+                MESSAGE = 'Cannot change category type while referenced by a transaction',
+                DETAIL = 'Category ' || NEW.id || ' has a dependent transactions',
+                HINT = 'Delete or reassign transactions before changing category type';
+        END IF;
+    END IF;
+
+    RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER prevent_category_type_change
+    BEFORE UPDATE
+    ON categories
+    FOR EACH ROW
+EXECUTE PROCEDURE prevent_category_type_change();

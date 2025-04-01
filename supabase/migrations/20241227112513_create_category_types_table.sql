@@ -18,3 +18,29 @@ CREATE POLICY "Enable read access for authenticated users only"
     FOR SELECT
     TO authenticated
     USING (TRUE);
+
+CREATE FUNCTION prevent_is_expense_change()
+    RETURNS TRIGGER
+    LANGUAGE PLPGSQL
+AS
+$$
+BEGIN
+    IF NEW.is_expense <> OLD.is_expense THEN
+        IF EXISTS (SELECT id FROM categories WHERE type_id = NEW.id) THEN
+            RAISE EXCEPTION USING
+                ERRCODE = '23505',
+                MESSAGE = 'Cannot change the value of the is_expense column while referenced by a category',
+                DETAIL = 'Category type ' || NEW.id || ' has a dependent category',
+                HINT = 'Delete or reassign categories before changing is_expense value';
+        END IF;
+    END IF;
+
+    RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER prevent_is_expense_change
+    BEFORE UPDATE
+    ON category_types
+    FOR EACH ROW
+EXECUTE PROCEDURE prevent_is_expense_change();
