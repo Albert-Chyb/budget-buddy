@@ -26,7 +26,7 @@ const Wrapper = ({
 }: WrapperProps) => {
   const [value, setValue] = useState(initiallySelectedWallets);
 
-  useImperativeHandle(ref, () => value);
+  useImperativeHandle(ref, () => value, [value]);
 
   return (
     <WalletPicker
