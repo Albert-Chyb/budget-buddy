@@ -1,6 +1,6 @@
+import { CategoryPicker } from '@/dashboard/category-picker';
 import { WalletPicker } from '@/dashboard/wallet-picker';
-import { useTotalBalanceQuery } from '@/database/dashboard/total-balance-query';
-import { useTransactionsSummaryQuery } from '@/database/dashboard/transactions-summary-query';
+import { useCategoriesListQuery } from '@/database/categories/categories-list-query';
 import { useWalletsListQuery } from '@/database/wallets/wallets-list-query';
 import { createFileRoute } from '@tanstack/react-router';
 
@@ -13,26 +13,17 @@ export const Route = createFileRoute('/_authenticated/')({
 });
 
 function RouteComponent() {
-  const { data: totalBalance, status: totalBalanceStatus } =
-    useTotalBalanceQuery();
-  const { data: transactionsSummary, status: transactionsSummaryStatus } =
-    useTransactionsSummaryQuery();
   const { data: wallets, status: walletsStatus } = useWalletsListQuery();
+  const { data: categories, status: categoriesStatus } =
+    useCategoriesListQuery();
 
-  if (
-    totalBalanceStatus === 'success' &&
-    transactionsSummaryStatus === 'success' &&
-    walletsStatus === 'success'
-  ) {
-    const financialResult = transactionsSummary.incomes.subtract(
-      transactionsSummary.expenses,
-    );
-
+  if (walletsStatus === 'success' && categoriesStatus === 'success') {
     return (
       <>
         <h1 className='typography-large'>Statystyki</h1>
 
         <WalletPicker wallets={wallets} />
+        <CategoryPicker categories={categories} />
       </>
     );
   }
