@@ -9,15 +9,16 @@ import {
 } from '@/components/dropdown-menu';
 import { WalletSchema } from '@/database/wallets/wallet-schema';
 import { WalletsListQueryData } from '@/database/wallets/wallets-list-query';
+import { useMultipleSelection } from '@/helpers/multiple-selection';
 import { Wallet } from 'lucide-react';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 type WalletPickerValue = Set<WalletSchema['id']>;
 
 export interface WalletPickerProps {
   wallets: WalletsListQueryData;
-  selectedWallets?: WalletPickerValue;
-  onSelectedWalletsChange?: Dispatch<SetStateAction<WalletPickerValue>>;
+  selectedWallets: WalletPickerValue;
+  onSelectedWalletsChange: Dispatch<SetStateAction<WalletPickerValue>>;
 }
 
 export const WalletPicker = ({
@@ -25,24 +26,10 @@ export const WalletPicker = ({
   selectedWallets,
   onSelectedWalletsChange,
 }: WalletPickerProps) => {
-  const [internalSelectedWallets, setInternalSelectedWallets] = useState<
-    Set<number>
-  >(new Set());
-
-  const state = selectedWallets ?? internalSelectedWallets;
-  const updateState = onSelectedWalletsChange ?? setInternalSelectedWallets;
-
-  const handleCheckedChange = (
-    isChecked: boolean,
-    walletId: WalletSchema['id'],
-  ) => {
-    updateState((prev) => {
-      if (isChecked) prev.add(walletId);
-      else prev.delete(walletId);
-
-      return new Set([...prev]);
-    });
-  };
+  const { isChecked, handleCheckedChange } = useMultipleSelection(
+    selectedWallets,
+    onSelectedWalletsChange,
+  );
 
   return (
     <DropdownMenu>
@@ -59,7 +46,7 @@ export const WalletPicker = ({
           <DropdownMenuCheckboxItem
             key={wallet.id}
             onSelect={($event) => $event.preventDefault()}
-            checked={state.has(wallet.id)}
+            checked={isChecked(wallet.id)}
             onCheckedChange={(isChecked) =>
               handleCheckedChange(isChecked, wallet.id)
             }
