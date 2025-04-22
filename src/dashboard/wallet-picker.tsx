@@ -27,8 +27,9 @@ export const WalletPicker = ({
 }: WalletPickerProps) => {
   const [internalSelectedWallets, setInternalSelectedWallets] = useState<
     Set<number>
-  >(selectedWallets ?? new Set());
+  >(new Set());
 
+  const state = selectedWallets ?? internalSelectedWallets;
   const updateState = onSelectedWalletsChange ?? setInternalSelectedWallets;
 
   const handleCheckedChange = (
@@ -58,7 +59,7 @@ export const WalletPicker = ({
           <DropdownMenuCheckboxItem
             key={wallet.id}
             onSelect={($event) => $event.preventDefault()}
-            checked={internalSelectedWallets.has(wallet.id)}
+            checked={state.has(wallet.id)}
             onCheckedChange={(isChecked) =>
               handleCheckedChange(isChecked, wallet.id)
             }
