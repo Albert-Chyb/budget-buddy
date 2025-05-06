@@ -1,6 +1,8 @@
 import { CategoryPicker } from '@/dashboard/category-picker';
 import { WalletPicker } from '@/dashboard/wallet-picker';
+import { YearPicker } from '@/dashboard/year-picker';
 import { useCategoriesListQuery } from '@/database/categories/categories-list-query';
+import { useYearsQuery } from '@/database/dashboard/years-query';
 import { useWalletsListQuery } from '@/database/wallets/wallets-list-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
@@ -17,13 +19,19 @@ function RouteComponent() {
   const { data: wallets, status: walletsStatus } = useWalletsListQuery();
   const { data: categories, status: categoriesStatus } =
     useCategoriesListQuery();
+  const { data: years, status: yearsStatus } = useYearsQuery();
 
   const [selectedWallets, setSelectedWallets] = useState(new Set<number>());
   const [selectedCategories, setSelectedCategories] = useState(
     new Set<number>(),
   );
+  const [selectedYears, setSelectedYears] = useState(new Set<number>());
 
-  if (walletsStatus === 'success' && categoriesStatus === 'success') {
+  if (
+    walletsStatus === 'success' &&
+    categoriesStatus === 'success' &&
+    yearsStatus === 'success'
+  ) {
     return (
       <>
         <h1 className='typography-large'>Statystyki</h1>
@@ -38,6 +46,12 @@ function RouteComponent() {
           categories={categories}
           selectedCategories={selectedCategories}
           onSelectedCategoriesChange={setSelectedCategories}
+        />
+
+        <YearPicker
+          years={years}
+          selectedYears={selectedYears}
+          onSelectedYearsChange={setSelectedYears}
         />
       </>
     );
