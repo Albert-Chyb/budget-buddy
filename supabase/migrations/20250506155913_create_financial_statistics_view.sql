@@ -1,0 +1,1 @@
+CREATE VIEW financial_statistics_years AS SELECT DISTINCT year FROM financial_statistics;

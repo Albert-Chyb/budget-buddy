@@ -231,7 +231,12 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      financial_statistics_years: {
+        Row: {
+          year: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       add_transaction_to_period: {
