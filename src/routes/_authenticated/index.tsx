@@ -1,4 +1,5 @@
 import { CategoryPicker } from '@/dashboard/category-picker';
+import { MonthNamePicker } from '@/dashboard/month-name-picker';
 import { WalletPicker } from '@/dashboard/wallet-picker';
 import { YearPicker } from '@/dashboard/year-picker';
 import { useCategoriesListQuery } from '@/database/categories/categories-list-query';
@@ -26,6 +27,7 @@ function RouteComponent() {
     new Set<number>(),
   );
   const [selectedYears, setSelectedYears] = useState(new Set<number>());
+  const [selectedMonths, setSelectedMonths] = useState(new Set<number>());
 
   if (
     walletsStatus === 'success' &&
@@ -52,6 +54,11 @@ function RouteComponent() {
           years={years}
           selectedYears={selectedYears}
           onSelectedYearsChange={setSelectedYears}
+        />
+
+        <MonthNamePicker
+          selectedMonths={selectedMonths}
+          onSelectedMonthsChange={setSelectedMonths}
         />
       </>
     );
