@@ -40,40 +40,43 @@ function RouteComponent() {
     yearsStatus === 'success'
   ) {
     return (
-      <>
+      <div className='flex items-center flex-wrap'>
         <h1 className='typography-large'>Statystyki</h1>
 
-        <WalletPicker
-          wallets={wallets}
-          selectedWallets={filters.state.selectedWallets}
-          onSelectedWalletsChange={filters.handleSelectedWalletsChange}
-        />
+        <section className='ml-auto space-x-1'>
+          <WalletPicker
+            wallets={wallets}
+            selectedWallets={filters.state.selectedWallets}
+            onSelectedWalletsChange={filters.handleSelectedWalletsChange}
+          />
 
-        <CategoryPicker
-          categories={categories}
-          selectedCategories={filters.state.selectedCategories}
-          onSelectedCategoriesChange={filters.handleSelectedCategoriesChange}
-        />
+          <CategoryPicker
+            categories={categories}
+            selectedCategories={filters.state.selectedCategories}
+            onSelectedCategoriesChange={filters.handleSelectedCategoriesChange}
+          />
 
-        <YearPicker
-          years={years}
-          selectedYears={filters.state.selectedYears}
-          onSelectedYearsChange={filters.handleSelectedYearsChange}
-        />
+          <YearPicker
+            years={years}
+            selectedYears={filters.state.selectedYears}
+            onSelectedYearsChange={filters.handleSelectedYearsChange}
+          />
 
-        <MonthNamePicker
-          selectedMonths={filters.state.selectedMonths}
-          onSelectedMonthsChange={filters.handleSelectedMonthsChange}
-        />
+          <MonthNamePicker
+            selectedMonths={filters.state.selectedMonths}
+            onSelectedMonthsChange={filters.handleSelectedMonthsChange}
+          />
 
-        <Button
-          aria-label='Resetuj filtry'
-          variant='destructive'
-          onClick={() => filters.clear()}
-        >
-          <Eraser />
-        </Button>
-      </>
+          <Button
+            aria-label='Resetuj filtry'
+            variant='destructive'
+            size='icon'
+            onClick={() => filters.clear()}
+          >
+            <Eraser />
+          </Button>
+        </section>
+      </div>
     );
   }
 }
