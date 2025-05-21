@@ -7,14 +7,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/dropdown-menu';
-import { useMultipleSelection } from '@/helpers/multiple-selection';
 import { CalendarDays } from 'lucide-react';
-import { Dispatch, SetStateAction } from 'react';
+
+export type YearPickerUpdater = (prev: Set<number>) => Set<number>;
 
 export interface YearPickerProps {
   years: number[];
   selectedYears: Set<number>;
-  onSelectedYearsChange: Dispatch<SetStateAction<Set<number>>>;
+  onSelectedYearsChange: (updater: YearPickerUpdater) => void;
 }
 
 export const YearPicker = ({
@@ -22,11 +22,6 @@ export const YearPicker = ({
   selectedYears,
   onSelectedYearsChange,
 }: YearPickerProps) => {
-  const { isChecked, handleCheckedChange } = useMultipleSelection(
-    selectedYears,
-    onSelectedYearsChange,
-  );
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -43,9 +38,15 @@ export const YearPicker = ({
           <DropdownMenuCheckboxItem
             key={year}
             onCheckedChange={(isChecked) =>
-              handleCheckedChange(isChecked, year)
+              onSelectedYearsChange((prev) => {
+                const copy = new Set(prev);
+                if (isChecked) copy.add(year);
+                else copy.delete(year);
+
+                return copy;
+              })
             }
-            checked={isChecked(year)}
+            checked={selectedYears.has(year)}
             onSelect={($event) => $event.preventDefault()}
           >
             {year}

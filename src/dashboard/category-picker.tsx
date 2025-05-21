@@ -8,15 +8,16 @@ import {
   DropdownMenuTrigger,
 } from '@/components/dropdown-menu';
 import { CategoriesListQueryData } from '@/database/categories/categories-list-query';
-import { useMultipleSelection } from '@/helpers/multiple-selection';
 import { NotebookTabs } from 'lucide-react';
-import { Dispatch, SetStateAction } from 'react';
 
 export type CategoryPickerValue = Set<number>;
+export type CategoryPickerUpdater = (
+  prev: CategoryPickerValue,
+) => CategoryPickerValue;
 
 export interface CategoryPickerProps {
   categories: CategoriesListQueryData;
-  onSelectedCategoriesChange: Dispatch<SetStateAction<CategoryPickerValue>>;
+  onSelectedCategoriesChange: (updater: CategoryPickerUpdater) => void;
   selectedCategories: CategoryPickerValue;
 }
 
@@ -25,11 +26,6 @@ export const CategoryPicker = ({
   onSelectedCategoriesChange,
   selectedCategories,
 }: CategoryPickerProps) => {
-  const { isChecked, handleCheckedChange } = useMultipleSelection(
-    selectedCategories,
-    onSelectedCategoriesChange,
-  );
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -44,9 +40,15 @@ export const CategoryPicker = ({
           <DropdownMenuCheckboxItem
             key={category.id}
             onSelect={($event) => $event.preventDefault()}
-            checked={isChecked(category.id)}
+            checked={selectedCategories.has(category.id)}
             onCheckedChange={(isChecked) =>
-              handleCheckedChange(isChecked, category.id)
+              onSelectedCategoriesChange((prev) => {
+                const copy = new Set(prev);
+                if (isChecked) copy.add(category.id);
+                else copy.delete(category.id);
+
+                return copy;
+              })
             }
           >
             {category.name}

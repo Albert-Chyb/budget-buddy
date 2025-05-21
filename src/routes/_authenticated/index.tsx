@@ -1,4 +1,6 @@
+import { Button } from '@/components/button';
 import { CategoryPicker } from '@/dashboard/category-picker';
+import { useDashboardFilters } from '@/dashboard/dashboard-filters';
 import { MonthNamePicker } from '@/dashboard/month-name-picker';
 import { WalletPicker } from '@/dashboard/wallet-picker';
 import { YearPicker } from '@/dashboard/year-picker';
@@ -6,14 +8,23 @@ import { useCategoriesListQuery } from '@/database/categories/categories-list-qu
 import { useYearsQuery } from '@/database/dashboard/years-query';
 import { useWalletsListQuery } from '@/database/wallets/wallets-list-query';
 import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
+import { zodValidator } from '@tanstack/zod-adapter';
+import { Eraser } from 'lucide-react';
+import { z } from 'zod';
 
-/*
- * Create a selection for a wallet, category, year and month
- */
+const filterSchema = z.array(z.number()).catch([]);
+
+const searchSchema = z.object({
+  selectedWallets: filterSchema,
+  selectedCategories: filterSchema,
+  selectedYears: filterSchema,
+  selectedMonths: filterSchema,
+});
+export type DashboardSearchParams = z.infer<typeof searchSchema>;
 
 export const Route = createFileRoute('/_authenticated/')({
   component: RouteComponent,
+  validateSearch: zodValidator(searchSchema),
 });
 
 function RouteComponent() {
@@ -21,13 +32,7 @@ function RouteComponent() {
   const { data: categories, status: categoriesStatus } =
     useCategoriesListQuery();
   const { data: years, status: yearsStatus } = useYearsQuery();
-
-  const [selectedWallets, setSelectedWallets] = useState(new Set<number>());
-  const [selectedCategories, setSelectedCategories] = useState(
-    new Set<number>(),
-  );
-  const [selectedYears, setSelectedYears] = useState(new Set<number>());
-  const [selectedMonths, setSelectedMonths] = useState(new Set<number>());
+  const filters = useDashboardFilters();
 
   if (
     walletsStatus === 'success' &&
@@ -40,26 +45,34 @@ function RouteComponent() {
 
         <WalletPicker
           wallets={wallets}
-          selectedWallets={selectedWallets}
-          onSelectedWalletsChange={setSelectedWallets}
+          selectedWallets={filters.state.selectedWallets}
+          onSelectedWalletsChange={filters.handleSelectedWalletsChange}
         />
 
         <CategoryPicker
           categories={categories}
-          selectedCategories={selectedCategories}
-          onSelectedCategoriesChange={setSelectedCategories}
+          selectedCategories={filters.state.selectedCategories}
+          onSelectedCategoriesChange={filters.handleSelectedCategoriesChange}
         />
 
         <YearPicker
           years={years}
-          selectedYears={selectedYears}
-          onSelectedYearsChange={setSelectedYears}
+          selectedYears={filters.state.selectedYears}
+          onSelectedYearsChange={filters.handleSelectedYearsChange}
         />
 
         <MonthNamePicker
-          selectedMonths={selectedMonths}
-          onSelectedMonthsChange={setSelectedMonths}
+          selectedMonths={filters.state.selectedMonths}
+          onSelectedMonthsChange={filters.handleSelectedMonthsChange}
         />
+
+        <Button
+          aria-label='Resetuj filtry'
+          variant='destructive'
+          onClick={() => filters.clear()}
+        >
+          <Eraser />
+        </Button>
       </>
     );
   }
