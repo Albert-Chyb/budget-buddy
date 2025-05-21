@@ -1,15 +1,10 @@
-import { Button } from '@/components/button';
-import { CategoryPicker } from '@/dashboard/category-picker';
-import { useDashboardFilters } from '@/dashboard/dashboard-filters';
-import { MonthNamePicker } from '@/dashboard/month-name-picker';
-import { WalletPicker } from '@/dashboard/wallet-picker';
-import { YearPicker } from '@/dashboard/year-picker';
 import { useCategoriesListQuery } from '@/database/categories/categories-list-query';
 import { useYearsQuery } from '@/database/dashboard/years-query';
 import { useWalletsListQuery } from '@/database/wallets/wallets-list-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { zodValidator } from '@tanstack/zod-adapter';
-import { Eraser } from 'lucide-react';
+
+import { DashboardFilters } from '@/dashboard/dashboard-filters-component';
 import { z } from 'zod';
 
 const filterSchema = z.array(z.number()).catch([]);
@@ -32,7 +27,6 @@ function RouteComponent() {
   const { data: categories, status: categoriesStatus } =
     useCategoriesListQuery();
   const { data: years, status: yearsStatus } = useYearsQuery();
-  const filters = useDashboardFilters();
 
   if (
     walletsStatus === 'success' &&
@@ -44,37 +38,11 @@ function RouteComponent() {
         <h1 className='typography-large'>Statystyki</h1>
 
         <section className='ml-auto space-x-1'>
-          <WalletPicker
+          <DashboardFilters
             wallets={wallets}
-            selectedWallets={filters.state.selectedWallets}
-            onSelectedWalletsChange={filters.handleSelectedWalletsChange}
-          />
-
-          <CategoryPicker
             categories={categories}
-            selectedCategories={filters.state.selectedCategories}
-            onSelectedCategoriesChange={filters.handleSelectedCategoriesChange}
-          />
-
-          <YearPicker
             years={years}
-            selectedYears={filters.state.selectedYears}
-            onSelectedYearsChange={filters.handleSelectedYearsChange}
           />
-
-          <MonthNamePicker
-            selectedMonths={filters.state.selectedMonths}
-            onSelectedMonthsChange={filters.handleSelectedMonthsChange}
-          />
-
-          <Button
-            aria-label='Resetuj filtry'
-            variant='destructive'
-            size='icon'
-            onClick={() => filters.clear()}
-          >
-            <Eraser />
-          </Button>
         </section>
       </div>
     );
