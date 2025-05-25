@@ -1,60 +1,37 @@
 import { Button } from '@/components/button';
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/dropdown-menu';
+  ResponsiveMultiSelect,
+  ResponsiveMultiSelectProps,
+} from '@/components/responsive-multi-select';
+import { capitalize } from '@/helpers/capitalize';
 import { generateMonthsNames } from '@/helpers/generate-months-names';
 import { APP_LOCALE } from '@/localization';
 import { Calendar1 } from 'lucide-react';
 
-const MONTHS: string[] = generateMonthsNames(APP_LOCALE);
+const MONTHS: string[] = generateMonthsNames(APP_LOCALE).map((month) =>
+  capitalize(month),
+);
 
-export type MonthNamePickerUpdater = (prev: Set<number>) => Set<number>;
+export type MonthNamePickerProps = Pick<
+  ResponsiveMultiSelectProps<number>,
+  'selection' | 'onSelectionChange'
+>;
 
-interface MonthNamePickerProps {
-  selectedMonths: Set<number>;
-  onSelectedMonthsChange: (updater: MonthNamePickerUpdater) => void;
-}
-
-export const MonthNamePicker = ({
-  selectedMonths,
-  onSelectedMonthsChange,
-}: MonthNamePickerProps) => {
+export const MonthNamePicker = (props: MonthNamePickerProps) => {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button data-testid='month-picker-trigger'>
-          <Calendar1 /> Miesiąc
-        </Button>
-      </DropdownMenuTrigger>
-
-      <DropdownMenuContent>
-        <DropdownMenuLabel>Wybierz miesiąc</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-
-        {MONTHS.map((month, monthIndex) => (
-          <DropdownMenuCheckboxItem
-            key={monthIndex}
-            onSelect={($event) => $event.preventDefault()}
-            checked={selectedMonths.has(monthIndex)}
-            onCheckedChange={(isChecked) =>
-              onSelectedMonthsChange((prev) => {
-                const copy = new Set(prev);
-                if (isChecked) copy.add(monthIndex);
-                else copy.delete(monthIndex);
-
-                return copy;
-              })
-            }
-          >
-            <span className='first-letter:uppercase'>{month}</span>
-          </DropdownMenuCheckboxItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <ResponsiveMultiSelect
+      title='Wybierz miesiąc'
+      description='Wybierz miesiące, dla których chcesz wyświetlić statystyki transakcji'
+      isMobile={true}
+      options={MONTHS.map((monthName, monthIndex) => ({
+        value: monthIndex,
+        label: monthName,
+      }))}
+      {...props}
+    >
+      <Button>
+        <Calendar1 /> Miesiąc
+      </Button>
+    </ResponsiveMultiSelect>
   );
 };

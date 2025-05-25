@@ -25,25 +25,25 @@ export const DashboardFilters = ({
     <>
       <WalletPicker
         wallets={wallets}
-        selectedWallets={filters.state.selectedWallets}
-        onSelectedWalletsChange={filters.handleSelectedWalletsChange}
+        selection={filters.state.selectedWallets}
+        onSelectionChange={filters.handleSelectedWalletsChange}
       />
 
       <CategoryPicker
         categories={categories}
-        selectedCategories={filters.state.selectedCategories}
-        onSelectedCategoriesChange={filters.handleSelectedCategoriesChange}
+        selection={filters.state.selectedCategories}
+        onSelectionChange={filters.handleSelectedCategoriesChange}
       />
 
       <YearPicker
         years={years}
-        selectedYears={filters.state.selectedYears}
-        onSelectedYearsChange={filters.handleSelectedYearsChange}
+        selection={filters.state.selectedYears}
+        onSelectionChange={filters.handleSelectedYearsChange}
       />
 
       <MonthNamePicker
-        selectedMonths={filters.state.selectedMonths}
-        onSelectedMonthsChange={filters.handleSelectedMonthsChange}
+        selection={filters.state.selectedMonths}
+        onSelectionChange={filters.handleSelectedMonthsChange}
       />
 
       <Button

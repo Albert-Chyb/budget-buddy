@@ -1,60 +1,37 @@
 import { Button } from '@/components/button';
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/dropdown-menu';
+  ResponsiveMultiSelect,
+  ResponsiveMultiSelectProps,
+} from '@/components/responsive-multi-select';
 import { CategoriesListQueryData } from '@/database/categories/categories-list-query';
 import { NotebookTabs } from 'lucide-react';
 
-export type CategoryPickerValue = Set<number>;
-export type CategoryPickerUpdater = (
-  prev: CategoryPickerValue,
-) => CategoryPickerValue;
-
-export interface CategoryPickerProps {
+export interface CategoryPickerProps
+  extends Pick<
+    ResponsiveMultiSelectProps<number>,
+    'selection' | 'onSelectionChange'
+  > {
   categories: CategoriesListQueryData;
-  onSelectedCategoriesChange: (updater: CategoryPickerUpdater) => void;
-  selectedCategories: CategoryPickerValue;
 }
 
 export const CategoryPicker = ({
   categories,
-  onSelectedCategoriesChange,
-  selectedCategories,
+  ...rest
 }: CategoryPickerProps) => {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button data-testid='category-picker-dropdown'>
-          <NotebookTabs /> Kategoria
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>Wybierz kategorie</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        {categories.map((category) => (
-          <DropdownMenuCheckboxItem
-            key={category.id}
-            onSelect={($event) => $event.preventDefault()}
-            checked={selectedCategories.has(category.id)}
-            onCheckedChange={(isChecked) =>
-              onSelectedCategoriesChange((prev) => {
-                const copy = new Set(prev);
-                if (isChecked) copy.add(category.id);
-                else copy.delete(category.id);
-
-                return copy;
-              })
-            }
-          >
-            {category.name}
-          </DropdownMenuCheckboxItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <ResponsiveMultiSelect
+      title='Wybierz kategorie'
+      description='Wybierz kategorie, dla których chcesz wyświetlić statystyki transakcji'
+      isMobile={true}
+      options={categories.map((category) => ({
+        value: category.id,
+        label: category.name,
+      }))}
+      {...rest}
+    >
+      <Button>
+        <NotebookTabs /> Kategoria
+      </Button>
+    </ResponsiveMultiSelect>
   );
 };
