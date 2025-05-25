@@ -37,13 +37,13 @@ function RouteComponent() {
       <div className='flex items-center flex-wrap'>
         <h1 className='typography-large'>Statystyki</h1>
 
-        <section className='ml-auto space-x-1'>
+        <div className='ml-auto'>
           <DashboardFilters
             wallets={wallets}
             categories={categories}
             years={years}
           />
-        </section>
+        </div>
       </div>
     );
   }
