@@ -68,22 +68,24 @@ export const ResponsiveMultiSelect = <TOptionValue extends Key>({
             <DrawerDescription>{description}</DrawerDescription>
           </DrawerHeader>
 
-          {options.map((option) => (
-            <Label
-              key={option.value}
-              className='flex items-center gap-x-2 px-2 py-4 hover:bg-accent hover:text-accent-foreground focus-within:bg-accent focus:text-accent-foreground cursor-pointer'
-            >
-              <Checkbox
-                checked={selection.has(option.value)}
-                onCheckedChange={(state) => {
-                  if (state === 'indeterminate') return;
+          <div className='max-h-[65vh] overflow-y-auto'>
+            {options.map((option) => (
+              <Label
+                key={option.value}
+                className='flex items-center gap-x-2 px-2 py-4 hover:bg-accent hover:text-accent-foreground focus-within:bg-accent focus:text-accent-foreground cursor-pointer'
+              >
+                <Checkbox
+                  checked={selection.has(option.value)}
+                  onCheckedChange={(state) => {
+                    if (state === 'indeterminate') return;
 
-                  return handleCheckedChange(state, option.value);
-                }}
-              />
-              <span>{option.label}</span>
-            </Label>
-          ))}
+                    return handleCheckedChange(state, option.value);
+                  }}
+                />
+                <span>{option.label}</span>
+              </Label>
+            ))}
+          </div>
         </DrawerContent>
       </Drawer>
     );
