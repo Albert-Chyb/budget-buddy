@@ -9,7 +9,7 @@ import { NotebookTabs } from 'lucide-react';
 export interface CategoryPickerProps
   extends Pick<
     ResponsiveMultiSelectProps<number>,
-    'selection' | 'onSelectionChange'
+    'selection' | 'onSelectionChange' | 'isMobile'
   > {
   categories: CategoriesListQueryData;
 }
@@ -22,7 +22,6 @@ export const CategoryPicker = ({
     <ResponsiveMultiSelect
       title='Wybierz kategorie'
       description='Wybierz kategorie, dla których chcesz wyświetlić statystyki transakcji'
-      isMobile={true}
       options={categories.map((category) => ({
         value: category.id,
         label: category.name,

@@ -29,7 +29,7 @@ export interface ResponsiveMultiSelectOption<TValue extends Key> {
 
 export interface ResponsiveMultiSelectProps<TOptionValue extends Key>
   extends PropsWithChildren {
-  isMobile: boolean;
+  isMobile?: boolean;
   options: ResponsiveMultiSelectOption<TOptionValue>[];
   selection: Set<TOptionValue>;
   onSelectionChange: (
@@ -40,7 +40,7 @@ export interface ResponsiveMultiSelectProps<TOptionValue extends Key>
 }
 
 export const ResponsiveMultiSelect = <TOptionValue extends Key>({
-  isMobile,
+  isMobile = false,
   children,
   options,
   selection,

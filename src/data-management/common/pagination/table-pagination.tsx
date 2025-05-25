@@ -5,11 +5,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/pagination.tsx';
-import { Table } from '@tanstack/react-table';
+import { PageIndicator } from '@/data-management/common/pagination/page-indicator.tsx';
 import { PageSizeSelect } from '@/data-management/common/pagination/page-size-select.tsx';
 import { usePrevAndNextPageSearchParams } from '@/data-management/common/pagination/pagination-state.ts';
-import { PageIndicator } from '@/data-management/common/pagination/page-indicator.tsx';
-import { useIsMobile } from '@/data-management/common/is-mobile.ts';
+import { useIsMobile } from '@/helpers/is-mobile';
+import { Table } from '@tanstack/react-table';
 
 export interface TablePaginationProps {
   table: Table<unknown>;

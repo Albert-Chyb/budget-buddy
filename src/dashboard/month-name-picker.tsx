@@ -14,7 +14,7 @@ const MONTHS: string[] = generateMonthsNames(APP_LOCALE).map((month) =>
 
 export type MonthNamePickerProps = Pick<
   ResponsiveMultiSelectProps<number>,
-  'selection' | 'onSelectionChange'
+  'selection' | 'onSelectionChange' | 'isMobile'
 >;
 
 export const MonthNamePicker = (props: MonthNamePickerProps) => {
@@ -22,7 +22,6 @@ export const MonthNamePicker = (props: MonthNamePickerProps) => {
     <ResponsiveMultiSelect
       title='Wybierz miesiąc'
       description='Wybierz miesiące, dla których chcesz wyświetlić statystyki transakcji'
-      isMobile={true}
       options={MONTHS.map((monthName, monthIndex) => ({
         value: monthIndex,
         label: monthName,

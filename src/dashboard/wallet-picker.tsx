@@ -9,7 +9,7 @@ import { Wallet } from 'lucide-react';
 export interface WalletPickerProps
   extends Pick<
     ResponsiveMultiSelectProps<number>,
-    'selection' | 'onSelectionChange'
+    'selection' | 'onSelectionChange' | 'isMobile'
   > {
   wallets: WalletsListQueryData;
 }
@@ -19,7 +19,6 @@ export const WalletPicker = ({ wallets, ...rest }: WalletPickerProps) => {
     <ResponsiveMultiSelect
       title='Wybierz portfel'
       description='Wybierz portfele, dla których chcesz wyświetlić statystyki transakcji'
-      isMobile={true}
       options={wallets.map((wallet) => ({
         value: wallet.id,
         label: wallet.name,

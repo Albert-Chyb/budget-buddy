@@ -1,14 +1,3 @@
-import { ReactNode } from 'react';
-import { useEditorOpenState } from '@/data-management/common/data-mutation/editor-open-state.tsx';
-import { useIsMobile } from '@/data-management/common/is-mobile.ts';
-import {
-  Drawer,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/drawer.tsx';
 import {
   Dialog,
   DialogContent,
@@ -17,6 +6,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/dialog.tsx';
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/drawer.tsx';
+import { useEditorOpenState } from '@/data-management/common/data-mutation/editor-open-state.tsx';
+import { useIsMobile } from '@/helpers/is-mobile';
+import { ReactNode } from 'react';
 
 export type EditorProps = {
   id: string;

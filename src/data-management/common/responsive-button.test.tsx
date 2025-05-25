@@ -1,6 +1,6 @@
 import { getByTestId, queryByTestId, render } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { useIsMobile } from './is-mobile';
+import { useIsMobile } from '../../helpers/is-mobile';
 import { ResponsiveButton, ResponsiveButtonProps } from './responsive-button';
 
 vi.mock('@/data-management/common/is-mobile', async () => ({

@@ -1,5 +1,5 @@
+import { useIsMobile } from '@/helpers/is-mobile';
 import { PropsWithChildren } from 'react';
-import { useIsMobile } from '@/data-management/common/is-mobile.ts';
 
 export type FiltersProps = PropsWithChildren;
 

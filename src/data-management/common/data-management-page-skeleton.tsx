@@ -5,13 +5,13 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/card.tsx';
+import { Skeleton } from '@/components/skeleton.tsx';
 import {
   TableSkeleton,
   TableSkeletonProps,
 } from '@/components/table-skeleton.tsx';
-import { Skeleton } from '@/components/skeleton.tsx';
-import { useIsMobile } from '@/data-management/common/is-mobile.ts';
 import { MobileTablesSkeletons } from '@/data-management/common/sorting/mobile-data-management-card-skeleton.tsx';
+import { useIsMobile } from '@/helpers/is-mobile';
 
 type DataManagementPageSkeletonProps = TableSkeletonProps;
 

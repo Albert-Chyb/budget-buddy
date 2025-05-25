@@ -5,11 +5,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/card.tsx';
-import { ReactNode } from 'react';
-import { EditorContextProvider } from '@/data-management/common/data-mutation/editor-open-state.tsx';
-import { useIsMobile } from '@/data-management/common/is-mobile.ts';
-import { QueryStatus } from '@tanstack/react-query';
 import { DataManagementPageSkeleton } from '@/data-management/common/data-management-page-skeleton.tsx';
+import { EditorContextProvider } from '@/data-management/common/data-mutation/editor-open-state.tsx';
+import { useIsMobile } from '@/helpers/is-mobile';
+import { QueryStatus } from '@tanstack/react-query';
+import { ReactNode } from 'react';
 
 interface DataManagementCardProps {
   status: QueryStatus;

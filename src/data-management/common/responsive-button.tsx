@@ -1,5 +1,5 @@
 import { Button } from '@/components/button.tsx';
-import { useIsMobile } from '@/data-management/common/is-mobile.ts';
+import { useIsMobile } from '@/helpers/is-mobile';
 import {
   ComponentPropsWithoutRef,
   ComponentRef,
